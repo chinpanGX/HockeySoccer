@@ -49,6 +49,11 @@ void SceneManager::Draw()
 	m_Scene->Draw();		//	各シーンのDraw関数の呼び出し
 }
 
+SceneBase * SceneManager::SetSceneGame()
+{
+	return m_Scene;
+}
+
 /*
 //	シーン遷移処理
 void SceneManager::ChangeSceneState()

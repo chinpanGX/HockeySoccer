@@ -8,6 +8,12 @@
 #include "SceneGame.h"
 #include "SceneManager.h"
 
+// ゲーム終了チェック
+bool SceneGame::EndCheck()
+{
+	return false;
+}
+
 //	ゲームの初期化処理
 void SceneGame::Init()
 {
@@ -39,8 +45,18 @@ void SceneGame::Draw()
 	m_Ball.Draw();
 }
 
-bool SceneGame::EndCheck()
+LineManager * SceneGame::GetLineMgr()
 {
-	return false;
+	return &m_LineMgr;
+}
+
+Player * SceneGame::GetPlayer()
+{
+	return &m_Player;
+}
+
+Ball * SceneGame::GetBall()
+{
+	return &m_Ball;
 }
 

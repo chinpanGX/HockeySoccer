@@ -6,11 +6,14 @@
 ========================================================*/
 
 #pragma once
-#include "LineBase.h"
+#include "Collision.h"
 
-class TopLine : public LineBase
+class Line
 {
+private:
+	AABB2d m_aabb2d;
 public:
-	void SetLine();
+	void SetLine(D3DXVECTOR2 Position, float Size_x, float Size_y);
+	AABB2d* GetCollision();
 };
 
