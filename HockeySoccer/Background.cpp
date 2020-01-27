@@ -10,7 +10,7 @@
 
 void Background::Init()
 {
-	m_Bgtexture = m_Texture.LoadTexture("ASSET/TEXTURE/bg.tga");
+	m_Bgtexture = m_Texture.LoadTexture("Rom/Texture/BG.png");
 }
 
 void Background::Uninit()

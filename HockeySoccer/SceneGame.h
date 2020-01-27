@@ -10,6 +10,7 @@
 #include "SceneBase.h"
 #include "Background.h"
 #include "Player.h"
+#include "Ball.h"
 
 //#	SceneGameクラス:抽象クラス,SceneBaseを継承した子クラス
 class SceneGame : public SceneBase
@@ -17,6 +18,7 @@ class SceneGame : public SceneBase
 private:
 	Background	m_Bg;		//	ゲーム背景
 	Player		m_Player;	//	プレイヤー
+	Ball		m_Ball;		//	ボール
 
 	bool EndCheck();
 

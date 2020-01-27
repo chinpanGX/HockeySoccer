@@ -13,11 +13,13 @@ void SceneGame::Init()
 {
 	m_Bg.Init();
 	m_Player.Init();
+	m_Ball.Init();
 }
 
 //	ƒQ[ƒ€‚ÌI—¹ˆ—
 void SceneGame::Uninit()
 {
+	m_Ball.Uninit();
 	m_Player.Uninit();
 	m_Bg.Uninit();
 }
@@ -26,6 +28,7 @@ void SceneGame::Uninit()
 void SceneGame::Update()
 {
 	m_Player.Update();
+	m_Ball.Update();
 }
 
 //	ƒQ[ƒ€‚Ì•`‰æˆ—
@@ -33,6 +36,7 @@ void SceneGame::Draw()
 {
 	m_Bg.Draw();
 	m_Player.Draw();
+	m_Ball.Draw();
 }
 
 bool SceneGame::EndCheck()
