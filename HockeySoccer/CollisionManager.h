@@ -9,4 +9,4 @@
 #include "main.h"
 
 void UpdateCollision();
-void LineCollision();
+bool LineCollision();

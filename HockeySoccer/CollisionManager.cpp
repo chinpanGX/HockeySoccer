@@ -16,13 +16,32 @@ void UpdateCollision()
 
 }
 
-void LineCollision()
+bool LineCollision()
 {
+	//	オブジェクトポインタ
 	Player* p_Player = ObjectManager::GetPlayer();
 	Line* p_Line[4];
-	for (int nCntLine = 0; nCntLine < 4; nCntLine++)
+	p_Line[0] = ObjectManager::GetLine(0);
+	p_Line[1] = ObjectManager::GetLine(1);
+	p_Line[2] = ObjectManager::GetLine(2);
+	p_Line[3] = ObjectManager::GetLine(3);
+	//	PlayerとLineの衝突判定
+	if (Hit(p_Player->GetCollision(), p_Line[0]->GetCollision()))
 	{
-		p_Line[nCntLine] = ObjectManager::GetLine(nCntLine);
-		p_Line[nCntLine]->GetCollision();
+		return true;
 	}
+	if (Hit(p_Player->GetCollision(), p_Line[1]->GetCollision()))
+	{
+		return true;
+	}
+	if (Hit(p_Player->GetCollision(), p_Line[2]->GetCollision()))
+	{
+		return true;
+	}
+	if (Hit(p_Player->GetCollision(), p_Line[3]->GetCollision()))
+	{
+		return true;
+	}
+
+	return false;
 }

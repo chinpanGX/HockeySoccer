@@ -19,3 +19,5 @@ Line* LineManager::GetLine(int Index)
 {
 	return m_Line[Index];
 }
+
+
