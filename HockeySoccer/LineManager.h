@@ -11,9 +11,15 @@
 class LineManager
 {
 private:
-	Line *m_Line[4];
+	Topline m_Topline;
+	Underline m_Underline;                                                                                                           
+	Leftline m_Leftline;
+	Rightline m_Rightline;
 public:
 	void  Set();
-	Line* GetLine(int Index);
+	Topline* Gettopline();
+	Underline* Getunderline();
+	Leftline* Getleftline();
+	Rightline* Getrightline();
 };
 

@@ -13,7 +13,10 @@
 class ObjectManager
 {
 public:
-	static Line *GetLine(int Index);
+	static Topline * GetTopLine();
+	static Underline * GetUnderLine();
+	static Leftline * GetLeftLine();
+	static Rightline * GetRightLine();
 	static Player * GetPlayer();
 	static Ball* GetBall();
 };

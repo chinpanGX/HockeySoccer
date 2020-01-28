@@ -18,6 +18,7 @@ bool SceneGame::EndCheck()
 void SceneGame::Init()
 {
 	m_Bg.Init();
+	m_LineMgr.Set();
 	m_Player.Init();
 	m_Ball.Init();
 }

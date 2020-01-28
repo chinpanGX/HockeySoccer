@@ -9,15 +9,30 @@
 
 void LineManager::Set()
 {
-	m_Line[0]->SetLine(D3DXVECTOR2(SCREEN_WIDTH * 0.5f,10.0f),1920.0f,20.0f);
-	m_Line[1]->SetLine(D3DXVECTOR2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT - 10.0f), 1920.0f, 20.0f);
-	m_Line[2]->SetLine(D3DXVECTOR2(90.0f,SCREEN_WIDTH * 0.5f),20.0f,1080.0f);
-	m_Line[3]->SetLine(D3DXVECTOR2(SCREEN_WIDTH - 90.0f, SCREEN_HEIGHT* 0.5), 20.0f, 1080.0f);
+	m_Topline.SetLine(D3DXVECTOR2(SCREEN_WIDTH * 0.5f,0.0f),1920.0f,10.0f);
+	m_Underline.SetLine(D3DXVECTOR2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT - 10.0f), 1920.0f, 0.0f);
+	m_Leftline.SetLine(D3DXVECTOR2(90.0f,SCREEN_WIDTH * 0.5f),20.0f,1080.0f);
+	m_Rightline.SetLine(D3DXVECTOR2(SCREEN_WIDTH - 90.0f, SCREEN_HEIGHT* 0.5), 20.0f, 1080.0f);
 }
 
-Line* LineManager::GetLine(int Index)
+Topline* LineManager::Gettopline()
 {
-	return m_Line[Index];
+	return &m_Topline;
+}
+
+Underline * LineManager::Getunderline()
+{
+	return &m_Underline;
+}
+
+Leftline * LineManager::Getleftline()
+{
+	return &m_Leftline;
+}
+
+Rightline * LineManager::Getrightline()
+{
+	return &m_Rightline;
 }
 
 

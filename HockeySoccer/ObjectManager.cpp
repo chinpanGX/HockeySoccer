@@ -8,9 +8,24 @@
 
 #include "ObjectManager.h"
 
-Line* ObjectManager::GetLine(int Index)
+Topline* ObjectManager::GetTopLine()
 {
-	return ((SceneGame*)SceneManager::SetSceneGame())->GetLineMgr()->GetLine(Index);
+	return ((SceneGame*)SceneManager::SetSceneGame())->GetLineMgr()->Gettopline();
+}
+
+Underline * ObjectManager::GetUnderLine()
+{
+	return ((SceneGame*)SceneManager::SetSceneGame())->GetLineMgr()->Getunderline();
+}
+
+Leftline * ObjectManager::GetLeftLine()
+{
+	return ((SceneGame*)SceneManager::SetSceneGame())->GetLineMgr()->Getleftline();
+}
+
+Rightline * ObjectManager::GetRightLine()
+{
+	return ((SceneGame*)SceneManager::SetSceneGame())->GetLineMgr()->Getrightline();
 }
 
 Player * ObjectManager::GetPlayer()
@@ -21,4 +36,4 @@ Player * ObjectManager::GetPlayer()
 Ball * ObjectManager::GetBall()
 {
 	return ((SceneGame*)SceneManager::SetSceneGame())->GetBall();
-}
+}	

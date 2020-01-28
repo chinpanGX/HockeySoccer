@@ -16,32 +16,31 @@ void UpdateCollision()
 
 }
 
-bool LineCollision()
+bool Collision_Player_vs_Line()
 {
+	bool hit = false;
+
 	//	オブジェクトポインタ
 	Player* p_Player = ObjectManager::GetPlayer();
-	Line* p_Line[4];
-	p_Line[0] = ObjectManager::GetLine(0);
-	p_Line[1] = ObjectManager::GetLine(1);
-	p_Line[2] = ObjectManager::GetLine(2);
-	p_Line[3] = ObjectManager::GetLine(3);
+	Topline* p_Topline = ObjectManager::GetTopLine();
+	Underline* p_Underline = ObjectManager::GetUnderLine();
+
 	//	PlayerとLineの衝突判定
-	if (Hit(p_Player->GetCollision(), p_Line[0]->GetCollision()))
+	if (Hit(p_Player->GetCollision(), p_Topline->GetCollision()))
 	{
-		return true;
-	}
-	if (Hit(p_Player->GetCollision(), p_Line[1]->GetCollision()))
-	{
-		return true;
-	}
-	if (Hit(p_Player->GetCollision(), p_Line[2]->GetCollision()))
-	{
-		return true;
-	}
-	if (Hit(p_Player->GetCollision(), p_Line[3]->GetCollision()))
-	{
-		return true;
+		hit = true;
 	}
 
-	return false;
+	if (Hit(p_Player->GetCollision(), p_Underline->GetCollision()))
+	{
+		hit = true;
+	}
+	return hit;
+}
+
+bool Collision_Ball_vs_Line()
+{
+	bool hit = false;
+	Ball* p_Ball = ObjectManager::GetBall();
+	return hit;
 }
