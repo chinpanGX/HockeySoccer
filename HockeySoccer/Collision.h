@@ -7,29 +7,28 @@
 #pragma once
 #include "main.h"
 
-
 struct Circle2d
 {
-	float cx, cy; 
-	float radian;
+	float cx, cy; // 中心座標
+	float radian; // 半径
 };
 
 struct AABB2d
 {
-	float cx, cy;
-	float sx, sy;
+	float cx, cy; // 中心座標
+	float sx, sy; // 短径サイズ
 };
 
 struct Circle3d
 {
-	float cx, cy, cz;	//	中心座標
-	float radian;		//	座標
+	float cx, cy, cz; // 中心座標
+	float radian;	  // 半径
 };
 
 struct AABB3d
 {
-	float cx, cy, cz;	//	中心座標
-	float sx, sy, sz;	//	短形サイズ
+	float cx, cy, cz; // 中心座標
+	float sx, sy, sz; // 短形サイズ
 };
 
 bool Hit(const Circle2d* pObject_A, const Circle2d* pObject_B);	 // 2Dサークルコリジョン

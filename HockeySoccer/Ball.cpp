@@ -15,11 +15,11 @@ void Ball::Init()
 {
 	m_Balltexture = m_Texture.LoadTexture("Rom/Texture/Ball.png");
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH * 0.5f,SCREEN_HEIGHT * 0.5f);
-	m_Velocity = D3DXVECTOR2(5.0f,-3.5f);
+	m_Velocity = D3DXVECTOR2(7.0f,-7.5f);
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
-	m_aabb.sy = 16.0f;
-	m_aabb.sy = 16.0f;
+	m_aabb.sx = 32.0f;
+	m_aabb.sy = 32.0f;
 }
 
 void Ball::Uninit()
@@ -30,11 +30,14 @@ void Ball::Uninit()
 void Ball::Update()
 {
 	m_Position += m_Velocity;
+	m_aabb.cx = m_Position.x;
+	m_aabb.cy = m_Position.y;
 	Collision();
 }
 
 void Ball::Collision()
 {
+	//	Lineコリジョン
 	if (m_Position.y < 20.0f)
 	{
 		m_Position.y = 20.0f;
@@ -55,6 +58,19 @@ void Ball::Collision()
 		m_Position.x = SCREEN_WIDTH - 90.0f - 45.0f;
 		m_Velocity.x *= -1;
 	}
+
+	//	Playerコリジョン
+	//Player* p_Player = ObjectManager::GetPlayer();
+	//if (Hit(p_Player->GetCollision()))
+	//{
+	//	m_Velocity *= -1;
+	//}
+
+	if (Collision_Player_vs_Ball() == true)
+	{
+		m_Velocity *= -1;
+	}
+	//	Goalのコリジョン
 }
 
 void Ball::Draw()
@@ -62,7 +78,7 @@ void Ball::Draw()
 	m_Sprite.Draw(m_Texture.SetTexture(m_Balltexture),m_Position.x,m_Position.y,32.0f,32.0f);
 }
 
-bool Ball::HitLine(const AABB2d * pObject)
+bool Ball::Hit(const AABB2d * pObject)
 {
 	D3DXVECTOR2 minA, minB;	//	最小点
 	D3DXVECTOR2 maxA, maxB;	//	最大点
