@@ -12,7 +12,6 @@
 
 void Ball::Init()
 {
-	m_Balltexture = m_Texture.LoadTexture("Rom/Texture/Ball.png");
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH * 0.5f,SCREEN_HEIGHT * 0.5f);
 	m_Velocity = D3DXVECTOR2(7.0f,-7.5f);
 	m_aabb.cx = 0.0f;
@@ -23,7 +22,7 @@ void Ball::Init()
 
 void Ball::Uninit()
 {
-	m_Texture.UnLoadTexture(m_Balltexture);
+	
 }
 
 void Ball::Update()
@@ -34,22 +33,17 @@ void Ball::Update()
 	Collision();
 }
 
-void Ball::Collision()
+void Ball::Draw(LPDIRECT3DTEXTURE9 Texture)
 {
-	//	Line‚Æ‚Ì“–‚½‚è”»’è
-	Topline* p_topline = ObjectManager::GetTopLine();
-	Underline* p_underline = ObjectManager::GetUnderLine();
-	Leftline* p_leftline = ObjectManager::GetLeftLine();
-	Rightline* p_rightline = ObjectManager::GetRightLine();
-	if (AABB_2d(m_aabb, p_topline->GetCollision()) == true || AABB_2d(m_aabb,p_underline->GetCollision()) == true)
-	{
-		m_Velocity.y *= -1;
-	}
-	if (AABB_2d(m_aabb, p_leftline->GetCollision()) == true || AABB_2d(m_aabb, p_rightline->GetCollision()) == true)
-	{
-		m_Velocity.x *= -1;
-	}
-	
+	m_Sprite.Draw(Texture, m_Position.x, m_Position.y, 32.0f, 32.0f);
+}
+
+void Ball::Collision()
+{	
+	// —Dæ‡ Goal -> Player -> Line
+
+	//	Goal‚Ì“–‚½‚è”»’è
+
 	//	Player‚Æ‚Ì“–‚½‚è”»’è
 	Player* p_Player = ObjectManager::GetPlayer();
 	if (AABB_2d(m_aabb, p_Player->GetCollision()) == true)
@@ -57,13 +51,19 @@ void Ball::Collision()
 		m_Velocity.x *= -1;
 	}
 	
-	//	Goal‚ÌƒRƒŠƒWƒ‡ƒ“
-}
-
-
-void Ball::Draw()
-{
-	m_Sprite.Draw(m_Texture.SetTexture(m_Balltexture),m_Position.x,m_Position.y,32.0f,32.0f);
+	//	Line‚Æ‚Ì“–‚½‚è”»’è
+	Topline* p_topline = ObjectManager::GetTopLine();
+	Underline* p_underline = ObjectManager::GetUnderLine();
+	Leftline* p_leftline = ObjectManager::GetLeftLine();
+	Rightline* p_rightline = ObjectManager::GetRightLine();
+	if (AABB_2d(m_aabb, p_topline->GetCollision()) == true || AABB_2d(m_aabb, p_underline->GetCollision()) == true)
+	{
+		m_Velocity.y *= -1;
+	}
+	if (AABB_2d(m_aabb, p_leftline->GetCollision()) == true || AABB_2d(m_aabb, p_rightline->GetCollision()) == true)
+	{
+		m_Velocity.x *= -1;
+	}
 }
 
 AABB2d * Ball::GetCollision()

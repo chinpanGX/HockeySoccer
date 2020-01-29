@@ -8,13 +8,10 @@
 
 #pragma once
 #include "main.h"
-#include "Texture.h"
 
 //Spriteクラス
 class Sprite
 {
-private:
-	Texture m_Texture;
 public:
 	D3DCOLOR SetColor(D3DCOLOR color);	//	カラーの設定
 	//	描画 (引数：テクスチャ、X座標、Y座標、テクスチャX座標、テクスチャY座標、テクスチャの横幅、テクスチャの縦幅)

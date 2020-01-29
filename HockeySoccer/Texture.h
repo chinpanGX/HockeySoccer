@@ -12,7 +12,7 @@
 class Texture
 {
 private:
-	static const unsigned int m_TextureNum = 2;	 //	テクスチャの数
+	static const unsigned int m_TextureNum = 3;	 //	テクスチャの数
 	LPDIRECT3DTEXTURE9	m_Texture[m_TextureNum];	
 	unsigned int m_Image;
 public:

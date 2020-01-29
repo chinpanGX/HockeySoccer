@@ -14,7 +14,6 @@ class SceneBase
 {
 protected:
 	bool m_bEnd;
-	Sprite m_Sprite;
 public:
 	virtual ~SceneBase() {};
 	virtual void Init() = 0;	//	‰Šú‰»ˆ—

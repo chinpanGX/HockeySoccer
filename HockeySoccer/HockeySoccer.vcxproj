@@ -135,11 +135,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
-    <ClInclude Include="Background.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="DebugFont.h" />
+    <ClInclude Include="GameBG.h" />
+    <ClInclude Include="Goal.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="LineManager.h" />
     <ClInclude Include="main.h" />
@@ -154,10 +155,11 @@
     <ClInclude Include="Line.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Background.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DebugFont.cpp" />
+    <ClCompile Include="GameBG.cpp" />
+    <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LineManager.cpp" />
     <ClCompile Include="main.cpp" />

@@ -13,14 +13,12 @@
 class Player : public Actor
 {
 private:
-	Texture m_Texture;
-	unsigned int m_Playertexture;
 	AABB2d m_aabb;			 // AABBƒRƒŠƒWƒ‡ƒ“
 public:
 	void Init()override;
 	void Uninit()override;
 	void Update()override;
-	void Draw()override;
+	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
 	AABB2d* GetCollision();
 	D3DXVECTOR2 GetPosition();
 private:

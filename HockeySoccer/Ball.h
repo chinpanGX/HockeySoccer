@@ -12,16 +12,15 @@
 class Ball : public Actor
 {
 private:
-	Texture m_Texture;
-	unsigned int m_Balltexture;
 	AABB2d m_aabb;
+
+	// Update()のヘルパー関数
+	void Collision();
+
 public:
 	void Init()override;
 	void Uninit()override;
 	void Update()override;
-	void Draw()override;
+	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
 	AABB2d* GetCollision();
-private:
-	// Update()のヘルパー関数
-	void Collision();
 };
