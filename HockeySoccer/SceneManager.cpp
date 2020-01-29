@@ -8,6 +8,7 @@
 #include "main.h"
 #include "SceneManager.h"
 #include "SceneGame.h"
+#include "DebugFont.h"
 
 //	スタティック変数
 SceneBase			*SceneManager::m_Scene;	//	シーンのインスタンスを格納[シーンの配列]
@@ -24,12 +25,13 @@ void SceneManager::Init()
 
 	//m_sceneState = SCENE_TITLE;			//	初期シーンの設定(ゲームを起動したときの最初のシーン)
 	m_Scene->Init();		//	初期シーンの初期化
+	DebugFont::Init();
 }
 
 //	終了処理
 void SceneManager::Uninit()
 {
-						
+	DebugFont::Uninit();
 	//	各シーンのUninit関数を呼び出す
 	m_Scene->Uninit();
 

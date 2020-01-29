@@ -9,9 +9,9 @@
 
 void LineManager::Set()
 {
-	m_Topline.SetLine(D3DXVECTOR2(SCREEN_WIDTH * 0.5f,0.0f),1920.0f,10.0f);
+	m_Topline.SetLine(D3DXVECTOR2(SCREEN_WIDTH * 0.5f,10.0f),1920.0f,10.0f);
 	m_Underline.SetLine(D3DXVECTOR2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT - 10.0f), 1920.0f, 0.0f);
-	m_Leftline.SetLine(D3DXVECTOR2(90.0f,SCREEN_WIDTH * 0.5f),20.0f,1080.0f);
+	m_Leftline.SetLine(D3DXVECTOR2(90.0f,SCREEN_HEIGHT * 0.5f),20.0f,1080.0f);
 	m_Rightline.SetLine(D3DXVECTOR2(SCREEN_WIDTH - 90.0f, SCREEN_HEIGHT* 0.5), 20.0f, 1080.0f);
 }
 

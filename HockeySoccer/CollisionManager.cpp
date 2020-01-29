@@ -40,7 +40,34 @@ bool Collision_Player_vs_Line()
 
 bool Collision_Ball_vs_Line()
 {
-	bool hit = false;
+	bool collisiontype = false;
 	Ball* p_Ball = ObjectManager::GetBall();
-	return hit;
+	Topline* p_Topline = ObjectManager::GetTopLine();
+	Underline* p_Underline = ObjectManager::GetUnderLine();
+	Leftline* p_Leftline = ObjectManager::GetLeftLine();
+	Rightline* p_Rightline = ObjectManager::GetRightLine();
+
+	if (Hit(p_Ball->GetCollision(), p_Topline->GetCollision()))	
+	{
+		collisiontype = true;
+	}
+
+	if (Hit(p_Ball->GetCollision(), p_Underline->GetCollision())) 
+	{
+		collisiontype = true;
+	}
+
+
+	if (Hit(p_Ball->GetCollision(), p_Leftline->GetCollision())) 
+	{
+		collisiontype = true;
+	}
+
+
+	if (Hit(p_Ball->GetCollision(), p_Rightline->GetCollision())) 
+	{
+		collisiontype = true;
+	}
+
+	return collisiontype;
 }

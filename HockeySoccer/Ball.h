@@ -20,4 +20,9 @@ public:
 	void Uninit()override;
 	void Update()override;
 	void Draw()override;
+	AABB2d* GetCollision();
+private:
+	// ƒwƒ‹ƒp[ŠÖ”
+	void Collision();
+	bool HitLine(const AABB2d * pObject);
 };

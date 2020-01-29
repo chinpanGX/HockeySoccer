@@ -140,6 +140,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="DebugFont.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="LineManager.h" />
     <ClInclude Include="main.h" />
@@ -159,6 +160,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="DebugFont.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LineManager.cpp" />
     <ClCompile Include="main.cpp" />

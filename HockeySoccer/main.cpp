@@ -46,7 +46,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	// ゲームの初期化
 	Init(hInstance);
-	
 
 	//DWORD型…unsigned lond型（符号なし）
 	DWORD dwExecLastTime;
