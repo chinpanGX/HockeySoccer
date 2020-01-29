@@ -14,7 +14,7 @@
 void Player::Init()
 {
 	m_Playertexture = m_Texture.LoadTexture("Rom/Texture/Bar.png");
-	m_Position = D3DXVECTOR2((SCREEN_WIDTH * 0.25f), (SCREEN_HEIGHT * 0.5));
+	m_Position = D3DXVECTOR2(480.0f - 32.0f, 540.0f - 128.0f);
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
 	m_aabb.sx = 32.0f;
@@ -103,10 +103,15 @@ bool Player::HitLine(const AABB2d* p_Object)
 void Player::Draw()
 {
 	D3DXCOLOR color = D3DCOLOR_RGBA(0,255,255,255);
-	m_Sprite.Draw(m_Texture.SetTexture(m_Playertexture),m_Position.x,m_Position.y - 128.0f,64.0f,256.0f,color);
+	m_Sprite.Draw(m_Texture.SetTexture(m_Playertexture),m_Position.x - 32.0f,m_Position.y-128.0f,80.0f,256.0f,color);
 }
 
 AABB2d * Player::GetCollision()
 {
 	return &m_aabb;
+}
+
+D3DXVECTOR2 Player::GetPosition()
+{
+	return m_Position;
 }

@@ -22,7 +22,6 @@ public:
 	void Draw()override;
 	AABB2d* GetCollision();
 private:
-	// ヘルパー関数
+	// Update()のヘルパー関数
 	void Collision();
-	void HitPlayer(const AABB2d * pObject);
 };
