@@ -138,7 +138,6 @@
     <ClInclude Include="Background.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Collision.h" />
-    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="DebugFont.h" />
     <ClInclude Include="Input.h" />
@@ -157,8 +156,6 @@
   <ItemGroup>
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DebugFont.cpp" />
     <ClCompile Include="Input.cpp" />

@@ -27,5 +27,8 @@ private:
 	void Action();		//	入力の処理
 	void Move();		//	移動の更新処理
 	void Collision();	//	衝突判定
+
+	//	コリジョンのヘルパー関数
+	bool HitLine(const AABB2d* p_Object);
 };
 

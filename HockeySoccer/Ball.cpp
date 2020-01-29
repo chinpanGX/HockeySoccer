@@ -6,7 +6,6 @@
 ========================================================*/
 
 #include "Ball.h"
-#include "CollisionManager.h"
 #include "Line.h"
 #include "ObjectManager.h"
 #include "DebugFont.h"
@@ -37,48 +36,35 @@ void Ball::Update()
 
 void Ball::Collision()
 {
-	//	Lineコリジョン
-	if (m_Position.y < 20.0f)
+	//	Lineとの当たり判定
+	Topline* p_topline = ObjectManager::GetTopLine();
+	Underline* p_underline = ObjectManager::GetUnderLine();
+	Leftline* p_leftline = ObjectManager::GetLeftLine();
+	Rightline* p_rightline = ObjectManager::GetRightLine();
+	if (AABB_2d(m_aabb, p_topline->GetCollision()) == true || AABB_2d(m_aabb,p_underline->GetCollision()) == true)
 	{
-		m_Position.y = 20.0f;
 		m_Velocity.y *= -1;
 	}
-	if (m_Position.y >  SCREEN_HEIGHT - 49.5f)
+	if (AABB_2d(m_aabb, p_leftline->GetCollision()) == true || AABB_2d(m_aabb, p_rightline->GetCollision()) == true)
 	{
-		m_Position.y = SCREEN_HEIGHT - 49.5f;
-		m_Velocity.y *= -1;
-	}
-	if (m_Position.x < 90.0f + 15.0f)
-	{
-		m_Position.x = 90.0f + 15.0f;
 		m_Velocity.x *= -1;
 	}
-	if (m_Position.x > SCREEN_WIDTH - 90.0f - 45.0f)
-	{
-		m_Position.x = SCREEN_WIDTH - 90.0f - 45.0f;
-		m_Velocity.x *= -1;
-	}
+	
+	//	Playerとの当たり判定
+	Player* p_Player = ObjectManager::GetPlayer();
+	HitPlayer(p_Player->GetCollision());
 
-	//	Playerコリジョン
-	//Player* p_Player = ObjectManager::GetPlayer();
-	//if (Hit(p_Player->GetCollision()))
-	//{
-	//	m_Velocity *= -1;
-	//}
-
-	if (Collision_Player_vs_Ball() == true)
-	{
-		m_Velocity *= -1;
-	}
+	
 	//	Goalのコリジョン
 }
+
 
 void Ball::Draw()
 {
 	m_Sprite.Draw(m_Texture.SetTexture(m_Balltexture),m_Position.x,m_Position.y,32.0f,32.0f);
 }
 
-bool Ball::Hit(const AABB2d * pObject)
+void Ball::HitPlayer(const AABB2d * pObject)
 {
 	D3DXVECTOR2 minA, minB;	//	最小点
 	D3DXVECTOR2 maxA, maxB;	//	最大点
@@ -99,16 +85,25 @@ bool Ball::Hit(const AABB2d * pObject)
 	maxB.x = pObject->cx + pObject->sx;
 	maxB.y = pObject->cy + pObject->sy;
 	//	X軸の比較
-	if (maxA.x > minB.x && minA.x < maxB.x)
+	if (maxA.x < minB.x)
 	{
-		//	Y軸の比較
-		if (maxA.y > minB.y && minA.y < maxB.y)
-		{
-			return true;
-			DebugFont::Print((char*)"あたっている\n");
-		}
+		m_Velocity.x *= -1;
 	}
-	return false;
+	if (minA.x > maxB.x)
+	{
+		m_Velocity.x *= -1;
+	}
+	//	Y軸の比較
+	if (maxA.y < minB.y)
+	{
+		m_Velocity.y *= -1;
+	}
+	if (minA.y > maxB.y)
+	{
+		m_Velocity.y *= -1;
+	}
+	
+	m_Position += m_Velocity;
 }
 
 AABB2d * Ball::GetCollision()

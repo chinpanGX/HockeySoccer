@@ -24,5 +24,5 @@ public:
 private:
 	// ƒwƒ‹ƒp[ŠÖ”
 	void Collision();
-	bool Hit(const AABB2d * pObject);
+	void HitPlayer(const AABB2d * pObject);
 };

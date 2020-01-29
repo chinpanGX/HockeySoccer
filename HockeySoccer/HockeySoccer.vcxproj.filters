@@ -63,9 +63,6 @@
     <ClInclude Include="LineManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -104,16 +101,10 @@
     <ClCompile Include="Ball.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Line.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="LineManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">

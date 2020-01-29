@@ -8,7 +8,8 @@
 
 #include "Player.h"
 #include "Controller.h"
-#include "CollisionManager.h" 
+#include "Line.h"
+#include "ObjectManager.h"
 
 void Player::Init()
 {
@@ -48,19 +49,56 @@ void Player::Action()
 void Player::Move()
 {
 	m_Position += m_Velocity; // Positionの更新
+	m_aabb.cx = m_Position.x; // コリジョンの更新
+	m_aabb.cy = m_Position.y;
 }
 
 void Player::Collision()
 {
-	m_aabb.cx = m_Position.x; // コリジョンの更新
-	m_aabb.cy = m_Position.y;
-	if (Collision_Player_vs_Line() == true)
+	Topline* p_topline = ObjectManager::GetTopLine();
+	if (AABB_2d(m_aabb,p_topline->GetCollision()) == true)
 	{
-		m_Velocity *= -1.1f;
-		m_Position += m_Velocity;
+		m_Velocity.y *= -1.1f;
 	}
+	Underline* p_underline = ObjectManager::GetUnderLine();
+	if (AABB_2d(m_aabb,p_underline->GetCollision()) == true)
+	{
+		m_Velocity.y *= -1.1f;
+	}
+	m_Position += m_Velocity;
 }
+/*
+bool Player::HitLine(const AABB2d* p_Object)
+{
+	D3DXVECTOR2 minA, minB;	//	最小点
+	D3DXVECTOR2 maxA, maxB;	//	最大点
 
+	//	Aのbox最小点
+	minA.x = m_aabb.cx - m_aabb.sx;
+	minA.y = m_aabb.cy - m_aabb.sy;
+
+	//	Aのbox最大点
+	maxA.x = m_aabb.cx + m_aabb.sx;
+	maxA.y = m_aabb.cy + m_aabb.sy;
+
+	//	Bのbox最小点
+	minB.x = p_Object->cx - p_Object->sx;
+	minB.y = p_Object->cy - p_Object->sy;
+
+	//	Bのbox最大点 
+	maxB.x = p_Object->cx + p_Object->sx;
+	maxB.y = p_Object->cy + p_Object->sy;
+	//	X軸の比較
+	if (maxA.x > minB.x && minA.x < maxB.x)
+	{
+		//	Y軸の比較
+		if (maxA.y > minB.y && minA.y < maxB.y)
+		{
+			return true;
+		}
+	}
+	return false;
+}*/
 
 void Player::Draw()
 {
