@@ -11,27 +11,18 @@
 #include "Texture.h"
 #include "LineManager.h"
 #include "GameBG.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "Ball.h"
-#include "Goal.h"
-#include "EnemyGoal.h"
+#include "StageEditor.h"
 
-//#	SceneGameクラス:抽象クラス,SceneBaseを継承した子クラス
+// SceneGame(外部クラス)
 class SceneGame : public SceneBase
 {
 private:
-	bool m_bEnd;
 	Texture		m_Texture;	// テクスチャ
 	LineManager m_LineMgr;	// ラインのコリジョン
 	GameBG		m_Bg;		// 背景
-	Player		m_Player;	// プレイヤー
-	Enemy		m_Enemy;	// エネミー
-	Ball		m_Ball;		// ボール
-	Goal		m_Goal;		// ゴール
-	EnemyGoal	m_EnemyGoal;// 相手側のゴール
+	StageEditor	m_StageEditor;
 
-	unsigned int texture[3]; //	テクスチャの番号を格納
+	unsigned int texture; //	テクスチャの番号を格納
 	
 	//	Init()のヘルパー関数
 	void LoadTexture();		// テクスチャのロード
@@ -39,11 +30,6 @@ private:
 	void EndCheck();		// ゲーム終了チェック
 	// Draw()のヘルパー関数
 	void DrawBg();			
-	void DrawPlayer();
-	void DrawEnemy();
-	void DrawBall();
-	void DrawGoal();
-	void DrawEnemyGoal();
 
 public:
 	void Init()override;	
@@ -53,7 +39,5 @@ public:
 
 	// Getter
 	LineManager* GetLineMgr();
-	Player* GetPlayer();
-	Enemy* GetEnemy();
-	Ball* GetBall();
+	StageEditor* GetStageEditor();
 };

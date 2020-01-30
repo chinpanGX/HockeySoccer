@@ -25,8 +25,10 @@ void Goal::Uninit()
 
 void Goal::Update()
 {
+	//	コリジョンの更新
 	m_aabb.cx = m_Position.x;
 	m_aabb.cy = m_Position.y;
+	
 	//	Ballとの当たり判定
 	Ball* p_Ball = ObjectManager::GetBall();
 	if (AABB_2d(m_aabb, p_Ball->GetCollision()) == true)

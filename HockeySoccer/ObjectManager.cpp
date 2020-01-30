@@ -35,19 +35,19 @@ Rightline * ObjectManager::GetRightLine()
 //	プレイヤー
 Player * ObjectManager::GetPlayer()
 {
-	return ((SceneGame*)SceneManager::SetSceneGame())->GetPlayer();
+	return ((SceneGame*)SceneManager::SetSceneGame())->GetStageEditor()->GetPlayer();
 }
 
 //	エネミー
 Enemy * ObjectManager::GetEnemy()
 {
-	return ((SceneGame*)SceneManager::SetSceneGame())->GetEnemy();
+	return ((SceneGame*)SceneManager::SetSceneGame())->GetStageEditor()->GetEnemy();
 }
 
 //	ボール
 Ball * ObjectManager::GetBall()
 {
-	return ((SceneGame*)SceneManager::SetSceneGame())->GetBall();
+	return ((SceneGame*)SceneManager::SetSceneGame())->GetStageEditor()->GetBall();
 }
 
 
