@@ -8,32 +8,58 @@
 
 #include "ObjectManager.h"
 
+//	上のライン
 Topline* ObjectManager::GetTopLine()
 {
 	return ((SceneGame*)SceneManager::SetSceneGame())->GetLineMgr()->Gettopline();
 }
 
+//	下のライン
 Underline * ObjectManager::GetUnderLine()
 {
 	return ((SceneGame*)SceneManager::SetSceneGame())->GetLineMgr()->Getunderline();
 }
 
+//	左のライン
 Leftline * ObjectManager::GetLeftLine()
 {
 	return ((SceneGame*)SceneManager::SetSceneGame())->GetLineMgr()->Getleftline();
 }
 
+//	右のライン　
 Rightline * ObjectManager::GetRightLine()
 {
 	return ((SceneGame*)SceneManager::SetSceneGame())->GetLineMgr()->Getrightline();
 }
 
+//	プレイヤー
 Player * ObjectManager::GetPlayer()
 {
 	return ((SceneGame*)SceneManager::SetSceneGame())->GetPlayer();
 }
 
+//	エネミー
+Enemy * ObjectManager::GetEnemy()
+{
+	return ((SceneGame*)SceneManager::SetSceneGame())->GetEnemy();
+}
+
+//	ボール
 Ball * ObjectManager::GetBall()
 {
 	return ((SceneGame*)SceneManager::SetSceneGame())->GetBall();
-}	
+}
+
+//	ゴール
+Goal * ObjectManager::GetGoal()
+{
+	return ((SceneGame*)SceneManager::SetSceneGame())->GetGoal();
+}
+
+//	相手側ゴール
+EnemyGoal * ObjectManager::GetEnemyGoal()
+{
+	return ((SceneGame*)SceneManager::SetSceneGame())->GetEnemyGoal();
+
+}
+

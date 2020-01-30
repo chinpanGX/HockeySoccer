@@ -18,6 +18,7 @@ void SceneGame::Init()
 	m_EnemyGoal.Init();
 	m_Goal.Init();
 	m_Player.Init();
+	m_Enemy.Init();
 	m_Ball.Init();
 }
 
@@ -25,6 +26,7 @@ void SceneGame::Init()
 void SceneGame::Uninit()
 {
 	m_Ball.Uninit();
+	m_Enemy.Uninit();
 	m_Player.Uninit();
 	m_Goal.Uninit();
 	m_EnemyGoal.Uninit();
@@ -39,6 +41,7 @@ void SceneGame::Uninit()
 void SceneGame::Update()
 {
 	m_Player.Update();
+	m_Enemy.Update();
 	m_Ball.Update();
 	m_Goal.Update();
 	m_EnemyGoal.Update();
@@ -49,6 +52,7 @@ void SceneGame::Draw()
 {
 	DrawBg();
 	DrawPlayer();
+	DrawEnemy();
 	DrawBall();
 	DrawGoal();
 	DrawEnemyGoal();
@@ -70,7 +74,14 @@ void SceneGame::LoadTexture()
 //	ゲーム終了チェック
 bool SceneGame::EndCheck()
 {
-	return false;
+	if (m_Ball.GetGameEnd() == true)
+	{
+		//	ゲームオーバー
+	}
+	else
+	{
+		//	ゲームクリア
+	}
 }
 /// <summary>
 ///	Draw()のヘルパー関数
@@ -87,23 +98,33 @@ void SceneGame::DrawPlayer()
 	m_Player.Draw(m_Texture.SetTexture(texture[1]));
 }
 
+//	エネミー描画
+void SceneGame::DrawEnemy()
+{
+	m_Enemy.Draw(m_Texture.SetTexture(texture[1]));
+}
+
 //	ボール描画
 void SceneGame::DrawBall()
 {
 	m_Ball.Draw(m_Texture.SetTexture(texture[2]));
 }
 
+//　ゴール描画
 void SceneGame::DrawGoal()
 {
 	m_Goal.Draw(m_Texture.SetTexture(texture[1]));
 }
 
+//	相手側ゴール描画
 void SceneGame::DrawEnemyGoal()
 {
 	m_EnemyGoal.Draw(m_Texture.SetTexture(texture[1]));
 }
+/// <summary>
+///	 Getter
+/// </summary>
 
-//	Getter
 LineManager * SceneGame::GetLineMgr()
 {
 	return &m_LineMgr;
@@ -114,8 +135,24 @@ Player * SceneGame::GetPlayer()
 	return &m_Player;
 }
 
+Enemy * SceneGame::GetEnemy()
+{
+	return &m_Enemy;
+}
+
 Ball * SceneGame::GetBall()
 {
 	return &m_Ball;
 }
+
+Goal * SceneGame::GetGoal()
+{
+	return &m_Goal;
+}
+
+EnemyGoal * SceneGame::GetEnemyGoal()
+{
+	return &m_EnemyGoal;
+}
+
 

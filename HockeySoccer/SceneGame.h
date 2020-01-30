@@ -12,6 +12,7 @@
 #include "LineManager.h"
 #include "GameBG.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Ball.h"
 #include "Goal.h"
 #include "EnemyGoal.h"
@@ -24,6 +25,7 @@ private:
 	LineManager m_LineMgr;	// ラインのコリジョン
 	GameBG		m_Bg;		// 背景
 	Player		m_Player;	// プレイヤー
+	Enemy		m_Enemy;	// エネミー
 	Ball		m_Ball;		// ボール
 	Goal		m_Goal;		// ゴール
 	EnemyGoal	m_EnemyGoal;// 相手側のゴール
@@ -37,6 +39,7 @@ private:
 	// Draw()のヘルパー関数
 	void DrawBg();			
 	void DrawPlayer();
+	void DrawEnemy();
 	void DrawBall();
 	void DrawGoal();
 	void DrawEnemyGoal();
@@ -50,5 +53,8 @@ public:
 	// Getter
 	LineManager* GetLineMgr();
 	Player* GetPlayer();
+	Enemy* GetEnemy();
 	Ball* GetBall();
+	Goal* GetGoal();
+	EnemyGoal* GetEnemyGoal();
 };

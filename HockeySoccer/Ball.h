@@ -15,7 +15,9 @@ private:
 	AABB2d m_aabb;
 
 	// Update()‚Ìƒwƒ‹ƒp[ŠÖ”
-	void Collision();
+	void PlayerCollision();
+	void EnemyCollision();
+	void LineCollsion();
 
 public:
 	void Init()override;
@@ -23,4 +25,5 @@ public:
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
 	AABB2d* GetCollision();
+	bool GetGameEnd();
 };

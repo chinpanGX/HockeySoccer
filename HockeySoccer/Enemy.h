@@ -1,18 +1,22 @@
 /*=========================================================
 
-	[EnemyGoal.h]
+	[Enemy.h]
 	Author : o‡ãÄ‘¾
 
 ==========================================================*/
 
 #pragma once
-#include "Actor.h"
-#include "Collision.h"
+#include "Player.h"
 
-class EnemyGoal : public Actor
+class Enemy : public Player
 {
 private:
-	AABB2d m_aabb;
+	AABB2d	m_aabb;
+
+	// Update()‚Ìƒwƒ‹ƒp[ŠÖ”
+	void Move();
+	void Collision();
+
 public:
 	void Init()override;
 	void Uninit()override;
