@@ -8,7 +8,6 @@
 #include "SceneResult.h"
 #include "SceneManager.h"
 #include "Controller.h"
-#include "Fade.h"
 
 //	スタティック変数
 int  SceneResult::m_Ranking[5];

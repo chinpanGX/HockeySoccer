@@ -19,5 +19,6 @@ public:
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
 	AABB2d* GetCollision();
+	int GetCount();
 };
 

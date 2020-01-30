@@ -8,7 +8,6 @@
 #include "SceneTitle.h"
 #include "SceneManager.h"
 #include "Controller.h"
-#include "Fade.h"
 
 void SceneTitle::Init()
 {
@@ -44,5 +43,5 @@ void SceneTitle::Update()
 void SceneTitle::Draw()
 {
 	
-	m_Sprite.Draw(TEXTURE_TITLE, 0.0f, 0.0f);
+
 }

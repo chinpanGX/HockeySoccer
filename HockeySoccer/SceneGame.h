@@ -55,6 +55,4 @@ public:
 	Player* GetPlayer();
 	Enemy* GetEnemy();
 	Ball* GetBall();
-	Goal* GetGoal();
-	EnemyGoal* GetEnemyGoal();
 };

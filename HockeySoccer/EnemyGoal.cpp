@@ -6,6 +6,7 @@
 =========================================================*/
 
 #include "EnemyGoal.h"
+#include "ObjectManager.h"
 
 void EnemyGoal::Init()
 {
@@ -23,6 +24,15 @@ void EnemyGoal::Uninit()
 
 void EnemyGoal::Update()
 {
+	m_aabb.cx = m_Position.x;
+	m_aabb.cy = m_Position.y;
+	//	Ballとの当たり判定
+	Ball* p_Ball = ObjectManager::GetBall();
+	if (AABB_2d(m_aabb, p_Ball->GetCollision()) == true)
+	{
+		//	エネミーレベルアップ
+
+	}
 }
 
 void EnemyGoal::Draw(LPDIRECT3DTEXTURE9 Texture)
@@ -34,4 +44,11 @@ void EnemyGoal::Draw(LPDIRECT3DTEXTURE9 Texture)
 AABB2d * EnemyGoal::GetCollision()
 {
 	return &m_aabb;
+}
+
+int EnemyGoal::GetCount()
+{
+	int EnemyLv = 0;
+	EnemyLv++;
+	return EnemyLv;
 }

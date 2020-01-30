@@ -74,7 +74,8 @@ void SceneGame::LoadTexture()
 //	ゲーム終了チェック
 bool SceneGame::EndCheck()
 {
-	if (m_Ball.GetGameEnd() == true)
+	/*
+	if ()
 	{
 		//	ゲームオーバー
 	}
@@ -82,6 +83,7 @@ bool SceneGame::EndCheck()
 	{
 		//	ゲームクリア
 	}
+	*/
 }
 /// <summary>
 ///	Draw()のヘルパー関数
@@ -145,14 +147,5 @@ Ball * SceneGame::GetBall()
 	return &m_Ball;
 }
 
-Goal * SceneGame::GetGoal()
-{
-	return &m_Goal;
-}
-
-EnemyGoal * SceneGame::GetEnemyGoal()
-{
-	return &m_EnemyGoal;
-}
 
 

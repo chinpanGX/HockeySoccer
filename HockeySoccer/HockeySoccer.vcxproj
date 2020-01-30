@@ -141,6 +141,7 @@
     <ClInclude Include="DebugFont.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyGoal.h" />
+    <ClInclude Include="Fade.h" />
     <ClInclude Include="GameBG.h" />
     <ClInclude Include="Goal.h" />
     <ClInclude Include="Input.h" />
@@ -152,6 +153,8 @@
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneResult.h" />
+    <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Line.h" />
@@ -162,6 +165,7 @@
     <ClCompile Include="DebugFont.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyGoal.cpp" />
+    <ClCompile Include="Fade.cpp" />
     <ClCompile Include="GameBG.cpp" />
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -171,6 +175,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneResult.cpp" />
+    <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Line.cpp" />

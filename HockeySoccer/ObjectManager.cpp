@@ -50,16 +50,4 @@ Ball * ObjectManager::GetBall()
 	return ((SceneGame*)SceneManager::SetSceneGame())->GetBall();
 }
 
-//	ƒS[ƒ‹
-Goal * ObjectManager::GetGoal()
-{
-	return ((SceneGame*)SceneManager::SetSceneGame())->GetGoal();
-}
-
-//	‘ŠŽè‘¤ƒS[ƒ‹
-EnemyGoal * ObjectManager::GetEnemyGoal()
-{
-	return ((SceneGame*)SceneManager::SetSceneGame())->GetEnemyGoal();
-
-}
 

@@ -9,6 +9,7 @@
 #pragma once
 #include "main.h"
 #include "Sprite.h"
+#include "Fade.h"
 
 class SceneBase
 {

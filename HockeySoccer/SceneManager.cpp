@@ -7,12 +7,13 @@
 ===============================================*/
 #include "main.h"
 #include "SceneManager.h"
+#include "SceneTitle.h"
 #include "SceneGame.h"
-#include "DebugFont.h"
+#include "SceneResult.h"
 
 //	スタティック変数
-SceneBase			*SceneManager::m_Scene;	//	シーンのインスタンスを格納[シーンの配列]
-//SCENE_STATE			SceneManager::m_SceneState;	//	シーンのステートマシン（シーンの状態を格納）
+SceneBase			*SceneManager::m_Scene[3];	//	シーンのインスタンスを格納[シーンの配列]
+SceneState			SceneManager::m_SceneState;	//	シーンのステートマシン（シーンの状態を格納）
 LPDIRECT3DDEVICE9	SceneManager::m_pDevice;	//	デバイス
 
 //	初期化処理
@@ -20,68 +21,61 @@ void SceneManager::Init()
 {
 	m_pDevice = GetD3DDevice();			//	デバイスの取得
 
-	//	メモリの確保			
-	m_Scene = new SceneGame;			
+	//	メモリの確保
+	m_Scene[0] = new SceneTitle;
+	m_Scene[1] = new SceneGame;	
+	m_Scene[2] = new SceneResult;
 
-	//m_sceneState = SCENE_TITLE;			//	初期シーンの設定(ゲームを起動したときの最初のシーン)
-	m_Scene->Init();		//	初期シーンの初期化
-	DebugFont::Init();
+	m_SceneState = SCENE_TITLE;			//	初期シーンの設定(ゲームを起動したときの最初のシーン)
+	m_Scene[m_SceneState]->Init();		//	初期シーンの初期化
 }
 
 //	終了処理
 void SceneManager::Uninit()
 {
-	DebugFont::Uninit();
 	//	各シーンのUninit関数を呼び出す
-	m_Scene->Uninit();
+	m_Scene[m_SceneState]->Uninit();
 
 	//	各シーンのメモリの解放
-	delete m_Scene;
+	delete[] m_Scene;
 }
 
 //	更新処理
 void SceneManager::Update()
 {
-	m_Scene->Update();	//	各シーンのUpdate関数の呼び出し
+	m_Scene[m_SceneState]->Update();	//	各シーンのUpdate関数の呼び出し
 }
 
 //	描画処理
 void SceneManager::Draw()
 {
-	m_Scene->Draw();		//	各シーンのDraw関数の呼び出し
+	m_Scene[m_SceneState]->Draw();		//	各シーンのDraw関数の呼び出し
 }
 
-SceneBase * SceneManager::SetSceneGame()
-{
-	return m_Scene;
-}
-
-/*
 //	シーン遷移処理
 void SceneManager::ChangeSceneState()
 {
-	switch (m_sceneState)
+	switch (m_SceneState)
 	{
 	case SCENE_TITLE:
-		m_scene[m_sceneState]->Uninit();
-		m_sceneState = SCENE_GAME;
-		m_scene[m_sceneState]->Init();
+		m_Scene[m_SceneState]->Uninit();
+		m_SceneState = SCENE_GAME;
+		m_Scene[m_SceneState]->Init();
 		break;
 	case SCENE_GAME:
-		m_scene[m_sceneState]->Uninit();
-		m_sceneState = SCENE_RESULT;		//	リザルトへ遷移
-		m_scene[m_sceneState]->Init();
+		m_Scene[m_SceneState]->Uninit();
+		m_SceneState = SCENE_RESULT;		//	リザルトへ遷移
+		m_Scene[m_SceneState]->Init();
 		break;
 	case SCENE_RESULT:
-		m_scene[m_sceneState]->Uninit();
-		m_sceneState = SCENE_TITLE;			//	タイトルへ遷移
-		m_scene[m_sceneState]->Init();
+		m_Scene[m_SceneState]->Uninit();
+		m_SceneState = SCENE_TITLE;			//	タイトルへ遷移
+		m_Scene[m_SceneState]->Init();
 		break;
 	}
 }
 
 SceneBase * SceneManager::SetSceneGame()
 {
-	return m_scene[1];
+	return m_Scene[1];
 }
-*/

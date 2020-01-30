@@ -7,10 +7,10 @@
 
 #include "Goal.h"
 #include "ObjectManager.h"
-#include "DebugFont.h"
 
 void Goal::Init()
 {
+	m_GameEnd = false;
 	m_Position = D3DXVECTOR2(0.0f + 33.0f, 540.0f);
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
@@ -32,7 +32,7 @@ void Goal::Update()
 	if (AABB_2d(m_aabb, p_Ball->GetCollision()) == true)
 	{
 		//ÉQÅ[ÉÄèIóπ
-		DebugFont::Print((char*)"");
+		m_GameEnd = true;
 	}
 }
 
@@ -45,5 +45,10 @@ void Goal::Draw(LPDIRECT3DTEXTURE9 Texture)
 AABB2d * Goal::GetCollision()
 {
 	return &m_aabb;
+}
+
+bool Goal::GameEnd()
+{
+	return m_GameEnd;
 }
 
