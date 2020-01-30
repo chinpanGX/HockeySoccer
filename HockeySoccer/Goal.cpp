@@ -10,7 +10,7 @@
 
 void Goal::Init()
 {
-	m_GameEnd = false;
+	m_GameEnd = true;
 	m_Position = D3DXVECTOR2(0.0f + 33.0f, 540.0f);
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
@@ -47,8 +47,8 @@ AABB2d * Goal::GetCollision()
 	return &m_aabb;
 }
 
-bool Goal::GameEnd()
+bool* Goal::GameEnd()
 {
-	return m_GameEnd;
+	return &m_GameEnd;
 }
 

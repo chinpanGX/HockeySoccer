@@ -21,6 +21,7 @@
 class SceneGame : public SceneBase
 {
 private:
+	bool m_bEnd;
 	Texture		m_Texture;	// テクスチャ
 	LineManager m_LineMgr;	// ラインのコリジョン
 	GameBG		m_Bg;		// 背景
@@ -35,7 +36,7 @@ private:
 	//	Init()のヘルパー関数
 	void LoadTexture();		// テクスチャのロード
 	//	Update()のヘルパー関数
-	bool EndCheck();		// ゲーム終了チェック
+	void EndCheck();		// ゲーム終了チェック
 	// Draw()のヘルパー関数
 	void DrawBg();			
 	void DrawPlayer();

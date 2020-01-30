@@ -44,7 +44,7 @@ void SceneResult::Update()
 
 void SceneResult::Draw()
 {
-	m_Sprite.Draw(TEXTURE_RESULT, 0.0f, 0.0f);
+	//m_Sprite.Draw(TEXTURE_RESULT, 0.0f, 0.0f);
 }
 
 void SceneResult::Sort(int Score)

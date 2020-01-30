@@ -33,23 +33,27 @@ void SceneManager::Init()
 //	終了処理
 void SceneManager::Uninit()
 {
-	//	各シーンのUninit関数を呼び出す
+	//	終了時のシーンのUninit()を呼び出す
 	m_Scene[m_SceneState]->Uninit();
 
 	//	各シーンのメモリの解放
-	delete[] m_Scene;
+	delete m_Scene[2];
+	delete m_Scene[1];
+	delete m_Scene[0];
 }
 
 //	更新処理
 void SceneManager::Update()
 {
 	m_Scene[m_SceneState]->Update();	//	各シーンのUpdate関数の呼び出し
+	Fade::Update();
 }
 
 //	描画処理
 void SceneManager::Draw()
 {
 	m_Scene[m_SceneState]->Draw();		//	各シーンのDraw関数の呼び出し
+	Fade::Draw();
 }
 
 //	シーン遷移処理

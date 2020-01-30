@@ -10,6 +10,8 @@
 
 class SceneTitle : public SceneBase 
 {
+private:
+	bool m_bEnd;
 public:
 	void Init()override;	//	初期化処理	
 	void Uninit()override;	//	終了処理

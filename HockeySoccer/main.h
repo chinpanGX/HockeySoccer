@@ -47,6 +47,14 @@ struct VERTEX_3D
 	D3DXVECTOR2 tex;	// テクスチャ座標
 };
 
+//	シーンステート
+enum SceneState
+{
+	SCENE_TITLE,
+	SCENE_GAME,
+	SCENE_RESULT
+};
+
 //　プロトタイプ宣言
 LPDIRECT3DDEVICE9 GetD3DDevice();	//Direct3DDeviceのゲッター
 HWND GetHWND();						//ウィンドウハンドルのGetter

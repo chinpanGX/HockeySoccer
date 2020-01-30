@@ -11,6 +11,7 @@
 class SceneResult : public SceneBase
 {
 private:
+	bool m_bEnd;
 	static int	m_Ranking[5];	//	ランキングの値を格納する配列
 public:
 	void Init()override;	//	ゲームの初期化処理	

@@ -11,6 +11,7 @@
 //	ゲームの初期化処理
 void SceneGame::Init()
 {
+	m_bEnd = false;
 	//	テクスチャのロード
 	LoadTexture();
 	// 初期化
@@ -45,6 +46,7 @@ void SceneGame::Update()
 	m_Ball.Update();
 	m_Goal.Update();
 	m_EnemyGoal.Update();
+	EndCheck();
 }
 
 //	ゲームの描画処理
@@ -72,16 +74,29 @@ void SceneGame::LoadTexture()
 /// Update()のヘルパー関数
 /// </summary>
 //	ゲーム終了チェック
-bool SceneGame::EndCheck()
+void SceneGame::EndCheck()
 {
-	/*
-	if ()
+	if (m_bEnd == false)
 	{
-		//	ゲームオーバー
+		bool flag = true;//m_Goal.GameEnd();
+		if (flag == true)
+		{
+			Fade::Start(true, 30, D3DCOLOR_RGBA(0, 0, 0, 0));
+			m_bEnd = true;
+		}
 	}
 	else
 	{
-		//	ゲームクリア
+		if (!Fade::IsFade())
+		{
+			SceneManager::ChangeSceneState();
+		}
+	}
+	
+	/*
+	else if ()
+	{
+
 	}
 	*/
 }

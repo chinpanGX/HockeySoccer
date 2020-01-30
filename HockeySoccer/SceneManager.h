@@ -10,13 +10,6 @@
 #include "main.h"
 #include "SceneBase.h"
 
-enum SceneState
-{
-	SCENE_TITLE,
-	SCENE_GAME,
-	SCENE_RESULT
-};
-
 //#	SceneManagerƒNƒ‰ƒX
 class SceneManager
 {
