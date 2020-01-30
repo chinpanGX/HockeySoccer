@@ -15,6 +15,7 @@ void SceneGame::Init()
 	LoadTexture();
 	// 初期化
 	m_LineMgr.Set();
+	m_EnemyGoal.Init();
 	m_Goal.Init();
 	m_Player.Init();
 	m_Ball.Init();
@@ -25,7 +26,8 @@ void SceneGame::Uninit()
 {
 	m_Ball.Uninit();
 	m_Player.Uninit();
-	m_Goal.Init();
+	m_Goal.Uninit();
+	m_EnemyGoal.Uninit();
 	//	テクスチャのアンロード
 	for (int i = 2; i >= 0; i--)
 	{
@@ -39,6 +41,7 @@ void SceneGame::Update()
 	m_Player.Update();
 	m_Ball.Update();
 	m_Goal.Update();
+	m_EnemyGoal.Update();
 }
 
 //	ゲームの描画処理
@@ -48,6 +51,7 @@ void SceneGame::Draw()
 	DrawPlayer();
 	DrawBall();
 	DrawGoal();
+	DrawEnemyGoal();
 }
 
 /// <summary>
@@ -92,6 +96,11 @@ void SceneGame::DrawBall()
 void SceneGame::DrawGoal()
 {
 	m_Goal.Draw(m_Texture.SetTexture(texture[1]));
+}
+
+void SceneGame::DrawEnemyGoal()
+{
+	m_EnemyGoal.Draw(m_Texture.SetTexture(texture[1]));
 }
 
 //	Getter

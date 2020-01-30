@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "Ball.h"
 #include "Goal.h"
+#include "EnemyGoal.h"
 
 //#	SceneGameクラス:抽象クラス,SceneBaseを継承した子クラス
 class SceneGame : public SceneBase
@@ -25,6 +26,7 @@ private:
 	Player		m_Player;	// プレイヤー
 	Ball		m_Ball;		// ボール
 	Goal		m_Goal;		// ゴール
+	EnemyGoal	m_EnemyGoal;// 相手側のゴール
 
 	unsigned int texture[3]; //	テクスチャの番号を格納
 	
@@ -37,6 +39,7 @@ private:
 	void DrawPlayer();
 	void DrawBall();
 	void DrawGoal();
+	void DrawEnemyGoal();
 
 public:
 	void Init()override;	

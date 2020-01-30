@@ -12,10 +12,9 @@
 //	マクロ定義
 #define MINA	(0.5f)	//	画面の表示位置の修正固定値
 
-
-//	色を設定するセッター
-D3DCOLOR Sprite::SetColor(D3DCOLOR color)
+D3DCOLOR Sprite::SetColor(int r, int g, int b, int a)
 {
+	D3DCOLOR color = D3DCOLOR_RGBA(r, g, b,a);
 	return color;
 }
 

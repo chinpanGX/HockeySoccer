@@ -13,7 +13,7 @@
 class Sprite
 {
 public:
-	D3DCOLOR SetColor(D3DCOLOR color);	//	カラーの設定
+	D3DCOLOR SetColor(int r, int g, int b, int a);	//	カラーの設定
 	//	描画 (引数：テクスチャ、X座標、Y座標、テクスチャX座標、テクスチャY座標、テクスチャの横幅、テクスチャの縦幅)
 	void Draw(LPDIRECT3DTEXTURE9 Texture, float dx, float dy, float Width, float Height, D3DXCOLOR Color = D3DCOLOR_RGBA(255, 255, 255, 255));
 	//	描画 (引数：テクスチャ、X座標、Y座標、テクスチャの横幅、テクスチャの縦幅、テクスチャX座標、テクスチャY座標、描画する横幅、描画する縦幅)

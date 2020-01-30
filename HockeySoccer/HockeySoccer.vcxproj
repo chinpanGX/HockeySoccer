@@ -139,6 +139,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="DebugFont.h" />
+    <ClInclude Include="EnemyGoal.h" />
     <ClInclude Include="GameBG.h" />
     <ClInclude Include="Goal.h" />
     <ClInclude Include="Input.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DebugFont.cpp" />
+    <ClCompile Include="EnemyGoal.cpp" />
     <ClCompile Include="GameBG.cpp" />
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Input.cpp" />
