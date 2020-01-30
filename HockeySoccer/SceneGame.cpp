@@ -12,6 +12,7 @@
 void SceneGame::Init()
 {
 	m_bEnd = false;
+	Fade::Start(false, 90, D3DCOLOR_RGBA(0, 0, 0, 0));
 	//	テクスチャのロード
 	LoadTexture();
 	// 初期化
@@ -78,8 +79,7 @@ void SceneGame::EndCheck()
 {
 	if (m_bEnd == false)
 	{
-		bool flag = true;//m_Goal.GameEnd();
-		if (flag == true)
+		if (m_Goal.GameEnd() == true)
 		{
 			Fade::Start(true, 30, D3DCOLOR_RGBA(0, 0, 0, 0));
 			m_bEnd = true;
@@ -92,13 +92,6 @@ void SceneGame::EndCheck()
 			SceneManager::ChangeSceneState();
 		}
 	}
-	
-	/*
-	else if ()
-	{
-
-	}
-	*/
 }
 /// <summary>
 ///	Draw()のヘルパー関数
