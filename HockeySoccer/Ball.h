@@ -21,6 +21,7 @@ private:
 
 public:
 	void Init()override;
+	void Init(D3DXVECTOR2 Velocity);
 	void Uninit()override;
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;

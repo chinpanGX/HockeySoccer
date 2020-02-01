@@ -26,7 +26,6 @@ void SceneGame::Uninit()
 	m_StageEditor.Uninit();
 	//	テクスチャのアンロード
 	m_Texture.UnLoadTexture(texture);
-	
 }
 
 //	ゲームの更新処理
@@ -51,6 +50,7 @@ void SceneGame::LoadTexture()
 {
 	texture = m_Texture.LoadTexture("Rom/Texture/BG.png");	// ゲーム背景
 }
+
 /// <summary>
 /// Update()のヘルパー関数
 /// </summary>

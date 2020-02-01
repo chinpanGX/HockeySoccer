@@ -13,6 +13,15 @@
 #include "Goal.h"
 #include "EnemyGoal.h"
 
+enum Stage
+{
+	STAGE_CLEAR,
+	STAGE_1,
+	STAGE_2,
+	STAGE_3,
+	STAGE_END
+};
+
 class StageEditor
 {
 private:
@@ -22,20 +31,29 @@ private:
 	Ball		m_Ball;		// ボール
 	Goal		m_Goal;		// ゴール
 	EnemyGoal	m_EnemyGoal;// 相手側のゴール
+	Stage		m_Stage;	// ステージ
 
 	unsigned int texture[2];
+	int	m_StageCount;
 	
-	//	Init()のヘルパー関数
-	void LoadTexture();
+	///	<summry>
+	/// Init()のヘルパー関数
+	/// </summary>
+	void LoadTexture();	// テクスチャのロード
+	void InitObject(int Stage);	// オブジェクトの初期化
+	void InitStage_2(); // ステージ２
+	void InitStage_3(); // ステージ３
 
-	//	Update()のヘルパー関数
+	///	<summary>
+	///	Update()のヘルパー関数
+	/// </summary>
+	void UpdateObject(); //	オブジェクトの更新処理
+	void GoalEnd();
 
-	//Draw()のヘルパー関数
-	void DrawPlayer();
-	void DrawEnemy();
-	void DrawBall();
-	void DrawGoal();
-	void DrawEnemyGoal();
+	/// <summary>
+	///　Draw()のヘルパー関数
+	/// </summary>
+	void DrawObject(); // オブジェクトの描画処理
 
 public:
 	void Init();

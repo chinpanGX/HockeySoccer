@@ -19,6 +19,7 @@ private:
 
 public:
 	void Init()override;
+	void Init(float Speed,D3DXVECTOR2 Position = D3DXVECTOR2((480.0f * 3) - 32.0f, 540.0f)); //	Y軸の移動スピード,初期位置
 	void Uninit()override;
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;

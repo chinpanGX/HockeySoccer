@@ -10,6 +10,7 @@
 
 void EnemyGoal::Init()
 {
+	m_GoalFlag = false;
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH - 68.0f, 540.0f);
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
@@ -25,12 +26,12 @@ void EnemyGoal::Update()
 {
 	m_aabb.cx = m_Position.x;
 	m_aabb.cy = m_Position.y;
+	
 	//	Ballとの当たり判定
 	Ball* p_Ball = ObjectManager::GetBall();
 	if (AABB_2d(m_aabb, p_Ball->GetCollision()) == true)
 	{
-		//	エネミーレベルアップ
-
+		m_GoalFlag = true;
 	}
 }
 
@@ -45,9 +46,7 @@ AABB2d * EnemyGoal::GetCollision()
 	return &m_aabb;
 }
 
-int EnemyGoal::GetCount()
+bool EnemyGoal::GetGoalFlag()
 {
-	int EnemyLv = 0;
-	EnemyLv++;
-	return EnemyLv;
+	return m_GoalFlag;
 }

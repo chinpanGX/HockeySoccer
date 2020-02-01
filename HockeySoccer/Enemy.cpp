@@ -19,6 +19,16 @@ void Enemy::Init()
 	m_aabb.sy = 128.0f;
 }
 
+void Enemy::Init(float Speed, D3DXVECTOR2 Position)
+{
+	m_Position = Position;
+	m_Velocity = D3DXVECTOR2(0.0f, Speed);	//	ƒxƒNƒgƒ‹‚Ì‰Šú‰»
+	m_aabb.cx = 0.0f;
+	m_aabb.cy = 0.0f;
+	m_aabb.sx = 32.0f;
+	m_aabb.sy = 128.0f;
+}
+
 void Enemy::Uninit()
 {
 }
