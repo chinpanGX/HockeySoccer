@@ -6,6 +6,9 @@
 ==========================================================*/
 
 #include "StageEditor.h"
+#include "Controller.h"
+#include "Fade.h"
+#include "ObjectManager.h"
 
 //	初期化処理
 void StageEditor::Init()
@@ -13,7 +16,7 @@ void StageEditor::Init()
 	LoadTexture();
 	m_Stage = STAGE_1;
 	InitObject(STAGE_1);
-	m_StageCount = 1;
+	m_StageCount = m_Stage;
 }
 
 //	終了処理
@@ -34,22 +37,34 @@ void StageEditor::Update()
 	switch (m_Stage)
 	{
 	case STAGE_CLEAR:
-		m_StageCount++;		   // ステージカウントを加算する
-		InitObject(m_StageCount);
-		m_Stage = (Stage)m_StageCount; // キャストして次のステージへ進む
+		InitObject(STAGE_CLEAR);
+		UninitObject();
+		if (KeyBoard::IsTrigger(DIK_RIGHTARROW))
+		{
+			m_StageCount++;		   // ステージカウントを加算する 
+			InitObject(m_StageCount);
+			m_Stage = (Stage)m_StageCount; //	キャストしてカウントを代入
+			Fade::Start(false, 60);
+		}
+		else if (KeyBoard::IsTrigger(DIK_LEFTARROW))
+		{
+			m_Stage = STAGE_END;
+		}
 		break;
 	case STAGE_1:
 		UpdateObject();
-		GoalEnd();
+		EnemyGoalEnd();
 		break;
-	case STAGE_2: 
+	case STAGE_2:
 		UpdateObject();
-		GoalEnd();
+		EnemyGoalEnd();
 		break;
 	case STAGE_3:
 		UpdateObject();
-		GoalEnd();
+		EnemyGoalEnd();
+		break;
 	case STAGE_END:
+		GameEnd();
 		break;
 	}
 }
@@ -57,17 +72,33 @@ void StageEditor::Update()
 //	描画処理
 void StageEditor::Draw()
 {
-	DrawObject();
-	if (m_Stage == STAGE_CLEAR)
+	switch (m_Stage)
 	{
-		
+	case STAGE_CLEAR:
+		m_Clear.Draw(m_Texture.SetTexture(texture[2]));
+		break;
+	case STAGE_1:
+		DrawObject();
+		break;
+	case STAGE_2:
+		DrawObject();
+		break;
+	case STAGE_3:
+		DrawObject();
+		break;
+	case STAGE_END:
+		break;
 	}
 }
 
-//	自陣ゴールに入ったかどうか
+//	ゲーム終了
 bool StageEditor::GameEnd()
 {
-	if (m_Goal.GameEnd() == true || m_Stage == STAGE_END)
+	if (m_Ball.GetGameEnd() == true) // 自陣ゴールに入る
+	{
+		return true;
+	}
+	if (m_Stage == STAGE_END) // ステージが終了。
 	{
 		return true;
 	}
@@ -80,50 +111,55 @@ bool StageEditor::GameEnd()
 //	テクスチャのロード
 void StageEditor::LoadTexture()
 {
-	texture[0] = m_Texture.LoadTexture("Rom/Texture/Ball.png"); // ボール
-	texture[1] = m_Texture.LoadTexture("Rom/Texture/Bar.png");	// Player&Goal
+	texture[0] = m_Texture.LoadTexture("Rom/Texture/Ball.png");  // ボール
+	texture[1] = m_Texture.LoadTexture("Rom/Texture/Bar.png");	 // Player&Goal
+	texture[2] = m_Texture.LoadTexture("Rom/Texture/BG.png"); // クリア画面
 }
 //	オブジェクトの初期化
 void StageEditor::InitObject(int Stage)
 {
-	m_EnemyGoal.Init();
-	m_Goal.Init();
-	m_Player.Init();
 	switch (Stage)
 	{
+	case STAGE_CLEAR:
+		break;
 	case STAGE_1:
+		m_EnemyGoal.Init();
+		m_Goal.Init();
+		m_Player.Init();
 		m_Enemy.Init();
 		m_Ball.Init();
 		break;
 	case STAGE_2:
-		m_Enemy.Init(7.0f);
-		m_Ball.Init(D3DXVECTOR2(-8.0f, 6.5f));
+		m_EnemyGoal.Init();
+		m_Goal.Init();
+		m_Player.Init();
+		m_Enemy.Init(6.0f);
+		m_Ball.Init();
 		break;
 	case STAGE_3:
+		m_EnemyGoal.Init();
+		m_Goal.Init();
+		m_Player.Init();
 		m_Enemy.Init(6.0f, D3DXVECTOR2(960.0f + 320.0f, 360.0f));
-		m_Ball.Init(D3DXVECTOR2(-5.0f, 9.5f));
+		m_Ball.Init(D3DXVECTOR2(-7.0f, 10.5f));
+		break;
+	case STAGE_END:
+		m_Stage = STAGE_END;
 		break;
 	}
 }
 
-//	ステージ２
-void StageEditor::InitStage_2()
+/// <summry>
+///	Uninit()のヘルパー関数
+/// </summary>
+//	オブジェクトの終了処理
+void StageEditor::UninitObject()
 {
-	m_EnemyGoal.Init();
-	m_Goal.Init();
-	m_Player.Init();
-	m_Enemy.Init();
-	m_Ball.Init(D3DXVECTOR2(-7.0f,5.0f));
-}
-
-//　ステージ３
-void StageEditor::InitStage_3()
-{
-	m_EnemyGoal.Init();
-	m_Goal.Init();
-	m_Player.Init();
-	m_Enemy.Init();
-	m_Ball.Init(D3DXVECTOR2(8.5f, -4.0f));
+	m_Ball.Uninit();
+	m_Enemy.Uninit();
+	m_Player.Uninit();
+	m_Goal.Uninit();
+	m_EnemyGoal.Uninit();
 }
 
 /// <summary>
@@ -134,16 +170,17 @@ void StageEditor::UpdateObject()
 {
 	m_Goal.Update();
 	m_EnemyGoal.Update();
-	m_Ball.Update();
 	m_Player.Update();
 	m_Enemy.Update();
+	m_Ball.Update();
 }
 
 //	ゴールに入れたときの処理
-void StageEditor::GoalEnd()
+void StageEditor::EnemyGoalEnd()
 {
-	if (m_EnemyGoal.GetGoalFlag() == true)
+	if (m_Ball.GetGoalFlag() == true)
 	{
+		Fade::Start(false, 30);
 		m_Stage = STAGE_CLEAR; // ステートを更新
 	}
 }
@@ -175,7 +212,18 @@ Enemy * StageEditor::GetEnemy()
 	return &m_Enemy;
 }
 
+Goal * StageEditor::GetGoal()
+{
+	return &m_Goal;
+}
+
+EnemyGoal * StageEditor::GetEnemyGoal()
+{
+	return &m_EnemyGoal;
+}
+
 Ball * StageEditor::GetBall()
 {
 	return &m_Ball;
 }
+

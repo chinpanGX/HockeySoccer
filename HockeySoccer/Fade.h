@@ -20,6 +20,6 @@ public:
 	Fade();
 	static void Update();
 	static void Draw();
-	static void Start(bool bOut, int frame, D3DCOLOR color);
+	static void Start(bool bOut, int frame, D3DCOLOR color = D3DCOLOR_RGBA(0,0,0,0));
 	static bool IsFade();
 };

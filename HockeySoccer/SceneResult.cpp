@@ -14,7 +14,7 @@ int  SceneResult::m_Ranking[5];
 
 void SceneResult::Init()
 {
-	Fade::Start(false,90,D3DCOLOR_RGBA(0,0,0,0));
+	Fade::Start(false,90);
 	m_bEnd = false;
 }
 
@@ -29,7 +29,7 @@ void SceneResult::Update()
 	{
 		if (KeyBoard::IsTrigger(DIK_R))
 		{
-			Fade::Start(true, 90, D3DCOLOR_RGBA(0, 0, 0, 0));
+			Fade::Start(true, 90);
 			m_bEnd = true;
 		}
 	}

@@ -11,7 +11,7 @@
 
 void SceneTitle::Init()
 {
-	Fade::Start(false,90,D3DCOLOR_RGBA(0,0,0,0));
+	Fade::Start(false,90);
 	m_bEnd = false;
 }
 
@@ -27,7 +27,7 @@ void SceneTitle::Update()
 		//	ゲームへ遷移
 		if (KeyBoard::IsTrigger(DIK_R))
 		{
-			Fade::Start(true, 30, D3DCOLOR_RGBA(0,0,0,0));
+			Fade::Start(true, 30);
 			m_bEnd = true;
 		}
 	}

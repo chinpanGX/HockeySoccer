@@ -12,7 +12,6 @@
 class Goal : public Actor
 {
 private:
-	bool	m_GameEnd;
 	AABB2d	m_aabb;
 public:
 	void Init()override;
@@ -20,6 +19,5 @@ public:
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
 	AABB2d* GetCollision();
-	bool GameEnd();
 };
 

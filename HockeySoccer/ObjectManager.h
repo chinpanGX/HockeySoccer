@@ -13,12 +13,14 @@
 class ObjectManager
 {
 public:
-	static Topline * GetTopLine();		//	上のライン
-	static Underline * GetUnderLine();	//	下のライン
-	static Leftline * GetLeftLine();	//	左のライン
-	static Rightline * GetRightLine();	//	右のライン　
-	static Player * GetPlayer();		//	プレイヤー
-	static Enemy* GetEnemy();			//	エネミー
-	static Ball* GetBall();				//	ボール
+	static Topline * GetTopLine();		// 上のライン
+	static Underline * GetUnderLine();	// 下のライン
+	static Leftline * GetLeftLine();	// 左のライン
+	static Rightline * GetRightLine();	// 右のライン　
+	static Player * GetPlayer();		// プレイヤー
+	static Enemy* GetEnemy();			// エネミー
+	static Goal* GetGoal();				// 自陣ゴール
+	static EnemyGoal* GetEnemyGoal();	// 相手側ゴール
+	static Ball* GetBall();
 };
 

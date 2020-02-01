@@ -10,7 +10,6 @@
 
 void Goal::Init()
 {
-	m_GameEnd = false;
 	m_Position = D3DXVECTOR2(0.0f + 33.0f, 540.0f);
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
@@ -20,22 +19,13 @@ void Goal::Init()
 
 void Goal::Uninit()
 {
-
 }
 
 void Goal::Update()
 {
-	//	コリジョンの更新
+	//	コリジョン位置の更新
 	m_aabb.cx = m_Position.x;
 	m_aabb.cy = m_Position.y;
-	
-	//	Ballとの当たり判定
-	Ball* p_Ball = ObjectManager::GetBall();
-	if (AABB_2d(m_aabb, p_Ball->GetCollision()) == true)
-	{
-		//ゲーム終了
-		m_GameEnd = true;
-	}
 }
 
 void Goal::Draw(LPDIRECT3DTEXTURE9 Texture)
@@ -47,10 +37,5 @@ void Goal::Draw(LPDIRECT3DTEXTURE9 Texture)
 AABB2d * Goal::GetCollision()
 {
 	return &m_aabb;
-}
-
-bool Goal::GameEnd()
-{
-	return m_GameEnd;
 }
 

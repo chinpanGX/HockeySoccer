@@ -12,6 +12,7 @@
 #include "Ball.h"
 #include "Goal.h"
 #include "EnemyGoal.h"
+#include "ClearBG.h"
 
 enum Stage
 {
@@ -32,23 +33,27 @@ private:
 	Goal		m_Goal;		// ゴール
 	EnemyGoal	m_EnemyGoal;// 相手側のゴール
 	Stage		m_Stage;	// ステージ
+	ClearBG		m_Clear;	// ゲームクリア背景
 
-	unsigned int texture[2];
-	int	m_StageCount;
+	unsigned int texture[3]; // テクスチャを格納
+	int	m_StageCount;		 // ステージをカウント
 	
 	///	<summry>
 	/// Init()のヘルパー関数
 	/// </summary>
 	void LoadTexture();	// テクスチャのロード
 	void InitObject(int Stage);	// オブジェクトの初期化
-	void InitStage_2(); // ステージ２
-	void InitStage_3(); // ステージ３
+
+	/// <summary>
+	/// Uninit()のヘルパー関数
+	/// </summary>
+	void UninitObject();
 
 	///	<summary>
 	///	Update()のヘルパー関数
 	/// </summary>
 	void UpdateObject(); //	オブジェクトの更新処理
-	void GoalEnd();
+	void EnemyGoalEnd();
 
 	/// <summary>
 	///　Draw()のヘルパー関数
@@ -64,6 +69,8 @@ public:
 
 	Player* GetPlayer();
 	Enemy* GetEnemy();
+	Goal* GetGoal();
+	EnemyGoal* GetEnemyGoal();
 	Ball* GetBall();
 };
 

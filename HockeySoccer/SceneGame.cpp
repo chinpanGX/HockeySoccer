@@ -12,7 +12,7 @@
 void SceneGame::Init()
 {
 	m_bEnd = false;
-	Fade::Start(false, 90, D3DCOLOR_RGBA(0, 0, 0, 0));
+	Fade::Start(false, 90);
 	//	テクスチャのロード
 	LoadTexture();
 	// 初期化
@@ -31,8 +31,8 @@ void SceneGame::Uninit()
 //	ゲームの更新処理
 void SceneGame::Update()
 {
-	m_StageEditor.Update();
 	EndCheck();
+	m_StageEditor.Update();
 }
 
 //	ゲームの描画処理
@@ -48,7 +48,7 @@ void SceneGame::Draw()
 //	テクスチャのロード
 void SceneGame::LoadTexture()
 {
-	texture = m_Texture.LoadTexture("Rom/Texture/BG.png");	// ゲーム背景
+	texture = m_Texture.LoadTexture("Rom/Texture/GameBG.png");	// ゲーム背景
 }
 
 /// <summary>
@@ -62,7 +62,7 @@ void SceneGame::EndCheck()
 		//	自陣ゴールの当たったらリザルト
 		if (m_StageEditor.GameEnd() == true)
 		{
-			Fade::Start(true, 30, D3DCOLOR_RGBA(0, 0, 0, 0));
+			Fade::Start(true, 30);
 			m_bEnd = true;
 		}
 	}

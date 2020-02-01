@@ -12,12 +12,14 @@
 void Ball::Init()
 {
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH * 0.5f,SCREEN_HEIGHT * 0.5f - 100.0f);
-	m_Velocity = D3DXVECTOR2(7.0f, 0.0f); // デバッグ
+	m_Velocity = D3DXVECTOR2(-7.0f, 0.0f); // デバッグ
 	//m_Velocity = D3DXVECTOR2(7.0f, -7.5f);
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
 	m_aabb.sx = 32.0f;
 	m_aabb.sy = 32.0f;
+	m_GameEnd = false;
+	m_GoalFlag = false;
 }
 
 void Ball::Init(D3DXVECTOR2 Velocity)
@@ -28,6 +30,8 @@ void Ball::Init(D3DXVECTOR2 Velocity)
 	m_aabb.cy = 0.0f;
 	m_aabb.sx = 32.0f;
 	m_aabb.sy = 32.0f;
+	m_GameEnd = false;
+	m_GoalFlag = false;
 }
 
 void Ball::Uninit()
@@ -41,7 +45,10 @@ void Ball::Update()
 	m_Position += m_Velocity;
 	m_aabb.cx = m_Position.x;
 	m_aabb.cy = m_Position.y;
+	
 	//	当たり判定
+	EnemyGoalCollision();
+	GoalCollsion();
 	PlayerCollision();
 	EnemyCollision();
 	LineCollsion();
@@ -51,6 +58,7 @@ void Ball::Draw(LPDIRECT3DTEXTURE9 Texture)
 {
 	m_Sprite.Draw(Texture, m_Position.x, m_Position.y, 32.0f, 32.0f);
 }
+
 
 /// <summary>
 /// Update()のヘルパー関数
@@ -94,6 +102,28 @@ void Ball::LineCollsion()
 	}
 }
 
+//	自陣ゴールとの当たり判定
+void Ball::GoalCollsion()
+{
+	//	Ballとの当たり判定
+	Goal * p_Goal = ObjectManager::GetGoal();
+	if (AABB_2d(m_aabb, p_Goal->GetCollision()) == true)
+	{
+		//ゲーム終了
+		m_GameEnd = true;
+	}
+}
+
+//	相手側ゴールとの当たり判定
+void Ball::EnemyGoalCollision()
+{
+	EnemyGoal* p_EnemyGoal = ObjectManager::GetEnemyGoal();
+	if (AABB_2d(m_aabb, p_EnemyGoal->GetCollision()) == true)
+	{
+		m_GoalFlag = true;
+	}
+}
+
 AABB2d * Ball::GetCollision()
 {
 	return &m_aabb;
@@ -101,6 +131,11 @@ AABB2d * Ball::GetCollision()
 
 bool Ball::GetGameEnd()
 {
-	return true;
+	return m_GameEnd;
+}
+
+bool Ball::GetGoalFlag()
+{
+	return m_GoalFlag;
 }
 

@@ -13,11 +13,16 @@ class Ball : public Actor
 {
 private:
 	AABB2d m_aabb;
+	D3DXCOLOR m_Color;
+	bool m_GameEnd;	//	©wƒS[ƒ‹‚µ‚½‚©‚Ç‚¤‚©
+	bool m_GoalFlag;	//	ƒS[ƒ‹‚µ‚½‚©‚Ç‚¤‚©”»’è
 
 	// Update()‚Ìƒwƒ‹ƒp[ŠÖ”
 	void PlayerCollision();
 	void EnemyCollision();
 	void LineCollsion();
+	void GoalCollsion();
+	void EnemyGoalCollision();
 
 public:
 	void Init()override;
@@ -27,4 +32,5 @@ public:
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
 	AABB2d* GetCollision();
 	bool GetGameEnd();
+	bool GetGoalFlag();
 };

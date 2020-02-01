@@ -10,7 +10,6 @@
 
 void EnemyGoal::Init()
 {
-	m_GoalFlag = false;
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH - 68.0f, 540.0f);
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
@@ -26,13 +25,6 @@ void EnemyGoal::Update()
 {
 	m_aabb.cx = m_Position.x;
 	m_aabb.cy = m_Position.y;
-	
-	//	Ball‚Æ‚Ì“–‚½‚è”»’è
-	Ball* p_Ball = ObjectManager::GetBall();
-	if (AABB_2d(m_aabb, p_Ball->GetCollision()) == true)
-	{
-		m_GoalFlag = true;
-	}
 }
 
 void EnemyGoal::Draw(LPDIRECT3DTEXTURE9 Texture)
@@ -44,9 +36,4 @@ void EnemyGoal::Draw(LPDIRECT3DTEXTURE9 Texture)
 AABB2d * EnemyGoal::GetCollision()
 {
 	return &m_aabb;
-}
-
-bool EnemyGoal::GetGoalFlag()
-{
-	return m_GoalFlag;
 }

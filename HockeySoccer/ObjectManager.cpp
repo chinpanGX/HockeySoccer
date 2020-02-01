@@ -44,10 +44,23 @@ Enemy * ObjectManager::GetEnemy()
 	return ((SceneGame*)SceneManager::SetSceneGame())->GetStageEditor()->GetEnemy();
 }
 
-//	ƒ{[ƒ‹
+//	Ž©wƒS[ƒ‹
+Goal * ObjectManager::GetGoal()
+{
+	return ((SceneGame*)SceneManager::SetSceneGame())->GetStageEditor()->GetGoal();
+}
+
+//	‘ŠŽè‘¤ƒS[ƒ‹
+EnemyGoal * ObjectManager::GetEnemyGoal()
+{
+	return ((SceneGame*)SceneManager::SetSceneGame())->GetStageEditor()->GetEnemyGoal();
+}
+
 Ball * ObjectManager::GetBall()
 {
 	return ((SceneGame*)SceneManager::SetSceneGame())->GetStageEditor()->GetBall();
 }
+
+
 
 
