@@ -14,7 +14,7 @@
 class SceneManager
 {
 private:
-	static SceneBase			*m_Scene[3];	//	シーン管理ポインタ変数
+	static SceneBase			*m_Scene[2];	//	シーン管理ポインタ変数
 	static SceneState			m_SceneState;	//	シーンステートの管理変数
 	static LPDIRECT3DDEVICE9	m_pDevice;		//	デバイスの取得変数
 public:

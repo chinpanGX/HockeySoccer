@@ -56,6 +56,7 @@ EnemyGoal * ObjectManager::GetEnemyGoal()
 	return ((SceneGame*)SceneManager::SetSceneGame())->GetStageEditor()->GetEnemyGoal();
 }
 
+//	ƒ{[ƒ‹
 Ball * ObjectManager::GetBall()
 {
 	return ((SceneGame*)SceneManager::SetSceneGame())->GetStageEditor()->GetBall();

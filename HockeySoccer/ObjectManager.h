@@ -21,6 +21,6 @@ public:
 	static Enemy* GetEnemy();			// エネミー
 	static Goal* GetGoal();				// 自陣ゴール
 	static EnemyGoal* GetEnemyGoal();	// 相手側ゴール
-	static Ball* GetBall();
+	static Ball* GetBall();				// ボール
 };
 

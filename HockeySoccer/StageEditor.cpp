@@ -75,7 +75,7 @@ void StageEditor::Draw()
 	switch (m_Stage)
 	{
 	case STAGE_CLEAR:
-		m_Clear.Draw(m_Texture.SetTexture(texture[2]));
+		m_Bg.Draw(m_Texture.SetTexture(texture[2]));
 		break;
 	case STAGE_1:
 		DrawObject();

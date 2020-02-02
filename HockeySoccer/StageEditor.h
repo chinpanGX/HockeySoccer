@@ -12,7 +12,8 @@
 #include "Ball.h"
 #include "Goal.h"
 #include "EnemyGoal.h"
-#include "ClearBG.h"
+#include "GameBG.h"
+#include "UI.h"
 
 enum Stage
 {
@@ -33,7 +34,8 @@ private:
 	Goal		m_Goal;		// ゴール
 	EnemyGoal	m_EnemyGoal;// 相手側のゴール
 	Stage		m_Stage;	// ステージ
-	ClearBG		m_Clear;	// ゲームクリア背景
+	GameBG		m_Bg;
+	UI			m_Ui;
 
 	unsigned int texture[3]; // テクスチャを格納
 	int	m_StageCount;		 // ステージをカウント

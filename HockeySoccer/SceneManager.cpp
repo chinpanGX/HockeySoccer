@@ -9,10 +9,9 @@
 #include "SceneManager.h"
 #include "SceneTitle.h"
 #include "SceneGame.h"
-#include "SceneResult.h"
 
 //	スタティック変数
-SceneBase			*SceneManager::m_Scene[3];	//	シーンのインスタンスを格納[シーンの配列]
+SceneBase			*SceneManager::m_Scene[2];	//	シーンのインスタンスを格納[シーンの配列]
 SceneState			SceneManager::m_SceneState;	//	シーンのステートマシン（シーンの状態を格納）
 LPDIRECT3DDEVICE9	SceneManager::m_pDevice;	//	デバイス
 
@@ -24,7 +23,6 @@ void SceneManager::Init()
 	//	メモリの確保
 	m_Scene[0] = new SceneTitle;
 	m_Scene[1] = new SceneGame;	
-	m_Scene[2] = new SceneResult;
 
 	m_SceneState = SCENE_TITLE;			//	初期シーンの設定(ゲームを起動したときの最初のシーン)
 	m_Scene[m_SceneState]->Init();		//	初期シーンの初期化
@@ -37,7 +35,6 @@ void SceneManager::Uninit()
 	m_Scene[m_SceneState]->Uninit();
 
 	//	各シーンのメモリの解放
-	delete m_Scene[2];
 	delete m_Scene[1];
 	delete m_Scene[0];
 }
@@ -68,12 +65,7 @@ void SceneManager::ChangeSceneState()
 		break;
 	case SCENE_GAME:
 		m_Scene[m_SceneState]->Uninit();
-		m_SceneState = SCENE_RESULT;		//	リザルトへ遷移
-		m_Scene[m_SceneState]->Init();
-		break;
-	case SCENE_RESULT:
-		m_Scene[m_SceneState]->Uninit();
-		m_SceneState = SCENE_TITLE;			//	タイトルへ遷移
+		m_SceneState = SCENE_TITLE;		//	リザルトへ遷移
 		m_Scene[m_SceneState]->Init();
 		break;
 	}
@@ -81,5 +73,5 @@ void SceneManager::ChangeSceneState()
 
 SceneBase * SceneManager::SetSceneGame()
 {
-	return m_Scene[1];
+	return m_Scene[SCENE_GAME];
 }
