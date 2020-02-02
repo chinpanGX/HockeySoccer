@@ -11,11 +11,13 @@
 
 enum SoundLabel
 {
-	S_BGM_TITLE,	// タイトルBGM
 	S_BGM_GAME,		// ゲームBGM
+	S_BGM_GAMEEND,	// ゲームエンド
+	S_BGM_TITLE,	// タイトル
 	S_SE_BALL,		// ボールSE
 	S_SE_WHISTIL,	// ホイッスルSE
-	S_SE_BUTTON,
+	S_SE_BUTTON,	// カーソル移動
+	S_SE_ANSWER,	// 決定
 
 	SOUND_MAX
 };

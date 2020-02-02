@@ -26,7 +26,7 @@ private:
 
 public:
 	void Init()override;
-	void Init(D3DXVECTOR2 Velocity);
+	void Init(D3DXVECTOR2 Velocity); // ˆÚ“®•ûŒü‚×ƒNƒgƒ‹‚Ì•ÏX
 	void Uninit()override;
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;

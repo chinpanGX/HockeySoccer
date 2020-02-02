@@ -34,6 +34,7 @@ void SceneTitle::Update()
 		//	ゲームへ遷移
 		if (KeyBoard::IsTrigger(DIK_RETURN))
 		{
+			Sound::Play(S_SE_ANSWER);
 			Fade::Start(true, 30);
 			m_bEnd = true;
 		}

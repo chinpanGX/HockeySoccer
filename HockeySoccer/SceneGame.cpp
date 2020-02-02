@@ -7,25 +7,24 @@
 
 #include "SceneGame.h"
 #include "SceneManager.h"
+#include "Sound.h"
 
 //	ゲームの初期化処理
 void SceneGame::Init()
 {
 	m_bEnd = false;
 	Fade::Start(false, 90);
-	//	テクスチャのロード
-	LoadTexture();
-	// 初期化
-	m_LineMgr.Set();
-	m_StageEditor.Init();
+	LoadTexture();			// テクスチャのロード
+	m_LineMgr.Set();		// ラインのセット	
+	Sound::Play(S_BGM_GAME);
+	m_StageEditor.Init();	//	ステージエディタ
 }
 
 //	ゲームの終了処理
 void SceneGame::Uninit()
 {
-	m_StageEditor.Uninit();
-	//	テクスチャのアンロード
-	m_Texture.UnLoadTexture(texture);
+	m_StageEditor.Uninit();		
+	m_Texture.UnLoadTexture(texture); //	テクスチャのアンロード
 }
 
 //	ゲームの更新処理
@@ -74,6 +73,7 @@ void SceneGame::EndCheck()
 		}
 	}
 }
+
 /// <summary>
 ///	Draw()のヘルパー関数
 /// </summary>
@@ -86,12 +86,12 @@ void SceneGame::DrawBg()
 /// <summary>
 ///	 Getter
 /// </summary>
-
+//	ラインオブジェクト
 LineManager * SceneGame::GetLineMgr()
 {
 	return &m_LineMgr;
 }
-
+//	ステージエディタオブジェクト
 StageEditor * SceneGame::GetStageEditor()
 {
 	return &m_StageEditor;

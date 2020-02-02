@@ -10,6 +10,7 @@
 #include "Controller.h"
 #include "Fade.h"
 #include "ObjectManager.h"
+#include "Sound.h"
 
 //	初期化処理
 void StageEditor::Init()
@@ -121,7 +122,7 @@ void StageEditor::InitObject(int Stage)
 		m_Goal.Init();
 		m_Player.Init();
 		m_Enemy.Init(6.0f);
-		m_Ball.Init();
+		m_Ball.Init(D3DXVECTOR2(5.0f, -5.5f));
 		break;
 	case STAGE_3:
 		m_EnemyGoal.Init();
@@ -133,6 +134,8 @@ void StageEditor::InitObject(int Stage)
 	case GAME_END:
 		break;
 	case STAGE_END:
+		Sound::Stop();
+		Sound::Play(S_BGM_GAMEEND);
 		m_Retry = true;
 		break;
 	}
@@ -144,6 +147,7 @@ void StageEditor::InitObject(int Stage)
 //	オブジェクトの終了処理
 void StageEditor::UninitObject()
 {
+	Sound::Stop();
 	m_Ball.Uninit();
 	m_Enemy.Uninit();
 	m_Player.Uninit();
@@ -174,7 +178,7 @@ void StageEditor::EnemyGoalEnd()
 {
 	if (m_Ball.GetGoalFlag() == true)
 	{
-		if (m_StageCount == GAME_END - (Stage)1)
+		if (m_StageCount == GAME_END - 1)
 		{
 			m_Stage = GAME_END;	//	ゲームエンドステートへ
 		}
@@ -203,14 +207,17 @@ void StageEditor::UpdateStageClear()
 {
 	if (KeyBoard::IsTrigger(DIK_UPARROW))
 	{
+		Sound::Play(S_SE_BUTTON);
 		m_NextSelect = true;
 	}
 	else if (KeyBoard::IsTrigger(DIK_DOWNARROW))
 	{
+		Sound::Play(S_SE_BUTTON);
 		m_NextSelect = false;
 	}
 	if (KeyBoard::IsTrigger(DIK_RETURN))
 	{
+		Sound::Play(S_SE_ANSWER);
 		if (m_NextSelect == true)
 		{
 			m_StageCount++;		   // ステージカウントを加算する
@@ -230,18 +237,23 @@ void StageEditor::UpdateRetry()
 {
 	if (KeyBoard::IsTrigger(DIK_UPARROW))
 	{
+		Sound::Play(S_SE_BUTTON);
 		m_Retry = true;
 	}
 	else if (KeyBoard::IsTrigger(DIK_DOWNARROW))
 	{
+		Sound::Play(S_SE_BUTTON);
 		m_Retry = false;
 	}
 	if (KeyBoard::IsTrigger(DIK_RETURN))
 	{
+		Sound::Play(S_SE_ANSWER);
 		if (m_Retry == true)	//	リトライする
 		{
+			Sound::Stop();
 			InitObject(m_StageCount);		// ステージカウントは加算しないでInit()
 			m_Stage = (Stage)m_StageCount;	// キャストしてカウントを代入
+			Sound::Play(S_BGM_GAME);
 			Fade::Start(false, 60);
 		}
 		else // リトライしない

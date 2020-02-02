@@ -23,11 +23,13 @@ DWORD Sound::m_aSizeAudio[SOUND_MAX] = {};					// オーディオデータサイズ
 // 各音素材のパラメータ
 SoundParam g_aParam[SOUND_MAX] =
 {
-	{(char *)"Rom/BGM/bgm000.wav", -1},	// BGM0
-	{(char *)"Rom/BGM/bgm001.wav", -1},	// BGM1
+	{(char *)"Rom/BGM/Game.wav", -1},	// ゲームBGM
+	{(char *)"Rom/BGM/GameEnd.wav", -1},// ゲームエンドBGm
+	{(char *)"Rom/BGM/Title.wav", -1},	// タイトル
 	{(char *)"Rom/SE/ball.wav", 0},		// ボール音
 	{(char *)"Rom/SE/whistle.wav", 0},	// ゴール音
-	{(char *)"Rom/SE/button03a.wav",0},	// 決定音
+	{(char *)"Rom/SE/button03a.wav",0},	// カーソル移動
+	{(char *)"Rom/SE/answer2.wav",0},	// 決定音	
 };
 
 bool Sound::Init(HWND hWnd)

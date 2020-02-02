@@ -13,7 +13,8 @@
 class Player : public Actor
 {
 private:
-	AABB2d m_aabb;			 // AABBコリジョン
+	AABB2d m_aabb; // AABBコリジョン
+	float m_Speed; // 補正スピード値
 
 	// Update()のヘルパー関数
 	void Action();		//	入力の処理
@@ -21,6 +22,7 @@ private:
 	void Collision();	//	衝突判定
 public:
 	void Init()override;
+	void Init(float Speed);	// 補正スピードの変更
 	void Uninit()override;
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;

@@ -14,6 +14,17 @@
 void Player::Init()
 {
 	m_Position = D3DXVECTOR2(480.0f - 32.0f, 540.0f);
+	m_Speed = 1.0f;
+	m_aabb.cx = 0.0f;
+	m_aabb.cy = 0.0f;
+	m_aabb.sx = 32.0f;
+	m_aabb.sy = 128.0f;
+}
+
+void Player::Init(float Speed)
+{
+	m_Position = D3DXVECTOR2(480.0f - 32.0f, 540.0f);
+	m_Speed = Speed;
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
 	m_aabb.sx = 32.0f;
@@ -54,7 +65,7 @@ void Player::Action()
 
 void Player::Move()
 {
-	m_Position += m_Velocity; // Positionの更新
+	m_Position += m_Velocity * m_Speed; // Positionの更新
 	m_aabb.cx = m_Position.x; // コリジョンの更新
 	m_aabb.cy = m_Position.y;
 }
