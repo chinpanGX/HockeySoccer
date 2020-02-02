@@ -16,6 +16,7 @@
 #include "GameBG.h"
 #include "UI.h"
 
+// ステージ
 enum Stage
 {
 	STAGE_CLEAR,
@@ -30,21 +31,20 @@ class StageEditor
 {
 private:
 	Texture		m_Texture;
+	Stage		m_Stage;	// ステージ
 	Player		m_Player;	// プレイヤー
 	Enemy		m_Enemy;	// エネミー
 	Ball		m_Ball;		// ボール
 	Goal		m_Goal;		// ゴール
 	EnemyGoal	m_EnemyGoal;// 相手側のゴール
-	Stage		m_Stage;	// ステージ
 	GameBG		m_StageBG;	// ステージクリア背景
-	GameBG		m_RetryBG;	// リトライ背景
 	UI			m_Ui;		// UI
 
-	unsigned int texture[4]; // テクスチャを格納
+	unsigned int texture[2]; // テクスチャを格納
 	int	m_StageCount;		 // ステージをカウント
 	float m_FramePosition;	 // 枠の位置
 	bool m_NextSelect;		 //	選択フラグ(true->次、false->終了)
-	bool m_Retry;
+	bool m_Retry;			 // リトライ選択フラグ(true->リトライする、false->リトライしない)
 			
 	///	<summry>
 	/// Init()のヘルパー関数
@@ -55,17 +55,19 @@ private:
 	/// <summary>
 	/// Uninit()のヘルパー関数
 	/// </summary>
-	void UninitObject();
+	void UninitObject();	//	オブジェクトの終了処理
 
 	///	<summary>
 	///	Update()のヘルパー関数
 	/// </summary>
 	void UpdateObject();	// オブジェクトの更新処理
-	void EnemyGoalEnd();	// 相手ゴールに入れたとき
-	void GoalEnd();
 	void UpdateStageClear();// ステージクリアの更新
-	void UpdateFrame(bool flag);	// 枠の位置の更新
 	void UpdateRetry();		// リトライの更新
+	void UpdateFrame(bool Flag);	// 枠の位置の更新(引数でフラグを指定)
+	
+	//	UpdateObjectのヘルパー関数
+	void EnemyGoalEnd();	// 相手ゴールに入れたとき
+	void GoalEnd();			// 自陣ゴールに入ったとき
 
 	/// <summary>
 	///　Draw()のヘルパー関数
@@ -75,11 +77,11 @@ private:
 	void DrawRetry();		// リトライの描画
 
 public:
-	void Init();
-	void Uninit();
-	void Update();
-	void Draw();
-	bool GameEnd();
+	void Init();	// 初期化処理
+	void Uninit();	// 終了処理
+	void Update();	// 更新処理
+	void Draw();	// 描画処理
+	bool GameEnd();	// ゲームエンドチェック
 
 	//	Getter
 	Player* GetPlayer();

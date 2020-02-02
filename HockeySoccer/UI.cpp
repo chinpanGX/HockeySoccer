@@ -40,5 +40,5 @@ void UI::Draw(LPDIRECT3DTEXTURE9 Texture)
 
 void UI::Draw(float x, float y,int n)
 {
-	m_Sprite.Draw(m_Texture.SetTexture(m_UItexture), x, y, 800.0f, 1296.0f, 0.0f, 215.0f * n, 800.0f, 216.0f,m_Color);
+	m_Sprite.Draw(m_Texture.SetTexture(m_UItexture), x, y, 864.0f, 1728.0f, 0.0f, 215.0f * n, 864.0f, 216.0f,m_Color);
 }

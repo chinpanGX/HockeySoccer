@@ -15,6 +15,7 @@ enum SoundLabel
 	S_BGM_GAME,		// ゲームBGM
 	S_SE_BALL,		// ボールSE
 	S_SE_WHISTIL,	// ホイッスルSE
+	S_SE_BUTTON,
 
 	SOUND_MAX
 };

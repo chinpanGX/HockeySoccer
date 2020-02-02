@@ -25,8 +25,6 @@ void StageEditor::Uninit()
 {
 	UninitObject();
 	m_Ui.Uninit();
-	m_Texture.UnLoadTexture(texture[3]);
-	m_Texture.UnLoadTexture(texture[2]);
 	m_Texture.UnLoadTexture(texture[1]);
 	m_Texture.UnLoadTexture(texture[0]);
 }
@@ -50,7 +48,6 @@ void StageEditor::Update()
 		UpdateObject();
 		break;
 	case GAME_END:
-		GameEnd();
 		break;
 	case STAGE_END:
 		UpdateFrame(m_Retry);
@@ -87,7 +84,7 @@ void StageEditor::Draw()
 //	ゲーム終了
 bool StageEditor::GameEnd()
 {
-	if (m_Stage == GAME_END) // ステージが終了
+	if (m_Stage == GAME_END) // ゲームエンドで終了
 	{
 		return true;
 	}
@@ -102,8 +99,6 @@ void StageEditor::LoadTexture()
 {
 	texture[0] = m_Texture.LoadTexture("Rom/Texture/Ball.png");  // ボール
 	texture[1] = m_Texture.LoadTexture("Rom/Texture/Bar.png");	 // Player&Goal
-	texture[2] = m_Texture.LoadTexture("Rom/Texture/BG.png");	 // クリア画面
-	texture[3] = m_Texture.LoadTexture("Rom/Texture/Retry.png"); //	リトライ画面
 	m_Ui.Init();	//	UIテクスチャ
 }
 //	オブジェクトの初期化
@@ -171,17 +166,28 @@ void StageEditor::UpdateObject()
 	GoalEnd();		//	ゴールに入ったときの処理
 }
 
+/// <summary>
+/// UpdateObject()のヘルパー関数
+/// </summary>
 //	ゴールに入れたときの処理
 void StageEditor::EnemyGoalEnd()
 {
 	if (m_Ball.GetGoalFlag() == true)
 	{
-		Fade::Start(false, 30);
-		m_Stage = STAGE_CLEAR; // ステートを更新
-		InitObject(m_Stage);
+		if (m_StageCount == GAME_END - (Stage)1)
+		{
+			m_Stage = GAME_END;	//	ゲームエンドステートへ
+		}
+		else
+		{
+			Fade::Start(false, 30);
+			m_Stage = STAGE_CLEAR; // ステートを更新
+			InitObject(m_Stage);
+		}
 	}
 }
 
+//	自陣ゴールの処理
 void StageEditor::GoalEnd()
 {
 	if (m_Ball.GetGameEnd() == true) // 自陣ゴールに入る
@@ -207,28 +213,15 @@ void StageEditor::UpdateStageClear()
 	{
 		if (m_NextSelect == true)
 		{
-			m_StageCount++;		   // ステージカウントを加算する 
+			m_StageCount++;		   // ステージカウントを加算する
 			InitObject(m_StageCount);
 			m_Stage = (Stage)m_StageCount; //	キャストしてカウントを代入
 			Fade::Start(false, 60);
 		}
 		else
 		{
-			m_Stage = STAGE_END;
+			m_Stage = GAME_END;	//	ゲームエンドステートへ
 		}
-	}
-}
-
-//	枠の位置の更新
-void StageEditor::UpdateFrame(bool flag)
-{
-	if (flag == true)
-	{
-		m_FramePosition = SCREEN_HEIGHT * 0.5f - 100.0f;
-	}
-	else if (flag == false)
-	{
-		m_FramePosition = SCREEN_HEIGHT * 0.5f + 100.0f;
 	}
 }
 
@@ -253,11 +246,23 @@ void StageEditor::UpdateRetry()
 		}
 		else // リトライしない
 		{
-			m_Stage = STAGE_END; // エンドステートへ
+			m_Stage = GAME_END; // エンドステートへ
 		}
 	}
 }
 
+//	枠の位置の更新
+void StageEditor::UpdateFrame(bool Flag)
+{	
+	if (Flag == true)
+	{
+		m_FramePosition = SCREEN_HEIGHT * 0.5f - 100.0f;
+	}
+	else if (Flag == false)
+	{
+		m_FramePosition = SCREEN_HEIGHT * 0.5f + 100.0f;
+	}
+}
 
 /// <summary>
 /// Draw()のヘルパー関数
@@ -275,18 +280,19 @@ void StageEditor::DrawObject()
 //	ゲームクリアの描画処理
 void StageEditor::DrawStageClear()
 {
-	m_StageBG.Draw(m_Texture.SetTexture(texture[2]));
-	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 400.0f, SCREEN_HEIGHT * 0.5f - 100.0f, 1);
-	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 400.0f, SCREEN_HEIGHT * 0.5f + 100.0f, 2);
-	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 400.0f, m_FramePosition, 0);
+	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f - 400.0f, 7);
+	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f - 100.0f, 1);
+	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f + 100.0f, 2);
+	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, m_FramePosition, 0);
 }
 
+//	リトライ画面の描画処理
 void StageEditor::DrawRetry()
 {
-	m_RetryBG.Draw(m_Texture.SetTexture(texture[3]));
-	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 400.0f, SCREEN_HEIGHT * 0.5f - 100.0f, 4);
-	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 400.0f, SCREEN_HEIGHT * 0.5f + 100.0f, 5);
-	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 400.0f, m_FramePosition, 0);
+	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f - 400.0f, 6);
+	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f - 100.0f, 4);
+	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f + 100.0f, 5);
+	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, m_FramePosition, 0);
 }
 
 /// <summary>
