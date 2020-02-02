@@ -1,6 +1,7 @@
 /*=========================================================
 
 	[StageEditor.h]
+	概要 ： ステージエディタ
 	Author : 出合翔太
 
 ==========================================================*/
@@ -34,16 +35,18 @@ private:
 	Goal		m_Goal;		// ゴール
 	EnemyGoal	m_EnemyGoal;// 相手側のゴール
 	Stage		m_Stage;	// ステージ
-	GameBG		m_Bg;
-	UI			m_Ui;
+	GameBG		m_Bg;		// ステージクリア背景
+	UI			m_Ui;		// UI
 
 	unsigned int texture[3]; // テクスチャを格納
 	int	m_StageCount;		 // ステージをカウント
-	
+	float m_FramePosition;	 // 枠の位置
+	bool m_NextSelect;		 //	選択フラグ(true->次、false->終了)
+			
 	///	<summry>
 	/// Init()のヘルパー関数
 	/// </summary>
-	void LoadTexture();	// テクスチャのロード
+	void LoadTexture();			// テクスチャのロード
 	void InitObject(int Stage);	// オブジェクトの初期化
 
 	/// <summary>
@@ -54,13 +57,16 @@ private:
 	///	<summary>
 	///	Update()のヘルパー関数
 	/// </summary>
-	void UpdateObject(); //	オブジェクトの更新処理
-	void EnemyGoalEnd();
+	void UpdateObject();	// オブジェクトの更新処理
+	void EnemyGoalEnd();	// 相手ゴールに入れたとき	
+	void UpdateStageClear();// ステージクリアの更新
+	void UpdateFrame();		// 枠の位置の更新
 
 	/// <summary>
 	///　Draw()のヘルパー関数
 	/// </summary>
-	void DrawObject(); // オブジェクトの描画処理
+	void DrawObject();		// オブジェクトの描画処理
+	void DrawStageClear();	// ステージクリアの描画
 
 public:
 	void Init();
@@ -69,6 +75,7 @@ public:
 	void Draw();
 	bool GameEnd();
 
+	//	Getter
 	Player* GetPlayer();
 	Enemy* GetEnemy();
 	Goal* GetGoal();
