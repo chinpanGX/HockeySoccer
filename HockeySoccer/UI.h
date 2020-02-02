@@ -15,7 +15,7 @@ private:
 	D3DXCOLOR m_Color;
 	float m_Changecolor;
 	Texture m_Texture;
-	unsigned int texture;
+	unsigned int m_UItexture;
 public:
 	void Init()override;
 	void Uninit()override;

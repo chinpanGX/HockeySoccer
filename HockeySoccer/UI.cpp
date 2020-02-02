@@ -9,14 +9,14 @@
 
 void UI::Init()
 {
-	texture = m_Texture.LoadTexture("Rom/Texture/UI.png");
+	m_UItexture = m_Texture.LoadTexture("Rom/Texture/UI.png");
 	m_Color = D3DXCOLOR(0.0f, 0.0f, 0.0f,1.0f);
 	m_Changecolor = 0.01f;
 }
 
 void UI::Uninit()
 {
-	m_Texture.UnLoadTexture(texture);
+	m_Texture.UnLoadTexture(m_UItexture);
 }
 
 void UI::Update()
@@ -40,5 +40,5 @@ void UI::Draw(LPDIRECT3DTEXTURE9 Texture)
 
 void UI::Draw(float x, float y,int n)
 {
-	m_Sprite.Draw(m_Texture.SetTexture(texture), x, y, 800.0f, 864.0f, 0.0f, 215.0f * n, 800.0f, 216.0f,m_Color);
+	m_Sprite.Draw(m_Texture.SetTexture(m_UItexture), x, y, 800.0f, 1296.0f, 0.0f, 215.0f * n, 800.0f, 216.0f,m_Color);
 }

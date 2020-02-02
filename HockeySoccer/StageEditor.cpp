@@ -25,6 +25,7 @@ void StageEditor::Uninit()
 {
 	UninitObject();
 	m_Ui.Uninit();
+	m_Texture.UnLoadTexture(texture[3]);
 	m_Texture.UnLoadTexture(texture[2]);
 	m_Texture.UnLoadTexture(texture[1]);
 	m_Texture.UnLoadTexture(texture[0]);
@@ -36,7 +37,7 @@ void StageEditor::Update()
 	switch (m_Stage)
 	{
 	case STAGE_CLEAR:
-		UpdateFrame();
+		UpdateFrame(m_NextSelect);
 		UpdateStageClear();
 		break;
 	case STAGE_1:
@@ -48,8 +49,12 @@ void StageEditor::Update()
 	case STAGE_3:
 		UpdateObject();
 		break;
-	case STAGE_END:
+	case GAME_END:
 		GameEnd();
+		break;
+	case STAGE_END:
+		UpdateFrame(m_Retry);
+		UpdateRetry();	//	リトライの更新
 		break;
 	}
 }
@@ -71,7 +76,10 @@ void StageEditor::Draw()
 	case STAGE_3:
 		DrawObject();
 		break;
+	case GAME_END:
+		break;
 	case STAGE_END:
+		DrawRetry();
 		break;
 	}
 }
@@ -79,11 +87,7 @@ void StageEditor::Draw()
 //	ゲーム終了
 bool StageEditor::GameEnd()
 {
-	if (m_Ball.GetGameEnd() == true) // 自陣ゴールに入る
-	{
-		return true;
-	}
-	if (m_Stage == STAGE_END) // ステージが終了。
+	if (m_Stage == GAME_END) // ステージが終了
 	{
 		return true;
 	}
@@ -98,7 +102,8 @@ void StageEditor::LoadTexture()
 {
 	texture[0] = m_Texture.LoadTexture("Rom/Texture/Ball.png");  // ボール
 	texture[1] = m_Texture.LoadTexture("Rom/Texture/Bar.png");	 // Player&Goal
-	texture[2] = m_Texture.LoadTexture("Rom/Texture/BG.png"); // クリア画面
+	texture[2] = m_Texture.LoadTexture("Rom/Texture/BG.png");	 // クリア画面
+	texture[3] = m_Texture.LoadTexture("Rom/Texture/Retry.png"); //	リトライ画面
 	m_Ui.Init();	//	UIテクスチャ
 }
 //	オブジェクトの初期化
@@ -130,8 +135,10 @@ void StageEditor::InitObject(int Stage)
 		m_Enemy.Init(6.0f, D3DXVECTOR2(960.0f + 320.0f, 360.0f));
 		m_Ball.Init(D3DXVECTOR2(-7.0f, 10.5f));
 		break;
+	case GAME_END:
+		break;
 	case STAGE_END:
-		m_Stage = STAGE_END;
+		m_Retry = true;
 		break;
 	}
 }
@@ -161,6 +168,7 @@ void StageEditor::UpdateObject()
 	m_Enemy.Update();
 	m_Ball.Update();
 	EnemyGoalEnd();	//	ゴールに入れたときの処理
+	GoalEnd();		//	ゴールに入ったときの処理
 }
 
 //	ゴールに入れたときの処理
@@ -174,6 +182,17 @@ void StageEditor::EnemyGoalEnd()
 	}
 }
 
+void StageEditor::GoalEnd()
+{
+	if (m_Ball.GetGameEnd() == true) // 自陣ゴールに入る
+	{
+		Fade::Start(false, 30);
+		m_Stage = STAGE_END; // ステートを更新
+		InitObject(m_Stage);
+	}
+}
+
+//	ゲームクリアの更新処理
 void StageEditor::UpdateStageClear()
 {
 	if (KeyBoard::IsTrigger(DIK_UPARROW))
@@ -201,15 +220,41 @@ void StageEditor::UpdateStageClear()
 }
 
 //	枠の位置の更新
-void StageEditor::UpdateFrame()
+void StageEditor::UpdateFrame(bool flag)
 {
-	if (m_NextSelect == true)
+	if (flag == true)
 	{
 		m_FramePosition = SCREEN_HEIGHT * 0.5f - 100.0f;
 	}
-	else if (m_NextSelect == false)
+	else if (flag == false)
 	{
 		m_FramePosition = SCREEN_HEIGHT * 0.5f + 100.0f;
+	}
+}
+
+//	リトライの更新
+void StageEditor::UpdateRetry()
+{
+	if (KeyBoard::IsTrigger(DIK_UPARROW))
+	{
+		m_Retry = true;
+	}
+	else if (KeyBoard::IsTrigger(DIK_DOWNARROW))
+	{
+		m_Retry = false;
+	}
+	if (KeyBoard::IsTrigger(DIK_RETURN))
+	{
+		if (m_Retry == true)	//	リトライする
+		{
+			InitObject(m_StageCount);		// ステージカウントは加算しないでInit()
+			m_Stage = (Stage)m_StageCount;	// キャストしてカウントを代入
+			Fade::Start(false, 60);
+		}
+		else // リトライしない
+		{
+			m_Stage = STAGE_END; // エンドステートへ
+		}
 	}
 }
 
@@ -227,11 +272,20 @@ void StageEditor::DrawObject()
 	m_EnemyGoal.Draw(m_Texture.SetTexture(texture[1]));
 }
 
+//	ゲームクリアの描画処理
 void StageEditor::DrawStageClear()
 {
-	m_Bg.Draw(m_Texture.SetTexture(texture[2]));
+	m_StageBG.Draw(m_Texture.SetTexture(texture[2]));
 	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 400.0f, SCREEN_HEIGHT * 0.5f - 100.0f, 1);
 	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 400.0f, SCREEN_HEIGHT * 0.5f + 100.0f, 2);
+	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 400.0f, m_FramePosition, 0);
+}
+
+void StageEditor::DrawRetry()
+{
+	m_RetryBG.Draw(m_Texture.SetTexture(texture[3]));
+	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 400.0f, SCREEN_HEIGHT * 0.5f - 100.0f, 4);
+	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 400.0f, SCREEN_HEIGHT * 0.5f + 100.0f, 5);
 	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 400.0f, m_FramePosition, 0);
 }
 

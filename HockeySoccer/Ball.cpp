@@ -8,6 +8,7 @@
 #include "Ball.h"
 #include "Line.h"
 #include "ObjectManager.h"
+#include "Sound.h"
 
 void Ball::Init()
 {
@@ -70,6 +71,7 @@ void Ball::PlayerCollision()
 	Player* p_Player = ObjectManager::GetPlayer();
 	if (AABB_2d(m_aabb, p_Player->GetCollision()) == true)
 	{
+		Sound::Play(S_SE_BALL);
 		m_Velocity.x *= -1;
 	}
 }
@@ -80,6 +82,7 @@ void Ball::EnemyCollision()
 	Enemy* p_Enemy = ObjectManager::GetEnemy();
 	if (AABB_2d(m_aabb, p_Enemy->GetCollision()) == true)
 	{
+		Sound::Play(S_SE_BALL);
 		m_Velocity.x *= -1;
 	}
 }
@@ -94,10 +97,12 @@ void Ball::LineCollsion()
 	Rightline* p_rightline = ObjectManager::GetRightLine();
 	if (AABB_2d(m_aabb, p_topline->GetCollision()) == true || AABB_2d(m_aabb, p_underline->GetCollision()) == true)
 	{
+		Sound::Play(S_SE_BALL);
 		m_Velocity.y *= -1;
 	}
 	if (AABB_2d(m_aabb, p_leftline->GetCollision()) == true || AABB_2d(m_aabb, p_rightline->GetCollision()) == true)
 	{
+		Sound::Play(S_SE_BALL);
 		m_Velocity.x *= -1;
 	}
 }
@@ -109,6 +114,7 @@ void Ball::GoalCollsion()
 	Goal * p_Goal = ObjectManager::GetGoal();
 	if (AABB_2d(m_aabb, p_Goal->GetCollision()) == true)
 	{
+		Sound::Play(S_SE_WHISTIL);
 		//ƒQ[ƒ€I—¹
 		m_GameEnd = true;
 	}
@@ -120,6 +126,7 @@ void Ball::EnemyGoalCollision()
 	EnemyGoal* p_EnemyGoal = ObjectManager::GetEnemyGoal();
 	if (AABB_2d(m_aabb, p_EnemyGoal->GetCollision()) == true)
 	{
+		Sound::Play(S_SE_WHISTIL);
 		m_GoalFlag = true;
 	}
 }

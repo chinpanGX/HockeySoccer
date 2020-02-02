@@ -31,8 +31,8 @@ void SceneGame::Uninit()
 //	ゲームの更新処理
 void SceneGame::Update()
 {
-	EndCheck();
 	m_StageEditor.Update();
+	EndCheck();
 }
 
 //	ゲームの描画処理

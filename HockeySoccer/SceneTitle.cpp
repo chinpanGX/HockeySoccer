@@ -1,24 +1,27 @@
 /*===================================================
 
 	[SceneTitle.cpp]
-	Author : o‡ãÄ‘¾
+	Author : 出合翔太
 
 ====================================================*/
 
 #include "SceneTitle.h"
 #include "SceneManager.h"
 #include "Controller.h"
+#include "Sound.h"
 
 void SceneTitle::Init()
 {
 	LoadTexture();
 	m_Ui.Init();
+	Sound::Play(S_BGM_TITLE);
 	Fade::Start(false,90);
 	m_bEnd = false;
 }
 
 void SceneTitle::Uninit()
 {
+	Sound::Stop();
 	m_Ui.Uninit();	
 	m_Texture.UnLoadTexture(texture);
 }
@@ -29,7 +32,7 @@ void SceneTitle::Update()
 	if (!m_bEnd)
 	{
 		//	ゲームへ遷移
-		if (KeyBoard::IsTrigger(DIK_R))
+		if (KeyBoard::IsTrigger(DIK_RETURN))
 		{
 			Fade::Start(true, 30);
 			m_bEnd = true;

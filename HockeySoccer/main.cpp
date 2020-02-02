@@ -10,6 +10,7 @@
 #include "Input.h"
 #include "SceneManager.h"
 #include <time.h>
+#include "Sound.h"
 
 //	マクロ定義
 #define CLASS_NAME     "GameWindow"       // ウインドウクラスの名前
@@ -346,6 +347,11 @@ bool Init(HINSTANCE hInst)
 	{
 		return false;
 	}
+
+	if (!Sound::Init(g_hWnd))
+	{
+		return false;
+	}
 	
 	//	ゲーム初期化処理
 	SceneManager::Init();
@@ -356,11 +362,11 @@ bool Init(HINSTANCE hInst)
 //　終了処理関数
 void Uninit()
 {
+	//	XAudioの終了処理
+	Sound::Uninit();
+
 	//	ゲーム終了処理
 	SceneManager::Uninit();
-
-	//	XAudioの終了処理
-	//Sound::Uninit();
 
 	//	入力処理の終了処理
 	Input::Uninit();
