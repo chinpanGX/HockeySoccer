@@ -32,7 +32,7 @@ void SceneTitle::Update()
 	if (!m_bEnd)
 	{
 		//	ゲームへ遷移
-		if (KeyBoard::IsTrigger(DIK_RETURN))
+		if (KeyBoard::IsTrigger(DIK_RETURN) || GamePad::IsTrigger(0, BUTTON_2))
 		{
 			Sound::Play(S_SE_ANSWER);
 			Fade::Start(true, 30);

@@ -205,17 +205,17 @@ void StageEditor::GoalEnd()
 //	ゲームクリアの更新処理
 void StageEditor::UpdateStageClear()
 {
-	if (KeyBoard::IsTrigger(DIK_UPARROW))
+	if (KeyBoard::IsTrigger(DIK_UPARROW) || GamePad::IsTrigger(0,LEFTSTICK_UP))
 	{
 		Sound::Play(S_SE_BUTTON);
 		m_NextSelect = true;
 	}
-	else if (KeyBoard::IsTrigger(DIK_DOWNARROW))
+	else if (KeyBoard::IsTrigger(DIK_DOWNARROW) || GamePad::IsTrigger(0,LEFTSTICK_DOWN))
 	{
 		Sound::Play(S_SE_BUTTON);
 		m_NextSelect = false;
 	}
-	if (KeyBoard::IsTrigger(DIK_RETURN))
+	if (KeyBoard::IsTrigger(DIK_RETURN) || GamePad::IsTrigger(0,BUTTON_2))
 	{
 		Sound::Play(S_SE_ANSWER);
 		if (m_NextSelect == true)
@@ -235,17 +235,17 @@ void StageEditor::UpdateStageClear()
 //	リトライの更新
 void StageEditor::UpdateRetry()
 {
-	if (KeyBoard::IsTrigger(DIK_UPARROW))
+	if (KeyBoard::IsTrigger(DIK_UPARROW) || GamePad::IsTrigger(0, LEFTSTICK_UP))
 	{
 		Sound::Play(S_SE_BUTTON);
 		m_Retry = true;
 	}
-	else if (KeyBoard::IsTrigger(DIK_DOWNARROW))
+	else if (KeyBoard::IsTrigger(DIK_DOWNARROW) || GamePad::IsTrigger(0, LEFTSTICK_DOWN))
 	{
 		Sound::Play(S_SE_BUTTON);
 		m_Retry = false;
 	}
-	if (KeyBoard::IsTrigger(DIK_RETURN))
+	if (KeyBoard::IsTrigger(DIK_RETURN) || GamePad::IsTrigger(0, BUTTON_2))
 	{
 		Sound::Play(S_SE_ANSWER);
 		if (m_Retry == true)	//	リトライする

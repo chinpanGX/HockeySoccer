@@ -13,7 +13,7 @@
 
 void Player::Init()
 {
-	m_Position = D3DXVECTOR2(480.0f - 32.0f, 540.0f);
+	m_Position = D3DXVECTOR2(480.0f, 540.0f);
 	m_Speed = 1.0f;
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
@@ -23,7 +23,7 @@ void Player::Init()
 
 void Player::Init(float Speed)
 {
-	m_Position = D3DXVECTOR2(480.0f - 32.0f, 540.0f);
+	m_Position = D3DXVECTOR2(480.0f, 540.0f);
 	m_Speed = Speed;
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
@@ -53,11 +53,11 @@ void Player::Draw(LPDIRECT3DTEXTURE9 Texture)
 
 void Player::Action()
 {
-	if (KeyBoard::IsPress(DIK_UPARROW))
+	if (KeyBoard::IsPress(DIK_UPARROW) || GamePad::IsTrigger(0, LEFTSTICK_UP))
 	{
 		m_Velocity.y -= 5.0f;
 	}
-	if (KeyBoard::IsPress(DIK_DOWNARROW))
+	if (KeyBoard::IsPress(DIK_DOWNARROW) || GamePad::IsTrigger(0, LEFTSTICK_DOWN))
 	{
 		m_Velocity.y += 5.0f;
 	}   

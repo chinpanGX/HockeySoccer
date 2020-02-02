@@ -57,7 +57,7 @@ void Ball::Update()
 
 void Ball::Draw(LPDIRECT3DTEXTURE9 Texture)
 {
-	m_Sprite.Draw(Texture, m_Position.x, m_Position.y, 32.0f, 32.0f);
+	m_Sprite.Draw(Texture, m_Position.x - 32.0f, m_Position.y - 32.0f, 32.0f, 32.0f);
 }
 
 

@@ -60,6 +60,8 @@ void SceneGame::EndCheck()
 	{
 		//	©wƒS[ƒ‹‚Ì“–‚½‚Á‚½‚çƒŠƒUƒ‹ƒg
 		if (m_StageEditor.GameEnd() == true)
+
+
 		{
 			Fade::Start(true, 30);
 			m_bEnd = true;
