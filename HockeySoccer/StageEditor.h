@@ -23,6 +23,8 @@ enum Stage
 	STAGE_1,
 	STAGE_2,
 	STAGE_3,
+	STAGE_4,
+	STAGE_5,
 	GAME_END,
 	STAGE_END
 };
@@ -42,6 +44,7 @@ private:
 
 	unsigned int texture[2]; // テクスチャを格納
 	int	m_StageCount;		 // ステージをカウント
+	int m_Frame;			 // フレームカウント
 	float m_FramePosition;	 // 枠の位置
 	bool m_NextSelect;		 //	選択フラグ(true->次、false->終了)
 	bool m_Retry;			 // リトライ選択フラグ(true->リトライする、false->リトライしない)
@@ -51,6 +54,7 @@ private:
 	/// </summary>
 	void LoadTexture();			// テクスチャのロード
 	void InitObject(int Stage);	// オブジェクトの初期化
+	void InitGoal();
 
 	/// <summary>
 	/// Uninit()のヘルパー関数
@@ -61,6 +65,7 @@ private:
 	///	Update()のヘルパー関数
 	/// </summary>
 	void UpdateObject();	// オブジェクトの更新処理
+	void UpdateEnemy(int EnemyNum);	// オブジェクトの更新処理
 	void UpdateStageClear();// ステージクリアの更新
 	void UpdateRetry();		// リトライの更新
 	void UpdateFrame(bool Flag);	// 枠の位置の更新(引数でフラグを指定)
@@ -73,6 +78,7 @@ private:
 	///　Draw()のヘルパー関数
 	/// </summary>
 	void DrawObject();		// オブジェクトの描画処理
+	void DrawEnemy(int EnemyNum);
 	void DrawStageClear();	// ステージクリアの描画
 	void DrawRetry();		// リトライの描画
 

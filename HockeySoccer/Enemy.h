@@ -24,5 +24,6 @@ public:
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
 	AABB2d* GetCollision();
+	D3DXVECTOR2 GetPosition();
 };
 

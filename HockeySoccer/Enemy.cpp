@@ -15,7 +15,7 @@ void Enemy::Init()
 	m_Velocity = D3DXVECTOR2(0.0f, 5.0f);	//	ベクトルの初期化
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
-	m_aabb.sx = 32.0f;
+	m_aabb.sx = 30.0f;
 	m_aabb.sy = 128.0f;
 }
 
@@ -25,7 +25,7 @@ void Enemy::Init(float Speed, D3DXVECTOR2 Position)
 	m_Velocity = D3DXVECTOR2(0.0f, Speed);	//	ベクトルの初期化
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
-	m_aabb.sx = 32.0f;
+	m_aabb.sx = 30.0f;
 	m_aabb.sy = 128.0f;
 }
 
@@ -51,6 +51,11 @@ AABB2d * Enemy::GetCollision()
 	return &m_aabb;
 }
 
+D3DXVECTOR2 Enemy::GetPosition()
+{
+	return m_Position;
+}
+
 void Enemy::Move()
 {
 	m_Position += m_Velocity; // Positionの更新
@@ -63,11 +68,13 @@ void Enemy::Collision()
 	Topline* p_topline = ObjectManager::GetTopLine();
 	if (AABB_2d(m_aabb, p_topline->GetCollision()) == true)
 	{
+		m_Position.y = 128.0f + 30.f;
 		m_Velocity.y *= -1;
 	}
 	Underline* p_underline = ObjectManager::GetUnderLine();
 	if (AABB_2d(m_aabb, p_underline->GetCollision()) == true)
 	{
+		m_Position.y = SCREEN_HEIGHT - 128.0f - 30.f;
 		m_Velocity.y *= -1;
 	}
 	m_Position += m_Velocity;

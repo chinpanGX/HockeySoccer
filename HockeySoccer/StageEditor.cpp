@@ -15,9 +15,9 @@
 //	初期化処理
 void StageEditor::Init()
 {
-	LoadTexture();	//	テクスチャのロード
-	m_Stage = STAGE_1;	//	初期化ステージ
-	InitObject(STAGE_1);	
+	LoadTexture();			//	テクスチャのロード
+	m_Stage = STAGE_1;		//	初期化ステージ
+	InitObject(STAGE_1);
 	m_StageCount = m_Stage;	//	ステージカウントへ代入
 }
 
@@ -48,6 +48,12 @@ void StageEditor::Update()
 	case STAGE_3:
 		UpdateObject();
 		break;
+	case STAGE_4:
+		UpdateObject();
+		break;
+	case STAGE_5:
+		UpdateObject();
+		break;
 	case GAME_END:
 		break;
 	case STAGE_END:
@@ -72,6 +78,12 @@ void StageEditor::Draw()
 		DrawObject();
 		break;
 	case STAGE_3:
+		DrawObject();
+		break;
+	case STAGE_4:
+		DrawObject();
+		break;
+	case STAGE_5:
 		DrawObject();
 		break;
 	case GAME_END:
@@ -111,25 +123,34 @@ void StageEditor::InitObject(int Stage)
 		m_NextSelect = true; //	選択フラグはtrueにしておく
 		break;
 	case STAGE_1:
-		m_EnemyGoal.Init();
-		m_Goal.Init();
+		InitGoal();
 		m_Player.Init();
 		m_Enemy.Init();
 		m_Ball.Init();
 		break;
 	case STAGE_2:
-		m_EnemyGoal.Init();
-		m_Goal.Init();
+		InitGoal();
 		m_Player.Init();
 		m_Enemy.Init(6.0f);
-		m_Ball.Init(D3DXVECTOR2(5.0f, -5.5f));
+		m_Ball.Init(D3DXVECTOR2(-8.0f, 8.5f));
 		break;
 	case STAGE_3:
-		m_EnemyGoal.Init();
-		m_Goal.Init();
-		m_Player.Init();
-		m_Enemy.Init(6.0f, D3DXVECTOR2(960.0f + 320.0f, 360.0f));
+		InitGoal();
+		m_Player.Init(0.8f);
+		m_Enemy.Init(9.0f, D3DXVECTOR2(960.0f + 320.0f, 100.0f));
 		m_Ball.Init(D3DXVECTOR2(-7.0f, 10.5f));
+		break;
+	case STAGE_4:
+		InitGoal();
+		m_Player.Init(1.5f);
+		m_Enemy.Init(5.0f, D3DXVECTOR2(960.0f + 300.0f, 800.0f));
+		m_Ball.Init(D3DXVECTOR2(-7.0f, 10.5f));
+		break;
+	case STAGE_5:
+		InitGoal();
+		m_Player.Init(0.5f);
+		m_Enemy.Init(20.0f, D3DXVECTOR2(960.0f + 400.0f, 360.0f));
+		m_Ball.Init(D3DXVECTOR2(-20.0f, 5.5f));
 		break;
 	case GAME_END:
 		break;
@@ -139,6 +160,13 @@ void StageEditor::InitObject(int Stage)
 		m_Retry = true;
 		break;
 	}
+}
+
+//	ゴールの初期化
+void StageEditor::InitGoal()
+{
+	m_EnemyGoal.Init();
+	m_Goal.Init();
 }
 
 /// <summry>
@@ -168,6 +196,11 @@ void StageEditor::UpdateObject()
 	m_Ball.Update();
 	EnemyGoalEnd();	//	ゴールに入れたときの処理
 	GoalEnd();		//	ゴールに入ったときの処理
+}
+
+void StageEditor::UpdateEnemy(int EnemyNum)
+{
+
 }
 
 /// <summary>
@@ -220,9 +253,9 @@ void StageEditor::UpdateStageClear()
 		Sound::Play(S_SE_ANSWER);
 		if (m_NextSelect == true)
 		{
-			m_StageCount++;		   // ステージカウントを加算する
-			InitObject(m_StageCount);
-			m_Stage = (Stage)m_StageCount; //	キャストしてカウントを代入
+			m_StageCount++;					// ステージカウントを加算する
+			InitObject(m_StageCount);		// 次のステージを初期化	
+			m_Stage = (Stage)m_StageCount;	// キャストしてカウントを代入
 			Fade::Start(false, 60);
 		}
 		else

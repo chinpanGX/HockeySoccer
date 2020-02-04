@@ -53,11 +53,11 @@ void Player::Draw(LPDIRECT3DTEXTURE9 Texture)
 
 void Player::Action()
 {
-	if (KeyBoard::IsPress(DIK_UPARROW) || GamePad::IsTrigger(0, LEFTSTICK_UP))
+	if (KeyBoard::IsPress(DIK_UPARROW) || GamePad::IsPress(0, LEFTSTICK_UP))
 	{
 		m_Velocity.y -= 5.0f;
 	}
-	if (KeyBoard::IsPress(DIK_DOWNARROW) || GamePad::IsTrigger(0, LEFTSTICK_DOWN))
+	if (KeyBoard::IsPress(DIK_DOWNARROW) || GamePad::IsPress(0, LEFTSTICK_DOWN))
 	{
 		m_Velocity.y += 5.0f;
 	}   
@@ -75,12 +75,14 @@ void Player::Collision()
 	Topline* p_topline = ObjectManager::GetTopLine();
 	if (AABB_2d(m_aabb,p_topline->GetCollision()) == true)
 	{
-		m_Velocity.y *= -1.1f;
+		m_Position.y = 128.0f + 28.f;
+		m_Velocity.y *= -1;
 	}
 	Underline* p_underline = ObjectManager::GetUnderLine();
 	if (AABB_2d(m_aabb,p_underline->GetCollision()) == true)
 	{
-		m_Velocity.y *= -1.1f;
+		m_Position.y = SCREEN_HEIGHT - 128.0f - 28.f;
+		m_Velocity.y *= -1;
 	}
 	m_Position += m_Velocity;
 }
