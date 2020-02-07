@@ -43,7 +43,7 @@ void Enemy::Draw(LPDIRECT3DTEXTURE9 Texture)
 {
 	D3DXCOLOR color = D3DCOLOR_RGBA(255, 155, 155, 255);
 	m_Sprite.SetColor(0, 255, 255, 255);
-	m_Sprite.Draw(Texture, m_Position.x - 32.0f, m_Position.y - 128.0f, 80.0f, 256.0f, color);
+	m_Sprite.Draw(Texture, m_Position.x - 16.0f, m_Position.y - 128.0f, 32.0f, 256.0f, color);
 }
 
 AABB2d * Enemy::GetCollision()

@@ -16,8 +16,8 @@ void Ball::Init()
 	m_Velocity = D3DXVECTOR2(5.0f, 8.5f);
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
-	m_aabb.sx = 30.0f;
-	m_aabb.sy = 30.0f;
+	m_aabb.sx = 16.0f;
+	m_aabb.sy = 16.0f;
 	m_GameEnd = false;
 	m_GoalFlag = false;
 }
@@ -28,8 +28,8 @@ void Ball::Init(D3DXVECTOR2 Velocity)
 	m_Velocity = Velocity;
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
-	m_aabb.sx = 30.0f;
-	m_aabb.sy = 30.0f;
+	m_aabb.sx = 16.0f;
+	m_aabb.sy = 16.0f;
 	m_GameEnd = false;
 	m_GoalFlag = false;
 }
@@ -56,7 +56,7 @@ void Ball::Update()
 
 void Ball::Draw(LPDIRECT3DTEXTURE9 Texture)
 {
-	m_Sprite.Draw(Texture, m_Position.x - 32.0f, m_Position.y - 32.0f, 32.0f, 32.0f);
+	m_Sprite.Draw(Texture, m_Position.x - 16.0f, m_Position.y - 16.0f, 32.0f, 32.0f);
 }
 
 
@@ -70,24 +70,8 @@ void Ball::PlayerCollision()
 	Player* p_Player = ObjectManager::GetPlayer();
 	if (AABB_2d(m_aabb, p_Player->GetCollision()) == true)
 	{
-		D3DXVECTOR2 PlayerPosition = p_Player->GetPosition();
-		if (m_Position.y - 32.0f > PlayerPosition.y + 128.0f)
-		{
-			Sound::Play(S_SE_BALL);
-			m_Position.y = m_Position.y - 32.0f;
-			m_Velocity.y *= -1;
-		}
-		else if (m_Position.y + 32.0f < PlayerPosition.y - 128.0f)
-		{
-			Sound::Play(S_SE_BALL);
-			m_Position.y = m_Position.y + 32.0f;
-			m_Velocity.y *= -1;
-		}
-		else
-		{
-			Sound::Play(S_SE_BALL);
-			m_Velocity.x *= -1;
-		}
+		Sound::Play(S_SE_BALL);
+		m_Velocity.x *= -1;
 	}
 }
 
@@ -97,24 +81,8 @@ void Ball::EnemyCollision()
 	Enemy* p_Enemy = ObjectManager::GetEnemy();
 	if (AABB_2d(m_aabb, p_Enemy->GetCollision()) == true)
 	{
-		D3DXVECTOR2 EnemyPosition = p_Enemy->GetPosition();
-		if (m_Position.y - 32.0f > EnemyPosition.y + 128.0f)
-		{
-			Sound::Play(S_SE_BALL);
-			//m_Position.y = m_Position.y - 32.0f;
-			m_Velocity.y *= -1;
-		}
-		else if (m_Position.y + 32.0f < EnemyPosition.y - 128.0f)
-		{
-			Sound::Play(S_SE_BALL);
-			m_Velocity.y *= -1;
-		}
-		else
-		{
-			Sound::Play(S_SE_BALL);
-			//m_Position.y = m_Position.y + 32.0f;
-			m_Velocity.x *= -1;
-		}
+		Sound::Play(S_SE_BALL);
+		m_Velocity.x *= -1;
 	}
 }
 
