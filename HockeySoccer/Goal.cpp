@@ -13,7 +13,7 @@ void Goal::Init()
 	m_Position = D3DXVECTOR2(0.0f + 33.0f, 540.0f);
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
-	m_aabb.sx = 30.0f;
+	m_aabb.sx = 33.0f;
 	m_aabb.sy = 128.0f;
 }
 

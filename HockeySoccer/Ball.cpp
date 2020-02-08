@@ -13,7 +13,7 @@
 void Ball::Init()
 {
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f + 100.0f);
-	m_Velocity = D3DXVECTOR2(5.0f, 8.5f);
+	m_Velocity = D3DXVECTOR2(5.0f, 0.0f);
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
 	m_aabb.sx = 16.0f;
