@@ -11,7 +11,7 @@
 class Enemy : public Player
 {
 private:
-	AABB2d	m_aabb;
+	AABB2d	m_aabb[3];
 
 	// Update()ÇÃÉwÉãÉpÅ[ä÷êî
 	void Move();
@@ -23,7 +23,7 @@ public:
 	void Uninit()override;
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
-	AABB2d* GetCollision();
+	AABB2d* GetCollision(int i);
 	D3DXVECTOR2 GetPosition();
 };
 
