@@ -26,6 +26,7 @@ void StageEditor::Uninit()
 {
 	UninitObject();
 	m_Ui.Uninit();
+	m_Texture.UnLoadTexture(texture[2]);
 	m_Texture.UnLoadTexture(texture[1]);
 	m_Texture.UnLoadTexture(texture[0]);
 }
@@ -110,8 +111,9 @@ bool StageEditor::GameEnd()
 //	テクスチャのロード
 void StageEditor::LoadTexture()
 {
-	texture[0] = m_Texture.LoadTexture("Rom/Texture/Ball.png");  // ボール
-	texture[1] = m_Texture.LoadTexture("Rom/Texture/Bar.png");	 // Player&Goal
+	texture[0] = m_Texture.LoadTexture("Rom/Texture/Ball.png"); // ボール
+	texture[1] = m_Texture.LoadTexture("Rom/Texture/Bar.png");	// Player
+	texture[2] = m_Texture.LoadTexture("Rom/Texture/Goal.png");	// ゴール
 	m_Ui.Init();	//	UIテクスチャ
 }
 //	オブジェクトの初期化
@@ -318,8 +320,8 @@ void StageEditor::DrawObject()
 	m_Player.Draw(m_Texture.SetTexture(texture[1]));
 	m_Enemy.Draw(m_Texture.SetTexture(texture[1]));
 	m_Ball.Draw(m_Texture.SetTexture(texture[0]));
-	m_Goal.Draw(m_Texture.SetTexture(texture[1]));
-	m_EnemyGoal.Draw(m_Texture.SetTexture(texture[1]));
+	m_Goal.Draw(m_Texture.SetTexture(texture[2]));
+	m_EnemyGoal.Draw(m_Texture.SetTexture(texture[2]));
 }
 
 //	ゲームクリアの描画処理

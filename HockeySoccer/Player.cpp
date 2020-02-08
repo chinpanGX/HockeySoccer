@@ -62,8 +62,7 @@ void Player::Update()
 
 void Player::Draw(LPDIRECT3DTEXTURE9 Texture)
 {
-	D3DXCOLOR color = D3DCOLOR_RGBA(0, 255, 255, 255);
-	m_Sprite.SetColor(0, 255, 255, 255);
+	D3DXCOLOR color = D3DCOLOR_RGBA(200, 0, 200, 255);
 	m_Sprite.Draw(Texture, m_Position.x - 16.0f, m_Position.y - 128.0f, 32.0f, 256.0f,color);
 }
 

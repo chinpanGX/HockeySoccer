@@ -6,6 +6,7 @@
 ===========================================================*/
 #pragma once
 #include "main.h"
+#include "math.h"
 
 // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 //		コリジョン構造体と当たり判定処理のテンプレート
@@ -18,6 +19,28 @@ struct Circle2d
 	float radian; // 半径
 };
 
+//	3Dサークル
+struct Circle3d
+{
+	float cx, cy, cz; // 中心座標
+	float radian;	  // 半径
+};
+
+//	2DAABB
+struct AABB2d
+{
+	float cx, cy; // 中心座標
+	float sx, sy; // 短径サイズ
+};
+
+//	3DAABB
+struct AABB3d
+{
+	float cx, cy, cz; // 中心座標
+	float sx, sy, sz; // 短形サイズ
+};
+
+//	2Dサークルコリジョン
 template <class Type> 
 bool Circle_2d(const Type Collision, const Type *p_Collision)
 {
@@ -40,13 +63,7 @@ bool Circle_2d(const Type Collision, const Type *p_Collision)
 	return false;
 }
 
-//	3Dサークル
-struct Circle3d
-{
-	float cx, cy, cz; // 中心座標
-	float radian;	  // 半径
-};
-
+//	3Dサークルコリジョン
 template <class Type>
 bool Circle_3d(const Type Collision, const Type * p_Collision)
 {
@@ -69,13 +86,7 @@ bool Circle_3d(const Type Collision, const Type * p_Collision)
 	return false;
 }
 
-//	2DAABB
-struct AABB2d
-{
-	float cx, cy; // 中心座標
-	float sx, sy; // 短径サイズ
-};
-
+// AABB2Dコリジョン
 template <class Type>
 bool AABB_2d(const Type Collision, const Type * p_Collision)
 {
@@ -109,19 +120,10 @@ bool AABB_2d(const Type Collision, const Type * p_Collision)
 	return false;
 }
 
-//	3DAABB
-struct AABB3d
-{
-	float cx, cy, cz; // 中心座標
-	float sx, sy, sz; // 短形サイズ
-};
-
+// AABB3Dコリジョン
 template <class Type>
 bool AABB_3d(const Type Collision, const Type * p_Collision)
 {
-	D3DXVECTOR3 minA, minB;	//	最小点
-	D3DXVECTOR3 maxA, maxB;	//	最大点
-
 	D3DXVECTOR3 minA, minB;	//	最小点
 	D3DXVECTOR3 maxA, maxB;	//	最大点
 

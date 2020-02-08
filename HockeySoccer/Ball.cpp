@@ -13,7 +13,10 @@
 void Ball::Init()
 {
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f + 100.0f);
-	m_Velocity = D3DXVECTOR2(5.0f, 0.0f);
+	m_Velocity = D3DXVECTOR2(5.0f, 3.0f);
+	m_Circle.cx = 0.0f;
+	m_Circle.cy = 0.0f;
+	m_Circle.radian = 16.0f;
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
 	m_aabb.sx = 16.0f;
@@ -45,6 +48,8 @@ void Ball::Update()
 	m_Position += m_Velocity;
 	m_aabb.cx = m_Position.x;
 	m_aabb.cy = m_Position.y;
+	m_Circle.cx = m_Position.x;
+	m_Circle.cy = m_Position.y;
 
 	//	“–‚½‚è”»’è
 	EnemyGoalCollision();
@@ -67,7 +72,7 @@ void Ball::Draw(LPDIRECT3DTEXTURE9 Texture)
 //	ƒvƒŒƒCƒ„[‚Æ‚Ì“–‚½‚è”»’è
 void Ball::PlayerCollision()
 {
-	Player* p_Player = ObjectManager::GetPlayer();
+	Player* p_Player = ObjectManager::GetPlayer(); 
 	if (AABB_2d(m_aabb, p_Player->GetCollision(Center)) == true)
 	{
 		Sound::Play(S_SE_BALL);

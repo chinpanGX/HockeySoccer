@@ -42,7 +42,7 @@ private:
 	GameBG		m_StageBG;	// ステージクリア背景
 	UI			m_Ui;		// UI
 
-	unsigned int texture[2]; // テクスチャを格納
+	unsigned int texture[3]; // テクスチャを格納
 	int	m_StageCount;		 // ステージをカウント
 	int m_Frame;			 // フレームカウント
 	float m_FramePosition;	 // 枠の位置
