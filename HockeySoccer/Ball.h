@@ -13,7 +13,6 @@ class Ball : public Actor
 {
 private:
 	AABB2d m_aabb;
-	Circle2d m_Circle;
 	D3DXCOLOR m_Color;
 	bool m_GameEnd;	//	©wƒS[ƒ‹‚µ‚½‚©‚Ç‚¤‚©
 	bool m_GoalFlag;	//	ƒS[ƒ‹‚µ‚½‚©‚Ç‚¤‚©”»’è
