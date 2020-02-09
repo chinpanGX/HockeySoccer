@@ -13,7 +13,7 @@
 
 void Player::Init()
 {
-	m_Position = D3DXVECTOR2(480.0f, 540.0f);
+	m_Position = D3DXVECTOR2(450.0f, 540.0f);
 	m_Speed = 1.0f;
 	m_aabb[Up].cx = 0.0f;
 	m_aabb[Up].cy = 0.0f;
@@ -31,7 +31,7 @@ void Player::Init()
 
 void Player::Init(float Speed)
 {
-	m_Position = D3DXVECTOR2(480.0f, 540.0f);
+	m_Position = D3DXVECTOR2(450.0f, 540.0f);
 	m_Speed = Speed;
 	m_aabb[Up].cx = 0.0f;
 	m_aabb[Up].cy = 0.0f - 124.0f;

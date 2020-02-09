@@ -16,6 +16,8 @@
 #include "GameBG.h"
 #include "UI.h"
 
+#define ENEMY_MAX 3 
+
 // ステージ
 enum Stage
 {
@@ -25,6 +27,17 @@ enum Stage
 	STAGE_3,
 	STAGE_4,
 	STAGE_5,
+	STAGE_6,
+	STAGE_7,
+	STAGE_8,
+	STAGE_9,
+	STAGE_10,
+	STAGE_11,
+	STAGE_12,
+	STAGE_13,
+	STAGE_14,
+	STAGE_15,
+	STAGE_16,
 	GAME_END,
 	STAGE_END
 };
@@ -35,7 +48,7 @@ private:
 	Texture		m_Texture;
 	Stage		m_Stage;	// ステージ
 	Player		m_Player;	// プレイヤー
-	Enemy		m_Enemy;	// エネミー
+	Enemy		m_Enemy[ENEMY_MAX];	// エネミー
 	Ball		m_Ball;		// ボール
 	Goal		m_Goal;		// ゴール
 	EnemyGoal	m_EnemyGoal;// 相手側のゴール
@@ -52,9 +65,9 @@ private:
 	///	<summry>
 	/// Init()のヘルパー関数
 	/// </summary>
-	void LoadTexture();			// テクスチャのロード
-	void InitObject(int Stage);	// オブジェクトの初期化
-	void InitGoal();
+	void LoadTexture();					// テクスチャのロード
+	void InitObject(int Stage);			// オブジェクトの初期化
+	void InitGoal();					// ゴールの初期化	
 
 	/// <summary>
 	/// Uninit()のヘルパー関数
@@ -64,11 +77,11 @@ private:
 	///	<summary>
 	///	Update()のヘルパー関数
 	/// </summary>
-	void UpdateObject();	// オブジェクトの更新処理
-	void UpdateEnemy(int EnemyNum);	// オブジェクトの更新処理
-	void UpdateStageClear();// ステージクリアの更新
-	void UpdateRetry();		// リトライの更新
-	void UpdateFrame(bool Flag);	// 枠の位置の更新(引数でフラグを指定)
+	void UpdateObject();				// オブジェクトの更新処理
+	void UpdateEnemy(int EnemyNum = 1); // エネミーの更新（エネミーの数：デフォルト１）
+	void UpdateStageClear();			// ステージクリアの更新
+	void UpdateRetry();					// リトライの更新
+	void UpdateFrame(bool Flag);		// 枠の位置の更新(引数でフラグを指定)
 	
 	//	UpdateObjectのヘルパー関数
 	void EnemyGoalEnd();	// 相手ゴールに入れたとき
@@ -77,10 +90,10 @@ private:
 	/// <summary>
 	///　Draw()のヘルパー関数
 	/// </summary>
-	void DrawObject();		// オブジェクトの描画処理
-	void DrawEnemy(int EnemyNum);
-	void DrawStageClear();	// ステージクリアの描画
-	void DrawRetry();		// リトライの描画
+	void DrawObject();					// オブジェクトの描画処理
+	void DrawEnemy(int EnemyNum = 1);	// エネミーの描画（エネミーの数：デフォルト１）
+	void DrawStageClear();				// ステージクリアの描画
+	void DrawRetry();					// リトライの描画
 
 public:
 	void Init();	// 初期化処理

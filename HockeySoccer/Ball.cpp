@@ -13,7 +13,7 @@
 void Ball::Init()
 {
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f + 100.0f);
-	m_Velocity = D3DXVECTOR2(5.0f, 3.0f);
+	m_Velocity = D3DXVECTOR2(12.0f, 7.0f);
 	m_aabb.cx = 0.0f;
 	m_aabb.cy = 0.0f;
 	m_aabb.sx = 16.0f;
@@ -42,7 +42,7 @@ void Ball::Uninit()
 void Ball::Update()
 {
 	//	ˆÚ“®
-	m_Position += m_Velocity;
+	m_Position += m_Velocity * 1.1f;
 	m_aabb.cx = m_Position.x;
 	m_aabb.cy = m_Position.y;
 
@@ -89,20 +89,23 @@ void Ball::PlayerCollision()
 void Ball::EnemyCollision()
 {
 	Enemy* p_Enemy = ObjectManager::GetEnemy();
-	if (AABB_2d(m_aabb, p_Enemy->GetCollision(Center)) == true)
+	for (int i = 0; i < ENEMY_MAX; i++)
 	{
-		Sound::Play(S_SE_BALL);
-		m_Velocity.x *= -1;
-	}
-	if (AABB_2d(m_aabb, p_Enemy->GetCollision(Up)) == true)
-	{
-		Sound::Play(S_SE_BALL);
-		m_Velocity.y *= -1;
-	}
-	if (AABB_2d(m_aabb, p_Enemy->GetCollision(Down)) == true)
-	{
-		Sound::Play(S_SE_BALL);
-		m_Velocity.y *= -1;
+		if (AABB_2d(m_aabb, p_Enemy[i].GetCollision(Center)) == true)
+		{
+			Sound::Play(S_SE_BALL);
+			m_Velocity.x *= -1;
+		}
+		if (AABB_2d(m_aabb, p_Enemy[i].GetCollision(Up)) == true)
+		{
+			Sound::Play(S_SE_BALL);
+			m_Velocity.y *= -1;
+		}
+		if (AABB_2d(m_aabb, p_Enemy[i].GetCollision(Down)) == true)
+		{
+			Sound::Play(S_SE_BALL);
+			m_Velocity.y *= -1;
+		}
 	}
 }
 

@@ -37,6 +37,19 @@ void EnemyGoal::Update()
 	m_Position += m_Velocity;
 	m_aabb.cx = m_Position.x;
 	m_aabb.cy = m_Position.y;
+	Topline* p_topline = ObjectManager::GetTopLine();
+	if (AABB_2d(m_aabb, p_topline->GetCollision()) == true)
+	{
+		m_Position.y = 128.0f + 30.f;
+		m_Velocity.y *= -1;
+	}
+	Underline* p_underline = ObjectManager::GetUnderLine();
+	if (AABB_2d(m_aabb, p_underline->GetCollision()) == true)
+	{
+		m_Position.y = SCREEN_HEIGHT - 128.0f - 30.f;
+		m_Velocity.y *= -1;
+	}
+	m_Position += m_Velocity;
 }
 
 void EnemyGoal::Draw(LPDIRECT3DTEXTURE9 Texture)
