@@ -14,10 +14,9 @@ void Ball::Init()
 {
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f + 100.0f);
 	m_Velocity = D3DXVECTOR2(8.0f, 7.0f);
-	m_Component.m_aabb.cx = 0.0f;
-	m_Component.m_aabb.cy = 0.0f;
 	m_Component.m_aabb.sx = 16.0f;
 	m_Component.m_aabb.sy = 16.0f;
+	m_Component.m_circle.radian = 16.0f;
 	m_GameEnd = false;
 	m_GoalFlag = false;
 }
@@ -26,10 +25,9 @@ void Ball::Init(D3DXVECTOR2 Velocity)
 {
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f - 100.0f);
 	m_Velocity = Velocity;
-	m_Component.m_aabb.cx = 0.0f;
-	m_Component.m_aabb.cy = 0.0f;
 	m_Component.m_aabb.sx = 16.0f;
 	m_Component.m_aabb.sy = 16.0f;
+	m_Component.m_circle.radian = 16.0f;
 	m_GameEnd = false;
 	m_GoalFlag = false;
 }
@@ -45,6 +43,8 @@ void Ball::Update()
 	m_Position += m_Velocity * 1.1f;
 	m_Component.m_aabb.cx = m_Position.x;
 	m_Component.m_aabb.cy = m_Position.y;
+	m_Component.m_circle.cx = m_Position.x;
+	m_Component.m_circle.cy = m_Position.y;
 
 	//	“–‚½‚è”»’è
 	EnemyGoalCollision();
@@ -68,9 +68,23 @@ void Ball::Draw(LPDIRECT3DTEXTURE9 Texture)
 void Ball::PlayerCollision()
 {
 	Player* p_Player = ObjectManager::GetPlayer(); 
-	if (AABB_2d(m_Component.m_aabb, p_Player->GetCollision()->GetAABB()) == true)
+	if (Circle_2d(m_Component.m_circle, p_Player->GetCollision(circle)->GetCircle()) == true)
 	{
-		Sound::Play(S_SE_BALL);
+		if (AABB_2d(m_Component.m_aabb, p_Player->GetCollision(center)->GetAABB()) == true)
+		{
+			m_Velocity.x *= -1;
+			Sound::Play(S_SE_BALL);
+		}
+		if (AABB_2d(m_Component.m_aabb, p_Player->GetCollision(up)->GetAABB()) == true)
+		{
+			m_Velocity.y *= -1;
+			Sound::Play(S_SE_BALL);
+		}
+		if (AABB_2d(m_Component.m_aabb, p_Player->GetCollision(down)->GetAABB()) == true)
+		{
+			m_Velocity.y *= -1;
+			Sound::Play(S_SE_BALL);
+		}
 	}
 }
 
@@ -78,12 +92,22 @@ void Ball::PlayerCollision()
 void Ball::EnemyCollision()
 {
 	Enemy* p_Enemy = ObjectManager::GetEnemy();
-	for (int i = 0; i < ENEMY_MAX; i++)
+	if (Circle_2d(m_Component.m_circle, p_Enemy->GetCollision(circle)->GetCircle()) == true)
 	{
-		if (AABB_2d(m_Component.m_aabb, p_Enemy[i].GetCollision()->GetAABB()) == true)
+		if (AABB_2d(m_Component.m_aabb, p_Enemy->GetCollision(center)->GetAABB()) == true)
 		{
-			Sound::Play(S_SE_BALL);
 			m_Velocity.x *= -1;
+			Sound::Play(S_SE_BALL);
+		}
+		if (AABB_2d(m_Component.m_aabb, p_Enemy->GetCollision(up)->GetAABB()) == true)
+		{
+			m_Velocity.y *= -1;
+			Sound::Play(S_SE_BALL);
+		}
+		if (AABB_2d(m_Component.m_aabb, p_Enemy->GetCollision(down)->GetAABB()) == true)
+		{
+			m_Velocity.y *= -1;
+			Sound::Play(S_SE_BALL);
 		}
 	}
 }

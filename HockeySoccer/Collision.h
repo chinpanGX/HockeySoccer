@@ -45,14 +45,14 @@ template <class Type>
 bool Circle_2d(const Type Collision, const Type *p_Collision)
 {
 	//引数からベクトル型の変数を作る
-	D3DXVECTOR2 dst1(Collision->cx, Collision->cy);
+	D3DXVECTOR2 dst1(Collision.cx, Collision.cy);
 	D3DXVECTOR2 dst2(p_Collision->cx, p_Collision->cy);
 	//二点間のベクトルを作る
 	D3DXVECTOR2 distance = dst2 - dst1;
 	//作ったベクトルの長さを求める
 	float length = D3DXVec2Length(&distance);
 	//お互いの半径を足した値を求める
-	float size = Collision->radian + p_Collision->radian;
+	float size = Collision.radian + p_Collision->radian;
 
 	//ベクトルの長さとお互いの半径を足した値を比較する → ベクトルの長さの方が小さければヒット
 	if (length < size)

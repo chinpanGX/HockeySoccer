@@ -12,9 +12,7 @@ void EnemyGoal::Init()
 {
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH - 65.0f, 540.0f);
 	m_Velocity = D3DXVECTOR2(0.0f, 0.0f);
-	m_Component.m_aabb.cx = 0.0f;
-	m_Component.m_aabb.cy = 0.0f;
-	m_Component.m_aabb.sx = 30.0f;
+	m_Component.m_aabb.sx = 32.0f;
 	m_Component.m_aabb.sy = 128.0f;
 }
 
@@ -22,9 +20,7 @@ void EnemyGoal::Init(float Speed)
 {
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH - 65.0f, 540.0f);
 	m_Velocity = D3DXVECTOR2(0.0f, Speed);
-	m_Component.m_aabb.cx = 0.0f;
-	m_Component.m_aabb.cy = 0.0f;
-	m_Component.m_aabb.sx = 30.0f;
+	m_Component.m_aabb.sx = 32.0f;
 	m_Component.m_aabb.sy = 128.0f;
 }
 
@@ -35,7 +31,7 @@ void EnemyGoal::Uninit()
 void EnemyGoal::Update()
 {
 	m_Position += m_Velocity;
-	m_Component.m_aabb.cy = m_Position.y;
+	m_Component.m_aabb.cx = m_Position.x;
 	m_Component.m_aabb.cy = m_Position.y;
 	Topline* p_topline = ObjectManager::GetTopLine();
 	if (AABB_2d(m_Component.m_aabb, p_topline->GetCollision()->GetAABB()) == true)

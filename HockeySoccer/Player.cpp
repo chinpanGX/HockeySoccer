@@ -15,20 +15,26 @@ void Player::Init()
 {
 	m_Position = D3DXVECTOR2(450.0f, 540.0f);
 	m_Speed = 1.0f;
-	m_Component.m_aabb.cx = 0.0f;
-	m_Component.m_aabb.cy = 0.0f;
-	m_Component.m_aabb.sx = 16.0f;
-	m_Component.m_aabb.sy = 128.0f;
+	m_Component[center].m_aabb.sx = 16.0f;
+	m_Component[center].m_aabb.sy = 120.0f;
+	m_Component[up].m_aabb.sx = 16.0f;
+	m_Component[up].m_aabb.sy = 4.0f;
+	m_Component[down].m_aabb.sx = 16.0f;
+	m_Component[down].m_aabb.sy = 4.0f;
+	m_Component[circle].m_circle.radian = 128.0f;
 }
 
 void Player::Init(float Speed)
 {
 	m_Position = D3DXVECTOR2(450.0f, 540.0f);
 	m_Speed = Speed;
-	m_Component.m_aabb.cx = 0.0f;
-	m_Component.m_aabb.cy = 0.0f;
-	m_Component.m_aabb.sx = 16.0f;
-	m_Component.m_aabb.sy = 128.0f;
+	m_Component[center].m_aabb.sx = 16.0f;
+	m_Component[center].m_aabb.sy = 120.0f;
+	m_Component[up].m_aabb.sx = 16.0f;
+	m_Component[up].m_aabb.sy = 4.0f;
+	m_Component[down].m_aabb.sx = 16.0f;
+	m_Component[down].m_aabb.sy = 4.0f;
+	m_Component[circle].m_circle.radian = 128.0f;
 }
 
 void Player::Uninit()
@@ -65,20 +71,26 @@ void Player::Action()
 void Player::Move()
 {
 	m_Position += m_Velocity * m_Speed; // Position‚ÌXV
-	m_Component.m_aabb.cx = m_Position.x;
-	m_Component.m_aabb.cy = m_Position.y;
+	m_Component[center].m_aabb.cx = m_Position.x;
+	m_Component[center].m_aabb.cy = m_Position.y;
+	m_Component[up].m_aabb.cx = m_Position.x;
+	m_Component[up].m_aabb.cy = m_Position.y - 124.0f;
+	m_Component[down].m_aabb.cx = m_Position.x;
+	m_Component[down].m_aabb.cy = m_Position.y + 124.0f;
+	m_Component[circle].m_circle.cx = m_Position.x;
+	m_Component[circle].m_circle.cy = m_Position.y;
 }
 
 void Player::Collision()
 {
 	Topline* p_topline = ObjectManager::GetTopLine();
-	if (AABB_2d(m_Component.m_aabb,p_topline->GetCollision()->GetAABB()) == true)
+	if (AABB_2d(m_Component[up].m_aabb,p_topline->GetCollision()->GetAABB()) == true)
 	{
 		m_Position.y = 128.0f + 28.f;
 		m_Velocity.y *= -1;
 	}
 	Underline* p_underline = ObjectManager::GetUnderLine();
-	if (AABB_2d(m_Component.m_aabb,p_underline->GetCollision()->GetAABB()) == true)
+	if (AABB_2d(m_Component[down].m_aabb,p_underline->GetCollision()->GetAABB()) == true)
 	{
 		m_Position.y = SCREEN_HEIGHT - 128.0f - 28.f;
 		m_Velocity.y *= -1;
@@ -86,9 +98,9 @@ void Player::Collision()
 	m_Position += m_Velocity;
 }
 
-Component2D * Player::GetCollision()
+Component2D * Player::GetCollision(int i)
 {
-	return &m_Component;
+	return &m_Component[i];
 }
 
 D3DXVECTOR2 Player::GetPosition()

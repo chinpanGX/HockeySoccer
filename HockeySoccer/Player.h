@@ -10,10 +10,18 @@
 #include "Actor.h"
 #include "BoxComponent.h"
 
+enum Collider
+{
+	center,
+	up,
+	down,
+	circle
+};
+
 class Player : public Actor
 {
 private:
-	Component2D m_Component;
+	Component2D m_Component[4];
 	float m_Speed; // 補正スピード値
 
 	// Update()のヘルパー関数
@@ -26,7 +34,7 @@ public:
 	void Uninit()override;
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
-	Component2D* GetCollision();
+	Component2D* GetCollision(int i);
 	D3DXVECTOR2 GetPosition();
 };
 
