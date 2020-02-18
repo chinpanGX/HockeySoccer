@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="BoxComponent.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Enemy.h" />

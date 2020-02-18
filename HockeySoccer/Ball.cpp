@@ -13,11 +13,11 @@
 void Ball::Init()
 {
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f + 100.0f);
-	m_Velocity = D3DXVECTOR2(12.0f, 7.0f);
-	m_aabb.cx = 0.0f;
-	m_aabb.cy = 0.0f;
-	m_aabb.sx = 16.0f;
-	m_aabb.sy = 16.0f;
+	m_Velocity = D3DXVECTOR2(8.0f, 7.0f);
+	m_Component.m_aabb.cx = 0.0f;
+	m_Component.m_aabb.cy = 0.0f;
+	m_Component.m_aabb.sx = 16.0f;
+	m_Component.m_aabb.sy = 16.0f;
 	m_GameEnd = false;
 	m_GoalFlag = false;
 }
@@ -26,10 +26,10 @@ void Ball::Init(D3DXVECTOR2 Velocity)
 {
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f - 100.0f);
 	m_Velocity = Velocity;
-	m_aabb.cx = 0.0f;
-	m_aabb.cy = 0.0f;
-	m_aabb.sx = 16.0f;
-	m_aabb.sy = 16.0f;
+	m_Component.m_aabb.cx = 0.0f;
+	m_Component.m_aabb.cy = 0.0f;
+	m_Component.m_aabb.sx = 16.0f;
+	m_Component.m_aabb.sy = 16.0f;
 	m_GameEnd = false;
 	m_GoalFlag = false;
 }
@@ -43,8 +43,8 @@ void Ball::Update()
 {
 	//	ˆÚ“®
 	m_Position += m_Velocity * 1.1f;
-	m_aabb.cx = m_Position.x;
-	m_aabb.cy = m_Position.y;
+	m_Component.m_aabb.cx = m_Position.x;
+	m_Component.m_aabb.cy = m_Position.y;
 
 	//	“–‚½‚è”»’è
 	EnemyGoalCollision();
@@ -68,20 +68,9 @@ void Ball::Draw(LPDIRECT3DTEXTURE9 Texture)
 void Ball::PlayerCollision()
 {
 	Player* p_Player = ObjectManager::GetPlayer(); 
-	if (AABB_2d(m_aabb, p_Player->GetCollision(Center)) == true)
+	if (AABB_2d(m_Component.m_aabb, p_Player->GetCollision()->GetAABB()) == true)
 	{
 		Sound::Play(S_SE_BALL);
-		m_Velocity.x *= -1;
-	}
-	if (AABB_2d(m_aabb, p_Player->GetCollision(Up)) == true)
-	{
-		Sound::Play(S_SE_BALL);
-		m_Velocity.y *= -1;
-	}
-	if (AABB_2d(m_aabb, p_Player->GetCollision(Down)) == true)
-	{
-		Sound::Play(S_SE_BALL);
-		m_Velocity.y *= -1;
 	}
 }
 
@@ -91,20 +80,10 @@ void Ball::EnemyCollision()
 	Enemy* p_Enemy = ObjectManager::GetEnemy();
 	for (int i = 0; i < ENEMY_MAX; i++)
 	{
-		if (AABB_2d(m_aabb, p_Enemy[i].GetCollision(Center)) == true)
+		if (AABB_2d(m_Component.m_aabb, p_Enemy[i].GetCollision()->GetAABB()) == true)
 		{
 			Sound::Play(S_SE_BALL);
 			m_Velocity.x *= -1;
-		}
-		if (AABB_2d(m_aabb, p_Enemy[i].GetCollision(Up)) == true)
-		{
-			Sound::Play(S_SE_BALL);
-			m_Velocity.y *= -1;
-		}
-		if (AABB_2d(m_aabb, p_Enemy[i].GetCollision(Down)) == true)
-		{
-			Sound::Play(S_SE_BALL);
-			m_Velocity.y *= -1;
 		}
 	}
 }
@@ -117,12 +96,12 @@ void Ball::LineCollsion()
 	Underline* p_underline = ObjectManager::GetUnderLine();
 	Leftline* p_leftline = ObjectManager::GetLeftLine();
 	Rightline* p_rightline = ObjectManager::GetRightLine();
-	if (AABB_2d(m_aabb, p_topline->GetCollision()) == true || AABB_2d(m_aabb, p_underline->GetCollision()) == true)
+	if (AABB_2d(m_Component.m_aabb, p_topline->GetCollision()->GetAABB()) == true || AABB_2d(m_Component.m_aabb, p_underline->GetCollision()->GetAABB()) == true)
 	{
 		Sound::Play(S_SE_BALL);
 		m_Velocity.y *= -1;
 	}
-	if (AABB_2d(m_aabb, p_leftline->GetCollision()) == true || AABB_2d(m_aabb, p_rightline->GetCollision()) == true)
+	if (AABB_2d(m_Component.m_aabb, p_leftline->GetCollision()->GetAABB()) == true || AABB_2d(m_Component.m_aabb, p_rightline->GetCollision()->GetAABB()) == true)
 	{
 		Sound::Play(S_SE_BALL);
 		m_Velocity.x *= -1;
@@ -134,7 +113,7 @@ void Ball::GoalCollsion()
 {
 	//	Ball‚Æ‚Ì“–‚½‚è”»’è
 	Goal * p_Goal = ObjectManager::GetGoal();
-	if (AABB_2d(m_aabb, p_Goal->GetCollision()) == true)
+	if (AABB_2d(m_Component.m_aabb, p_Goal->GetCollision()->GetAABB()) == true)
 	{
 		Sound::Play(S_SE_WHISTIL);
 		//ƒQ[ƒ€I—¹
@@ -146,16 +125,16 @@ void Ball::GoalCollsion()
 void Ball::EnemyGoalCollision()
 {
 	EnemyGoal* p_EnemyGoal = ObjectManager::GetEnemyGoal();
-	if (AABB_2d(m_aabb, p_EnemyGoal->GetCollision()) == true)
+	if (AABB_2d(m_Component.m_aabb, p_EnemyGoal->GetCollision()->GetAABB()) == true)
 	{
 		Sound::Play(S_SE_WHISTIL);
 		m_GoalFlag = true;
 	}
 }
 
-AABB2d * Ball::GetCollision()
+Component2D * Ball::GetCollision()
 {
-	return &m_aabb;
+	return &m_Component;
 }
 
 bool Ball::GetGameEnd()

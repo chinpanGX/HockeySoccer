@@ -235,21 +235,21 @@ void StageEditor::InitObject(int Stage)
 		break;
 	case STAGE_3:
 		InitGoal();
-		m_Player.Init(0.8f);
-		m_Enemy[0].Init(9.0f, D3DXVECTOR2(960.0f + 320.0f, 100.0f));
-		m_Ball.Init(D3DXVECTOR2(-20.0f, 5.5f));
-		break;
-	case STAGE_4:
-		InitGoal();
 		m_Player.Init(1.5f);
 		m_Enemy[0].Init(5.0f, D3DXVECTOR2(960.0f + 300.0f, 800.0f));
 		m_Ball.Init(D3DXVECTOR2(-10.0f, 7.5f));
 		break;
+	case STAGE_4:
+		InitGoal();
+		m_Player.Init(0.8f);
+		m_Enemy[0].Init(9.0f, D3DXVECTOR2(960.0f + 320.0f, 100.0f));
+		m_Ball.Init(D3DXVECTOR2(-20.0f, 5.5f));
+		break;
 	case STAGE_5:
 		InitGoal();
 		m_Player.Init(0.5f);
-		m_Enemy[0].Init(20.0f, D3DXVECTOR2(960.0f + 400.0f, 360.0f));
-		m_Ball.Init(D3DXVECTOR2(17.0f, -8.5f));
+		m_Enemy[0].Init(15.0f, D3DXVECTOR2(960.0f + 400.0f, 360.0f));
+		m_Ball.Init(D3DXVECTOR2(14.0f, -8.5f));
 		break;
 	case STAGE_6:
 		InitGoal();
@@ -261,12 +261,13 @@ void StageEditor::InitObject(int Stage)
 	case STAGE_7:
 		InitGoal();
 		m_Player.Init(1.3f);
-		m_Enemy[1].Init(2.0f, D3DXVECTOR2(960.0f + 550.0f, 300.0f));
+		m_Enemy[1].Init(-2.0f, D3DXVECTOR2(960.0f + 550.0f, 600.0f));
 		m_Enemy[0].Init(0.0f, D3DXVECTOR2(960.0f + 250.0f, 600.0f));
 		m_Ball.Init(D3DXVECTOR2(-17.0f, 10.5f));
 		break;
 	case STAGE_8:
-		InitGoal();
+		m_EnemyGoal.Init(1.0f);
+		m_Goal.Init();
 		m_Player.Init(2.0f);
 		m_Enemy[1].Init(5.0f, D3DXVECTOR2(960.0f + 550.0f, 300.0f));
 		m_Enemy[0].Init(2.0f, D3DXVECTOR2(960.0f + 300.0f, 800.0f));
@@ -274,13 +275,13 @@ void StageEditor::InitObject(int Stage)
 		break;
 	case STAGE_9:
 		m_EnemyGoal.Init(1.0f);
-		m_Goal.Init();
+		m_Goal.Init(1.0f);
 		m_Player.Init(2.0f);
 		m_Enemy[0].Init(10.0f, D3DXVECTOR2(960.0f + 450.0f, 800.0f));
 		m_Ball.Init(D3DXVECTOR2(-9.0f, -15.5f));
 		break;
 	case STAGE_10:
-		m_EnemyGoal.Init();
+		m_EnemyGoal.Init(-2.0f);
 		m_Goal.Init(1.0f);
 		m_Player.Init(1.0f);
 		m_Enemy[1].Init(-5.0f, D3DXVECTOR2(960.0f + 500.0f, 300.0f));
@@ -288,24 +289,24 @@ void StageEditor::InitObject(int Stage)
 		m_Ball.Init(D3DXVECTOR2(-19.0f, 4.5f));
 		break;
 	case STAGE_11:
-		m_EnemyGoal.Init(1.0f);
-		m_Goal.Init(1.0f);
+		m_EnemyGoal.Init(3.0f);
+		m_Goal.Init(3.0f);
 		m_Player.Init(1.4f);
-		m_Enemy[1].Init(0.0f, D3DXVECTOR2(960.0f + 550.0f, 400.0f));
-		m_Enemy[0].Init(0.0f, D3DXVECTOR2(960.0f + 300.0f, 200.0f));
-		m_Ball.Init(D3DXVECTOR2(14.0f, 7.5f));
+		m_Enemy[1].Init(8.0f, D3DXVECTOR2(960.0f + 550.0f, 600.0f));
+		m_Enemy[0].Init(4.0f, D3DXVECTOR2(960.0f + 300.0f, 300.0f));
+		m_Ball.Init(D3DXVECTOR2(-14.0f, 7.5f));
 		break;
 	case STAGE_12:
-		m_EnemyGoal.Init();
-		m_Goal.Init(1.0f);
+		m_EnemyGoal.Init(-1.0f);
+		m_Goal.Init(3.0f);
 		m_Player.Init(3.0f);
 		m_Enemy[1].Init(2.0f, D3DXVECTOR2(960.0f + 550.0f, 800.0f));
 		m_Enemy[0].Init(-7.0f, D3DXVECTOR2(960.0f + 300.0f, 200.0f));
-		m_Ball.Init(D3DXVECTOR2(-15.0f, -5.5f));
+		m_Ball.Init(D3DXVECTOR2(-15.0f, -8.5f));
 		break;
 	case STAGE_13:
 		m_EnemyGoal.Init(2.0f);
-		m_Goal.Init(2.0f);
+		m_Goal.Init(-2.0f);
 		m_Player.Init(2.0f);
 		m_Enemy[1].Init(2.0f, D3DXVECTOR2(960.0f + 700.0f, 300.0f));
 		m_Enemy[0].Init(-2.0f, D3DXVECTOR2(960.0f + 300.0f, 300.0f));
@@ -314,29 +315,29 @@ void StageEditor::InitObject(int Stage)
 	case STAGE_14:
 		m_EnemyGoal.Init(2.0f);
 		m_Goal.Init(0.0f);
-		m_Player.Init(5.0f);
+		m_Player.Init(2.0f);
 		m_Enemy[2].Init(0.0f, D3DXVECTOR2(960.0f + 700.0f, 800.0f));
 		m_Enemy[1].Init(5.0f, D3DXVECTOR2(960.0f + 300.0f, 500.0f));
 		m_Enemy[0].Init(-5.0f, D3DXVECTOR2(960.0f + 0.0f, 300.0f));
-		m_Ball.Init(D3DXVECTOR2(-8.0f, 4.5f));
+		m_Ball.Init(D3DXVECTOR2(-8.0f, 6.5f));
 		break;
 	case STAGE_15:
 		m_EnemyGoal.Init(-2.0f);
 		m_Goal.Init(2.0f);
 		m_Player.Init(1.0f);
-		m_Enemy[2].Init(5.0f, D3DXVECTOR2(960.0f + 700.0f, 300.0f));
+		m_Enemy[2].Init(5.0f, D3DXVECTOR2(960.0f + 600.0f, 300.0f));
 		m_Enemy[1].Init(9.0f, D3DXVECTOR2(960.0f + 300.0f, 300.0f));
 		m_Enemy[0].Init(-5.0f, D3DXVECTOR2(960.0f + 0.0f,  300.0f));
 		m_Ball.Init(D3DXVECTOR2(13.0f, 5.0f));
 		break;
 	case STAGE_16:
-		m_EnemyGoal.Init(-2.0f);
+		m_EnemyGoal.Init(-5.0f);
 		m_Goal.Init(5.0f);
 		m_Player.Init(2.0f);
-		m_Enemy[2].Init(8.0f, D3DXVECTOR2(960.0f + 700.0f, 0.0f));
-		m_Enemy[1].Init(10.0f, D3DXVECTOR2(960.0f + 300.0f, 0.0f));
-		m_Enemy[0].Init(-8.0f, D3DXVECTOR2(960.0f + 0.0f, 300.0f));
-		m_Ball.Init(D3DXVECTOR2(15.0f, 7.0f));
+		m_Enemy[2].Init(8.0f, D3DXVECTOR2(960.0f + 500.0f, 600.0f));
+		m_Enemy[1].Init(10.0f, D3DXVECTOR2(960.0f + 200.0f, 0.0f));
+		m_Enemy[0].Init(-8.0f, D3DXVECTOR2(960.0f - 100.0f, 300.0f));
+		m_Ball.Init(D3DXVECTOR2(-15.0f, 7.0f));
 		break;
 	case GAME_END:
 		break;
@@ -376,6 +377,10 @@ void StageEditor::UninitObject()
 //	オブジェクトの更新
 void StageEditor::UpdateObject()
 {
+	if (GamePad::IsTrigger(0, BUTTON_3))
+	{
+		m_Stage = STAGE_END;
+	}
 	m_Goal.Update();
 	m_EnemyGoal.Update();
 	m_Player.Update();

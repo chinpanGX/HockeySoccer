@@ -7,11 +7,12 @@
 
 #pragma once
 #include "Player.h"
+#include "BoxComponent.h"
 
 class Enemy : public Player
 {
 private:
-	AABB2d	m_aabb[3];
+	Component2D m_Component;
 
 	// Update()ÇÃÉwÉãÉpÅ[ä÷êî
 	void Move();
@@ -23,7 +24,7 @@ public:
 	void Uninit()override;
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
-	AABB2d* GetCollision(int i);
+	Component2D * GetCollision();
 	D3DXVECTOR2 GetPosition();
 };
 

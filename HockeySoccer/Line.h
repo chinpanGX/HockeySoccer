@@ -6,7 +6,7 @@
 ========================================================*/
 
 #pragma once
-#include "Collision.h"
+#include "BoxComponent.h"
 
 class Line
 {
@@ -18,38 +18,38 @@ public:
 class Topline : public Line
 {
 private:
-	AABB2d m_aabb;
+	Component2D m_Component;
 public:
 	void SetLine(D3DXVECTOR2 Position, float Size_x, float Size_y);
-	AABB2d* GetCollision();
+	Component2D* GetCollision();
 };
 
 //	下のライン
 class Underline : public Line
 {
 private:
-	AABB2d m_aabb;
+	Component2D m_Component;
 public:
 	void SetLine(D3DXVECTOR2 Position, float Size_x, float Size_y);
-	AABB2d* GetCollision();
+	Component2D* GetCollision();
 };
 
 //	左のライン
 class Leftline : public Line
 {
 private:
-	AABB2d m_aabb;
+	Component2D m_Component;
 public:
 	void SetLine(D3DXVECTOR2 Position, float Size_x, float Size_y);
-	AABB2d* GetCollision();
+	Component2D* GetCollision();
 };
 
 //	右のライン
 class Rightline : public Line
 {
 private:
-	AABB2d m_aabb;
+	Component2D m_Component;
 public:
 	void SetLine(D3DXVECTOR2 Position, float Size_x, float Size_y);
-	AABB2d* GetCollision();
+	Component2D* GetCollision();
 };

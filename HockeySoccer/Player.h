@@ -8,19 +8,12 @@
 
 #pragma once
 #include "Actor.h"
-#include "Collision.h "
-
-enum Collision
-{
-	Up,
-	Center,
-	Down
-};
+#include "BoxComponent.h"
 
 class Player : public Actor
 {
 private:
-	AABB2d m_aabb[3]; // AABBコリジョン
+	Component2D m_Component;
 	float m_Speed; // 補正スピード値
 
 	// Update()のヘルパー関数
@@ -33,7 +26,7 @@ public:
 	void Uninit()override;
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
-	AABB2d* GetCollision(int i);
+	Component2D* GetCollision();
 	D3DXVECTOR2 GetPosition();
 };
 

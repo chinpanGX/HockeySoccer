@@ -12,20 +12,20 @@ void EnemyGoal::Init()
 {
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH - 65.0f, 540.0f);
 	m_Velocity = D3DXVECTOR2(0.0f, 0.0f);
-	m_aabb.cx = 0.0f;
-	m_aabb.cy = 0.0f;
-	m_aabb.sx = 30.0f;
-	m_aabb.sy = 128.0f;
+	m_Component.m_aabb.cx = 0.0f;
+	m_Component.m_aabb.cy = 0.0f;
+	m_Component.m_aabb.sx = 30.0f;
+	m_Component.m_aabb.sy = 128.0f;
 }
 
 void EnemyGoal::Init(float Speed)
 {
 	m_Position = D3DXVECTOR2(SCREEN_WIDTH - 65.0f, 540.0f);
 	m_Velocity = D3DXVECTOR2(0.0f, Speed);
-	m_aabb.cx = 0.0f;
-	m_aabb.cy = 0.0f;
-	m_aabb.sx = 30.0f;
-	m_aabb.sy = 128.0f;
+	m_Component.m_aabb.cx = 0.0f;
+	m_Component.m_aabb.cy = 0.0f;
+	m_Component.m_aabb.sx = 30.0f;
+	m_Component.m_aabb.sy = 128.0f;
 }
 
 void EnemyGoal::Uninit()
@@ -35,16 +35,16 @@ void EnemyGoal::Uninit()
 void EnemyGoal::Update()
 {
 	m_Position += m_Velocity;
-	m_aabb.cx = m_Position.x;
-	m_aabb.cy = m_Position.y;
+	m_Component.m_aabb.cy = m_Position.y;
+	m_Component.m_aabb.cy = m_Position.y;
 	Topline* p_topline = ObjectManager::GetTopLine();
-	if (AABB_2d(m_aabb, p_topline->GetCollision()) == true)
+	if (AABB_2d(m_Component.m_aabb, p_topline->GetCollision()->GetAABB()) == true)
 	{
 		m_Position.y = 128.0f + 30.f;
 		m_Velocity.y *= -1;
 	}
 	Underline* p_underline = ObjectManager::GetUnderLine();
-	if (AABB_2d(m_aabb, p_underline->GetCollision()) == true)
+	if (AABB_2d(m_Component.m_aabb, p_underline->GetCollision()->GetAABB()) == true)
 	{
 		m_Position.y = SCREEN_HEIGHT - 128.0f - 30.f;
 		m_Velocity.y *= -1;
@@ -58,7 +58,7 @@ void EnemyGoal::Draw(LPDIRECT3DTEXTURE9 Texture)
 	m_Sprite.Draw(Texture, m_Position.x - 32.0f, m_Position.y - 128.0f, 100.0f, 256.0f, color);
 }
 
-AABB2d * EnemyGoal::GetCollision()
+Component2D * EnemyGoal::GetCollision()
 {
-	return &m_aabb;
+	return &m_Component;
 }

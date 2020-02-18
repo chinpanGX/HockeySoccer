@@ -7,18 +7,18 @@
 
 #pragma once
 #include "Actor.h"
-#include "Collision.h"
+#include "BoxComponent.h"
 
 class EnemyGoal : public Actor
 {
 private:
-	AABB2d m_aabb;
+	Component2D m_Component;
 public:
 	void Init()override;
 	void Init(float Speed);
 	void Uninit()override;
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
-	AABB2d* GetCollision();
+	Component2D* GetCollision();
 };
 

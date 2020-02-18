@@ -9,52 +9,52 @@
 
 void Topline::SetLine(D3DXVECTOR2 Position, float Size_x, float Size_y)
 {
-	m_aabb.cx = Position.x;
-	m_aabb.cy = Position.y;
-	m_aabb.sx = Size_x;
-	m_aabb.sy = Size_y;
+	m_Component.m_aabb.cx = Position.x;
+	m_Component.m_aabb.cy = Position.y;
+	m_Component.m_aabb.sx = Size_x;
+	m_Component.m_aabb.sy = Size_y;
 }
 
-AABB2d * Topline::GetCollision()
+Component2D * Topline::GetCollision()
 {
-	return &m_aabb;
+	return &m_Component;
 }
 
 void Underline::SetLine(D3DXVECTOR2 Position, float Size_x, float Size_y)
 {
-	m_aabb.cx = Position.x;
-	m_aabb.cy = Position.y;
-	m_aabb.sx = Size_x;
-	m_aabb.sy = Size_y;
+	m_Component.m_aabb.cx = Position.x;
+	m_Component.m_aabb.cy = Position.y;
+	m_Component.m_aabb.sx = Size_x;
+	m_Component.m_aabb.sy = Size_y;
 }
 
-AABB2d * Underline::GetCollision()
+Component2D * Underline::GetCollision()
 {
-	return &m_aabb;
+	return &m_Component;
 }
 
 void Leftline::SetLine(D3DXVECTOR2 Position, float Size_x, float Size_y)
 {
-	m_aabb.cx = Position.x;
-	m_aabb.cy = Position.y;
-	m_aabb.sx = Size_x;
-	m_aabb.sy = Size_y;
+	m_Component.m_aabb.cx = Position.x;
+	m_Component.m_aabb.cy = Position.y;
+	m_Component.m_aabb.sx = Size_x;
+	m_Component.m_aabb.sy = Size_y;
 }
 
-AABB2d * Leftline::GetCollision()
+Component2D * Leftline::GetCollision()
 {
-	return &m_aabb;
+	return &m_Component;
 }
 
 void Rightline::SetLine(D3DXVECTOR2 Position, float Size_x, float Size_y)
 {
-	m_aabb.cx = Position.x;
-	m_aabb.cy = Position.y;
-	m_aabb.sx = Size_x;
-	m_aabb.sy = Size_y;
+	m_Component.m_aabb.cx = Position.x;
+	m_Component.m_aabb.cy = Position.y;
+	m_Component.m_aabb.sx = Size_x;
+	m_Component.m_aabb.sy = Size_y;
 }
 
-AABB2d * Rightline::GetCollision()
+Component2D * Rightline::GetCollision()
 {
-	return &m_aabb;
+	return &m_Component;
 }
