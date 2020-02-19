@@ -10,18 +10,19 @@
 #include "Actor.h"
 #include "BoxComponent.h"
 
-enum Collider
+enum ColliderType
 {
 	center,
 	up,
 	down,
-	circle
+	circle,
+	line
 };
 
 class Player : public Actor
 {
 private:
-	Component2D m_Component[4];
+	Component2D m_Component[5];
 	float m_Speed; // 補正スピード値
 
 	// Update()のヘルパー関数

@@ -68,23 +68,20 @@ void Ball::Draw(LPDIRECT3DTEXTURE9 Texture)
 void Ball::PlayerCollision()
 {
 	Player* p_Player = ObjectManager::GetPlayer(); 
-	if (Circle_2d(m_Component.m_circle, p_Player->GetCollision(circle)->GetCircle()) == true)
+	if (AABB_2d(m_Component.m_aabb, p_Player->GetCollision(center)->GetAABB()) == true)
 	{
-		if (AABB_2d(m_Component.m_aabb, p_Player->GetCollision(center)->GetAABB()) == true)
-		{
-			m_Velocity.x *= -1;
-			Sound::Play(S_SE_BALL);
-		}
-		if (AABB_2d(m_Component.m_aabb, p_Player->GetCollision(up)->GetAABB()) == true)
-		{
-			m_Velocity.y *= -1;
-			Sound::Play(S_SE_BALL);
-		}
-		if (AABB_2d(m_Component.m_aabb, p_Player->GetCollision(down)->GetAABB()) == true)
-		{
-			m_Velocity.y *= -1;
-			Sound::Play(S_SE_BALL);
-		}
+		m_Velocity.x *= -1;
+		Sound::Play(S_SE_BALL);
+	}
+	if (AABB_2d(m_Component.m_aabb, p_Player->GetCollision(up)->GetAABB()) == true)
+	{
+		m_Velocity.y *= -1;
+		Sound::Play(S_SE_BALL);
+	}
+	if (AABB_2d(m_Component.m_aabb, p_Player->GetCollision(down)->GetAABB()) == true)
+	{
+		m_Velocity.y *= -1;
+		Sound::Play(S_SE_BALL);
 	}
 }
 

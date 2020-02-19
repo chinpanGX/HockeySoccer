@@ -10,6 +10,7 @@
 
 struct Component2D
 {
+	Line2d m_line;
 	AABB2d m_aabb;
 	Circle2d m_circle;
 	AABB2d * GetAABB()
@@ -19,6 +20,10 @@ struct Component2D
 	Circle2d * GetCircle()
 	{
 		return &m_circle;
+	}
+	Line2d * GetLine()
+	{
+		return &m_line;
 	}
 };
 

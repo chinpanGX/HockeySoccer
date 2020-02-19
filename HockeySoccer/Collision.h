@@ -12,6 +12,20 @@
 //		コリジョン構造体と当たり判定処理のテンプレート
 // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
+// 2D線分
+struct Line2d
+{
+	float sx, sy; // 始点ベクトル
+	float ex, ey; // 終点ベクトル
+};
+
+// 3D線分
+struct Line3d
+{
+	float sx, sy,sz; // 始点ベクトル
+	float ex, ey,ez; // 終点ベクトル
+};
+
 //	2Dサークル
 struct Circle2d
 {
@@ -39,6 +53,40 @@ struct AABB3d
 	float cx, cy, cz; // 中心座標
 	float sx, sy, sz; // 短形サイズ
 };
+
+template <class Type>
+bool InterceptLineCircle(const Type Circle,const Type* p_Line)
+{
+	// ベクトルをつくる
+	D3DXVECTOR2 startcenter = D3DXVECTOR2(Circle.cx - p_Line->sx, Circle.cy - p_Line->sy);
+	D3DXVECTOR2 endcenter = D3DXVECTOR2(Circle.cx - p_Line->ex,Circle.cy - p_Line->ey);
+	D3DXVECTOR2 startend = D3DXVECTOR2(p_Line->ex - p_Line->sx, p_Line->ey - p_Line->sy);
+	D3DXVECTOR2 normal;
+	// 単位ベクトル化
+	D3DXVec2Normalize(&dir,Startend);
+	// 始点と円の中心で外積を行う
+	float distance = startcenter.x * normal.y - normal.x * startcenter.y;
+	// 射影の長さが半径よりも小さい
+	if (fabs(distance) < Circle.radian)
+	{
+		// 始点=>終点と始点=>円の中心の内積を計算
+		float dot1 = startcenter.x * startend.x + startcenter.y * startend.y;
+		// 始点=>終点と始点=>円の中心の内積を計算
+		float dot2 = endcenter.x * startend.x + endcenter.y * startend.y;
+		// 内積の積の結果が結果が0以下なら
+		if ( dot1 * dot2 <= 0.0f)
+		{
+			return true;
+		}
+		//	線分上にないとき、始点=>円の中心の長さor終点=>円の中心の長さが円の半径より短い
+		else if (D3DXVec2Length(&startcenter) < Circle.radian || D3DXVec2Length(&endcenter) < Circle.radian)
+		{
+			return true;
+		}
+		
+	}
+	return false;
+}
 
 //	2Dサークルコリジョン
 template <class Type> 
@@ -68,14 +116,14 @@ template <class Type>
 bool Circle_3d(const Type Collision, const Type * p_Collision)
 {
 	//引数からベクトル型の変数を作る
-	D3DXVECTOR3 dst1(Collision->cx, Collision->cy, Collision->cz);
+	D3DXVECTOR3 dst1(Collision.cx, Collision.cy, Collision.cz);
 	D3DXVECTOR3 dst2(p_Collision->cx, p_Collision->cy, p_Collision->cz);
 	//二点間のベクトルを作る
 	D3DXVECTOR3 distance = dst2 - dst1;
 	//作ったベクトルの長さを求める
 	float length = D3DXVec3Length(&distance);
 	//お互いの半径を足した値を求める
-	float size = Collision->radian + p_Collision->radian;
+	float size = Collision.radian + p_Collision->radian;
 
 	//ベクトルの長さとお互いの半径を足した値を比較する → ベクトルの長さの方が小さければヒット
 	if (length < size)
