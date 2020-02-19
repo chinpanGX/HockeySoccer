@@ -22,5 +22,6 @@ public:
 	static Goal* GetGoal();				// 自陣ゴール
 	static EnemyGoal* GetEnemyGoal();	// 相手側ゴール
 	static Ball* GetBall();				// ボール
+	static Effect* GetEffect();			// エフェクト
 };
 

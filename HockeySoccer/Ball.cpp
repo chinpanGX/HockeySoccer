@@ -41,6 +41,20 @@ void Ball::Uninit()
 
 void Ball::Update()
 {
+	/*
+	Effect* p_Effcet = ObjectManager::GetEffect();
+	if (p_Effcet->GetUse() == true)
+	{
+		if (p_Effcet->GetFrame() >= 20)
+		{
+			m_EffectFlag = -1;
+		}
+	}*/
+	if (m_EffectFlag != -1)
+	{
+		m_EffectFlag = -1;
+	}
+
 	//	ˆÚ“®
 	m_Position += m_Velocity * 1.1f;
 	m_Component.m_aabb.cx = m_Position.x;
@@ -54,7 +68,6 @@ void Ball::Update()
 	PlayerCollision();
 	EnemyCollision();
 	LineCollsion();
-	m_EffectFlag = -1;
 }
 
 void Ball::Draw(LPDIRECT3DTEXTURE9 Texture)
@@ -77,7 +90,6 @@ void Ball::PlayerCollision()
 		// ƒvƒŒƒCƒ„[‚Ìã
 		if (Intercept(m_Component.m_circle,p_Player->GetCollision()->GetLine(0), p_Player->GetCollision()->GetLine(1))== true)
 		{
-			
 			m_Velocity.y *= -1;
 			Sound::Play(S_SE_BALL);
 		}

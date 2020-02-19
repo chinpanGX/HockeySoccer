@@ -62,6 +62,11 @@ Ball * ObjectManager::GetBall()
 	return ((SceneGame*)SceneManager::SetSceneGame())->GetStageEditor()->GetBall();
 }
 
+Effect * ObjectManager::GetEffect()
+{
+	return ((SceneGame*)SceneManager::SetSceneGame())->GetStageEditor()->GetEffect();
+}
+
 
 
 

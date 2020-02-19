@@ -31,5 +31,7 @@ public:
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
 	void Draw();
 	void Set(float x,float y);
+	bool GetUse();
+	int GetFrame();
 };
 

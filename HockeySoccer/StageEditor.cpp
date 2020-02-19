@@ -29,9 +29,9 @@ void StageEditor::Init()
 void StageEditor::Uninit()
 {
 	UninitObject();
+	// テクスチャのアンロード
 	m_Effect.Uninit();
 	m_Ui.Uninit();
-	m_Texture.UnLoadTexture(texture[2]);
 	m_Texture.UnLoadTexture(texture[1]);
 	m_Texture.UnLoadTexture(texture[0]);
 }
@@ -383,14 +383,9 @@ void StageEditor::UpdateObject()
 	m_EnemyGoal.Update();
 	m_Player.Update();
 	m_Ball.Update();
-	m_Effect.Update();
-	EnemyGoalEnd();	//	ゴールに入れたときの処理
-	GoalEnd();		//	ゴールに入ったときの処理
-	// ↓↓↓　ココバグ
-	if (m_Ball.GetEffect() == EXPLOSION)
-	{
-		CreateEffect(m_Ball.GetEffect());
-	}
+	UpdateEffect(); // エフェクトの更新処理
+	EnemyGoalEnd();	// ゴールに入れたときの処理
+	GoalEnd();		//ゴールに入ったときの処理
 }
 
 // エネミーの更新
@@ -431,6 +426,17 @@ void StageEditor::GoalEnd()
 		Fade::Start(false, 30);
 		m_Stage = STAGE_END; // ステートを更新
 		InitObject(m_Stage);
+	}
+}
+
+// エフェクトの更新処理
+void StageEditor::UpdateEffect()
+{
+	m_Effect.Update();
+	// 爆発エフェクト再生
+	if (m_Ball.GetEffect() == EXPLOSION)
+	{
+		CreateEffect(m_Ball.GetEffect());
 	}
 }
 
@@ -585,5 +591,10 @@ EnemyGoal * StageEditor::GetEnemyGoal()
 Ball * StageEditor::GetBall()
 {
 	return &m_Ball;
+}
+
+Effect * StageEditor::GetEffect()
+{
+	return &m_Effect;
 }
 

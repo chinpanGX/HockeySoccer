@@ -87,6 +87,7 @@ private:
 	//	UpdateObjectのヘルパー関数
 	void EnemyGoalEnd();	// 相手ゴールに入れたとき
 	void GoalEnd();			// 自陣ゴールに入ったとき
+	void UpdateEffect();	// エフェクトの更新処理
 	void CreateEffect(int number);	// エフェクト再生
 
 	/// <summary>
@@ -110,5 +111,6 @@ public:
 	Goal* GetGoal();
 	EnemyGoal* GetEnemyGoal();
 	Ball* GetBall();
+	Effect* GetEffect();
 };
 
