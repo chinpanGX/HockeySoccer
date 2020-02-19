@@ -23,7 +23,6 @@ private:
 	void LineCollsion();
 	void GoalCollsion();
 	void EnemyGoalCollision();
-
 public:
 	void Init()override;
 	void Init(D3DXVECTOR2 Velocity); // ˆÚ“®•ûŒü‚×ƒNƒgƒ‹‚Ì•ÏX

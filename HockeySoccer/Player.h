@@ -16,13 +16,12 @@ enum ColliderType
 	up,
 	down,
 	circle,
-	line
 };
 
 class Player : public Actor
 {
 private:
-	Component2D m_Component[5];
+	Component2D m_Component;
 	float m_Speed; // 補正スピード値
 
 	// Update()のヘルパー関数
@@ -35,7 +34,7 @@ public:
 	void Uninit()override;
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
-	Component2D* GetCollision(int i);
+	Component2D* GetCollision();
 	D3DXVECTOR2 GetPosition();
 };
 

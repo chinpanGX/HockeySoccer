@@ -51,7 +51,7 @@ void EnemyGoal::Update()
 void EnemyGoal::Draw(LPDIRECT3DTEXTURE9 Texture)
 {
 	D3DXCOLOR color = D3DCOLOR_RGBA(150, 150, 150, 255);
-	m_Sprite.Draw(Texture, m_Position.x - 32.0f, m_Position.y - 128.0f, 100.0f, 256.0f, color);
+	m_Sprite.Draw(Texture, m_Position.x - 34.0f, m_Position.y - 128.0f, 100.0f, 256.0f, color);
 }
 
 Component2D * EnemyGoal::GetCollision()

@@ -63,25 +63,38 @@ void Ball::Draw(LPDIRECT3DTEXTURE9 Texture)
 /// <summary>
 /// Update()のヘルパー関数
 /// </summary>
-
 //	プレイヤーとの当たり判定
 void Ball::PlayerCollision()
 {
-	Player* p_Player = ObjectManager::GetPlayer(); 
-	if (AABB_2d(m_Component.m_aabb, p_Player->GetCollision(center)->GetAABB()) == true)
+	Player* p_Player = ObjectManager::GetPlayer();
+	// AABB同士の衝突検知
+	if (AABB_2d(m_Component.m_aabb, p_Player->GetCollision()->GetAABB()) == true)
 	{
-		m_Velocity.x *= -1;
-		Sound::Play(S_SE_BALL);
-	}
-	if (AABB_2d(m_Component.m_aabb, p_Player->GetCollision(up)->GetAABB()) == true)
-	{
-		m_Velocity.y *= -1;
-		Sound::Play(S_SE_BALL);
-	}
-	if (AABB_2d(m_Component.m_aabb, p_Player->GetCollision(down)->GetAABB()) == true)
-	{
-		m_Velocity.y *= -1;
-		Sound::Play(S_SE_BALL);
+		// 半径と線分の衝突検知
+		// プレイヤーの上
+		if (Intercept(m_Component.m_circle,p_Player->GetCollision()->GetLine(0), p_Player->GetCollision()->GetLine(1))== true)
+		{
+			m_Velocity.y *= -1;
+			Sound::Play(S_SE_BALL);
+		}
+		// プレイヤーの下
+		if (Intercept(m_Component.m_circle,p_Player->GetCollision()->GetLine(2), p_Player->GetCollision()->GetLine(3)) == true)
+		{
+			m_Velocity.y *= -1;
+			Sound::Play(S_SE_BALL);
+		}
+		// プレイヤーの左
+		if (Intercept(m_Component.m_circle,p_Player->GetCollision()->GetLine(0), p_Player->GetCollision()->GetLine(2)) == true)
+		{
+			m_Velocity.x *= -1;
+			Sound::Play(S_SE_BALL);
+		}
+		// 右
+		if (Intercept(m_Component.m_circle,p_Player->GetCollision()->GetLine(1), p_Player->GetCollision()->GetLine(3)) == true)
+		{
+			m_Velocity.x *= -1;
+			Sound::Play(S_SE_BALL);
+		}
 	}
 }
 
@@ -89,21 +102,30 @@ void Ball::PlayerCollision()
 void Ball::EnemyCollision()
 {
 	Enemy* p_Enemy = ObjectManager::GetEnemy();
-	if (Circle_2d(m_Component.m_circle, p_Enemy->GetCollision(circle)->GetCircle()) == true)
+	if (AABB_2d(m_Component.m_aabb, p_Enemy->GetCollision()->GetAABB()) == true)
 	{
-		if (AABB_2d(m_Component.m_aabb, p_Enemy->GetCollision(center)->GetAABB()) == true)
+		// 上
+		if (Intercept(m_Component.m_circle,p_Enemy->GetCollision()->GetLine(0), p_Enemy->GetCollision()->GetLine(1)) == true)
+		{
+			m_Velocity.y *= -1;
+			Sound::Play(S_SE_BALL);
+		}
+		// 下
+		if (Intercept(m_Component.m_circle,p_Enemy->GetCollision()->GetLine(2), p_Enemy->GetCollision()->GetLine(3)) == true)
+		{
+			m_Velocity.y *= -1;
+			Sound::Play(S_SE_BALL);
+		}
+		// 左
+		if (Intercept(m_Component.m_circle,p_Enemy->GetCollision()->GetLine(0), p_Enemy->GetCollision()->GetLine(2)) == true)
 		{
 			m_Velocity.x *= -1;
 			Sound::Play(S_SE_BALL);
 		}
-		if (AABB_2d(m_Component.m_aabb, p_Enemy->GetCollision(up)->GetAABB()) == true)
+		// 右
+		if (Intercept(m_Component.m_circle,p_Enemy->GetCollision()->GetLine(1), p_Enemy->GetCollision()->GetLine(3)) == true)
 		{
-			m_Velocity.y *= -1;
-			Sound::Play(S_SE_BALL);
-		}
-		if (AABB_2d(m_Component.m_aabb, p_Enemy->GetCollision(down)->GetAABB()) == true)
-		{
-			m_Velocity.y *= -1;
+			m_Velocity.x *= -1;
 			Sound::Play(S_SE_BALL);
 		}
 	}

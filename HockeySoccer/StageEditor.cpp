@@ -15,7 +15,10 @@
 //	初期化処理
 void StageEditor::Init()
 {
-	LoadTexture();			//	テクスチャのロード
+	//	テクスチャのロード
+	texture[0] = m_Texture.LoadTexture("Rom/Texture/Ball.png"); // ボール
+	texture[1] = m_Texture.LoadTexture("Rom/Texture/Bar.png");	// ゴール
+	m_Ui.Init();	//	UIテクスチャ
 	m_Stage = STAGE_1;		//	初期化ステージ
 	InitObject(STAGE_1);
 	m_StageCount = m_Stage;	//	ステージカウントへ代入
@@ -26,7 +29,6 @@ void StageEditor::Uninit()
 {
 	UninitObject();
 	m_Ui.Uninit();
-	m_Texture.UnLoadTexture(texture[2]);
 	m_Texture.UnLoadTexture(texture[1]);
 	m_Texture.UnLoadTexture(texture[0]);
 }
@@ -208,10 +210,7 @@ bool StageEditor::GameEnd()
 //	テクスチャのロード
 void StageEditor::LoadTexture()
 {
-	texture[0] = m_Texture.LoadTexture("Rom/Texture/Ball.png"); // ボール
-	texture[1] = m_Texture.LoadTexture("Rom/Texture/Bar.png");	// Player
-	texture[2] = m_Texture.LoadTexture("Rom/Texture/Goal.png");	// ゴール
-	m_Ui.Init();	//	UIテクスチャ
+	
 }
 //	オブジェクトの初期化
 void StageEditor::InitObject(int Stage)
@@ -495,11 +494,11 @@ void StageEditor::UpdateFrame(bool Flag)
 {	
 	if (Flag == true)
 	{
-		m_FramePosition = SCREEN_HEIGHT * 0.5f - 100.0f;
+		m_FramePosition = SCREEN_HEIGHT * 0.5f - 115.0f;
 	}
 	else if (Flag == false)
 	{
-		m_FramePosition = SCREEN_HEIGHT * 0.5f + 100.0f;
+		m_FramePosition = SCREEN_HEIGHT * 0.5f + 115.0f;
 	}
 }
 
@@ -511,8 +510,8 @@ void StageEditor::DrawObject()
 {
 	m_Player.Draw(m_Texture.SetTexture(texture[1]));
 	m_Ball.Draw(m_Texture.SetTexture(texture[0]));
-	m_Goal.Draw(m_Texture.SetTexture(texture[2]));
-	m_EnemyGoal.Draw(m_Texture.SetTexture(texture[2]));
+	m_Goal.Draw(m_Texture.SetTexture(texture[1]));
+	m_EnemyGoal.Draw(m_Texture.SetTexture(texture[1]));
 }
 
 void StageEditor::DrawEnemy(int EnemyNum)
@@ -527,8 +526,8 @@ void StageEditor::DrawEnemy(int EnemyNum)
 void StageEditor::DrawStageClear()
 {
 	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f - 400.0f, 7);
-	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f - 100.0f, 1);
-	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f + 100.0f, 2);
+	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f - 115.0f, 1);
+	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f + 115.0f, 2);
 	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, m_FramePosition, 0);
 }
 
@@ -536,8 +535,8 @@ void StageEditor::DrawStageClear()
 void StageEditor::DrawRetry()
 {
 	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f - 400.0f, 6);
-	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f - 100.0f, 4);
-	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f + 100.0f, 5);
+	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f - 115.0f, 4);
+	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, SCREEN_HEIGHT * 0.5f + 115.0f, 5);
 	m_Ui.Draw(SCREEN_WIDTH * 0.5 - 432.0f, m_FramePosition, 0);
 }
 

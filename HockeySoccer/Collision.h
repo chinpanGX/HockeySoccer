@@ -15,8 +15,7 @@
 // 2D線分
 struct Line2d
 {
-	float sx, sy; // 始点ベクトル
-	float ex, ey; // 終点ベクトル
+	float px, py;
 };
 
 // 3D線分
@@ -55,35 +54,34 @@ struct AABB3d
 };
 
 template <class Type>
-bool InterceptLineCircle(const Type Circle,const Type* p_Line)
+bool Intercept(const Circle2d Collision,const Type* start, const Type* end)
 {
 	// ベクトルをつくる
-	D3DXVECTOR2 startcenter = D3DXVECTOR2(Circle.cx - p_Line->sx, Circle.cy - p_Line->sy);
-	D3DXVECTOR2 endcenter = D3DXVECTOR2(Circle.cx - p_Line->ex,Circle.cy - p_Line->ey);
-	D3DXVECTOR2 startend = D3DXVECTOR2(p_Line->ex - p_Line->sx, p_Line->ey - p_Line->sy);
+	D3DXVECTOR2 startcenter = D3DXVECTOR2(Collision.cx - start->px, Collision.cy - start->py);
+	D3DXVECTOR2 endcenter = D3DXVECTOR2(Collision.cx - end->px, Collision.cy - end->py);
+	D3DXVECTOR2 startend = D3DXVECTOR2(end->px - start->px, end->py - start->py);
 	D3DXVECTOR2 normal;
 	// 単位ベクトル化
-	D3DXVec2Normalize(&dir,Startend);
+	D3DXVec2Normalize(&normal, &startend);
 	// 始点と円の中心で外積を行う
 	float distance = startcenter.x * normal.y - normal.x * startcenter.y;
 	// 射影の長さが半径よりも小さい
-	if (fabs(distance) < Circle.radian)
+	if (fabs(distance) < Collision.radian)
 	{
 		// 始点=>終点と始点=>円の中心の内積を計算
 		float dot1 = startcenter.x * startend.x + startcenter.y * startend.y;
 		// 始点=>終点と始点=>円の中心の内積を計算
 		float dot2 = endcenter.x * startend.x + endcenter.y * startend.y;
 		// 内積の積の結果が結果が0以下なら
-		if ( dot1 * dot2 <= 0.0f)
+		if (dot1 * dot2 <= 0.0f)
 		{
 			return true;
 		}
 		//	線分上にないとき、始点=>円の中心の長さor終点=>円の中心の長さが円の半径より短い
-		else if (D3DXVec2Length(&startcenter) < Circle.radian || D3DXVec2Length(&endcenter) < Circle.radian)
+		else if (D3DXVec2Length(&startcenter) < Collision.radian || D3DXVec2Length(&endcenter) < Collision.radian)
 		{
 			return true;
 		}
-		
 	}
 	return false;
 }

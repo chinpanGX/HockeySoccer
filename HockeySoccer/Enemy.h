@@ -12,7 +12,7 @@
 class Enemy : public Player
 {
 private:
-	Component2D m_Component[4];
+	Component2D m_Component;
 
 	// Update()‚Ìƒwƒ‹ƒp[ŠÖ”
 	void Move();
@@ -24,7 +24,7 @@ public:
 	void Uninit()override;
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
-	Component2D * GetCollision(int i);
+	Component2D * GetCollision();
 	D3DXVECTOR2 GetPosition();
 };
 
