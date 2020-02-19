@@ -139,6 +139,7 @@
     <ClInclude Include="BoxComponent.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyGoal.h" />
     <ClInclude Include="Fade.h" />
@@ -164,6 +165,7 @@
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyGoal.cpp" />
     <ClCompile Include="Fade.cpp" />

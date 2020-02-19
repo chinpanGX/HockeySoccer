@@ -19,6 +19,7 @@ void Ball::Init()
 	m_Component.m_circle.radian = 16.0f;
 	m_GameEnd = false;
 	m_GoalFlag = false;
+	m_EffectFlag = -1;
 }
 
 void Ball::Init(D3DXVECTOR2 Velocity)
@@ -30,6 +31,7 @@ void Ball::Init(D3DXVECTOR2 Velocity)
 	m_Component.m_circle.radian = 16.0f;
 	m_GameEnd = false;
 	m_GoalFlag = false;
+	m_EffectFlag = -1;
 }
 
 void Ball::Uninit()
@@ -52,6 +54,7 @@ void Ball::Update()
 	PlayerCollision();
 	EnemyCollision();
 	LineCollsion();
+	m_EffectFlag = -1;
 }
 
 void Ball::Draw(LPDIRECT3DTEXTURE9 Texture)
@@ -74,6 +77,7 @@ void Ball::PlayerCollision()
 		// プレイヤーの上
 		if (Intercept(m_Component.m_circle,p_Player->GetCollision()->GetLine(0), p_Player->GetCollision()->GetLine(1))== true)
 		{
+			
 			m_Velocity.y *= -1;
 			Sound::Play(S_SE_BALL);
 		}
@@ -141,13 +145,15 @@ void Ball::LineCollsion()
 	Rightline* p_rightline = ObjectManager::GetRightLine();
 	if (AABB_2d(m_Component.m_aabb, p_topline->GetCollision()->GetAABB()) == true || AABB_2d(m_Component.m_aabb, p_underline->GetCollision()->GetAABB()) == true)
 	{
-		Sound::Play(S_SE_BALL);
+		m_EffectFlag = EXPLOSION;
 		m_Velocity.y *= -1;
+		Sound::Play(S_SE_BALL);
 	}
 	if (AABB_2d(m_Component.m_aabb, p_leftline->GetCollision()->GetAABB()) == true || AABB_2d(m_Component.m_aabb, p_rightline->GetCollision()->GetAABB()) == true)
 	{
-		Sound::Play(S_SE_BALL);
+		m_EffectFlag = EXPLOSION;
 		m_Velocity.x *= -1;
+		Sound::Play(S_SE_BALL);
 	}
 }
 
@@ -159,7 +165,6 @@ void Ball::GoalCollsion()
 	if (AABB_2d(m_Component.m_aabb, p_Goal->GetCollision()->GetAABB()) == true)
 	{
 		Sound::Play(S_SE_WHISTIL);
-		//ゲーム終了
 		m_GameEnd = true;
 	}
 }
@@ -188,5 +193,15 @@ bool Ball::GetGameEnd()
 bool Ball::GetGoalFlag()
 {
 	return m_GoalFlag;
+}
+
+D3DXVECTOR2 Ball::GetPosition()
+{
+	return m_Position;
+}
+
+int Ball::GetEffect()
+{
+	return m_EffectFlag;
 }
 

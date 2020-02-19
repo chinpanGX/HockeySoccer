@@ -18,7 +18,8 @@ void StageEditor::Init()
 	//	テクスチャのロード
 	texture[0] = m_Texture.LoadTexture("Rom/Texture/Ball.png"); // ボール
 	texture[1] = m_Texture.LoadTexture("Rom/Texture/Bar.png");	// ゴール
-	m_Ui.Init();	//	UIテクスチャ
+	m_Effect.Init();
+	m_Ui.Init();//	UIテクスチャ
 	m_Stage = STAGE_1;		//	初期化ステージ
 	InitObject(STAGE_1);
 	m_StageCount = m_Stage;	//	ステージカウントへ代入
@@ -28,7 +29,9 @@ void StageEditor::Init()
 void StageEditor::Uninit()
 {
 	UninitObject();
+	m_Effect.Uninit();
 	m_Ui.Uninit();
+	m_Texture.UnLoadTexture(texture[2]);
 	m_Texture.UnLoadTexture(texture[1]);
 	m_Texture.UnLoadTexture(texture[0]);
 }
@@ -207,11 +210,6 @@ bool StageEditor::GameEnd()
 /// <summary>
 ///	Init()のヘルパー関数
 /// </summary>
-//	テクスチャのロード
-void StageEditor::LoadTexture()
-{
-	
-}
 //	オブジェクトの初期化
 void StageEditor::InitObject(int Stage)
 {
@@ -348,7 +346,7 @@ void StageEditor::InitObject(int Stage)
 	}
 }
 
-//	ゴールの初期化
+// 共通の初期化
 void StageEditor::InitGoal()
 {
 	m_EnemyGoal.Init();
@@ -363,6 +361,7 @@ void StageEditor::UninitObject()
 {
 	Sound::Stop();
 	m_Ball.Uninit();
+	m_Enemy[2].Uninit();
 	m_Enemy[1].Uninit();
 	m_Enemy[0].Uninit();
 	m_Player.Uninit();
@@ -384,10 +383,17 @@ void StageEditor::UpdateObject()
 	m_EnemyGoal.Update();
 	m_Player.Update();
 	m_Ball.Update();
+	m_Effect.Update();
 	EnemyGoalEnd();	//	ゴールに入れたときの処理
 	GoalEnd();		//	ゴールに入ったときの処理
+	// ↓↓↓　ココバグ
+	if (m_Ball.GetEffect() == EXPLOSION)
+	{
+		CreateEffect(m_Ball.GetEffect());
+	}
 }
 
+// エネミーの更新
 void StageEditor::UpdateEnemy(int EnemyNum)
 {
 	for (int i = 0; i < EnemyNum; i++)
@@ -425,6 +431,17 @@ void StageEditor::GoalEnd()
 		Fade::Start(false, 30);
 		m_Stage = STAGE_END; // ステートを更新
 		InitObject(m_Stage);
+	}
+}
+
+// エフェクト再生
+void StageEditor::CreateEffect(int number)
+{
+	switch (number)
+	{
+	case EXPLOSION:
+		m_Effect.Set(m_Ball.GetPosition().x, m_Ball.GetPosition().y);
+		break;
 	}
 }
 
@@ -509,11 +526,13 @@ void StageEditor::UpdateFrame(bool Flag)
 void StageEditor::DrawObject()
 {
 	m_Player.Draw(m_Texture.SetTexture(texture[1]));
-	m_Ball.Draw(m_Texture.SetTexture(texture[0]));
 	m_Goal.Draw(m_Texture.SetTexture(texture[1]));
 	m_EnemyGoal.Draw(m_Texture.SetTexture(texture[1]));
+	m_Ball.Draw(m_Texture.SetTexture(texture[0]));
+	m_Effect.Draw();
 }
 
+//  エネミーの描画
 void StageEditor::DrawEnemy(int EnemyNum)
 {
 	for (int i = 0; i < EnemyNum; i++)

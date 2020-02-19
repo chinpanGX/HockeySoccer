@@ -15,6 +15,7 @@
 #include "EnemyGoal.h"
 #include "GameBG.h"
 #include "UI.h"
+#include "Effect.h"
 
 #define ENEMY_MAX 3 
 
@@ -54,8 +55,9 @@ private:
 	EnemyGoal	m_EnemyGoal;// 相手側のゴール
 	GameBG		m_StageBG;	// ステージクリア背景
 	UI			m_Ui;		// UI
+	Effect		m_Effect;	// エフェクト
 
-	unsigned int texture[3]; // テクスチャを格納
+	unsigned int texture[2]; // テクスチャを格納
 	int	m_StageCount;		 // ステージをカウント
 	int m_Frame;			 // フレームカウント
 	float m_FramePosition;	 // 枠の位置
@@ -65,7 +67,6 @@ private:
 	///	<summry>
 	/// Init()のヘルパー関数
 	/// </summary>
-	void LoadTexture();					// テクスチャのロード
 	void InitObject(int Stage);			// オブジェクトの初期化
 	void InitGoal();					// ゴールの初期化	
 
@@ -86,6 +87,7 @@ private:
 	//	UpdateObjectのヘルパー関数
 	void EnemyGoalEnd();	// 相手ゴールに入れたとき
 	void GoalEnd();			// 自陣ゴールに入ったとき
+	void CreateEffect(int number);	// エフェクト再生
 
 	/// <summary>
 	///　Draw()のヘルパー関数

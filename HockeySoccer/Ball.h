@@ -14,8 +14,9 @@ class Ball : public Actor
 private:
 	Component2D m_Component;
 	D3DXCOLOR m_Color;
-	bool m_GameEnd;	//	©wƒS[ƒ‹‚µ‚½‚©‚Ç‚¤‚©
-	bool m_GoalFlag;	//	ƒS[ƒ‹‚µ‚½‚©‚Ç‚¤‚©”»’è
+	bool m_GameEnd;	  // ©wƒS[ƒ‹‚µ‚½‚©‚Ç‚¤‚©
+	bool m_GoalFlag;  // ƒS[ƒ‹‚µ‚½‚©‚Ç‚¤‚©”»’è
+	int m_EffectFlag;
 
 	// Update()‚Ìƒwƒ‹ƒp[ŠÖ”
 	void PlayerCollision();
@@ -32,4 +33,6 @@ public:
 	Component2D* GetCollision();
 	bool GetGameEnd();
 	bool GetGoalFlag();
+	D3DXVECTOR2 GetPosition();
+	int GetEffect();
 };
