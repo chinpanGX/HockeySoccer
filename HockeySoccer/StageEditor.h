@@ -15,7 +15,8 @@
 #include "EnemyGoal.h"
 #include "GameBG.h"
 #include "UI.h"
-#include "Effect.h"
+#include "Effect_Explosion.h"
+#include "Effect_HitPlayer.h"
 
 #define ENEMY_MAX 3 
 
@@ -47,17 +48,19 @@ class StageEditor
 {
 private:
 	Texture		m_Texture;
-	Stage		m_Stage;	// ステージ
-	Player		m_Player;	// プレイヤー
+	Stage		m_Stage;			// ステージ
+	Player		m_Player;			// プレイヤー
 	Enemy		m_Enemy[ENEMY_MAX];	// エネミー
-	Ball		m_Ball;		// ボール
-	Goal		m_Goal;		// ゴール
-	EnemyGoal	m_EnemyGoal;// 相手側のゴール
-	GameBG		m_StageBG;	// ステージクリア背景
-	UI			m_Ui;		// UI
-	Effect		m_Effect;	// エフェクト
+	Ball		m_Ball;				// ボール
+	Goal		m_Goal;				// ゴール
+	EnemyGoal	m_EnemyGoal;		// 相手側のゴール
+	GameBG		m_StageBG;			// ステージクリア背景
+	UI			m_Ui;				// UI
+	Explosion	m_Ex;				// 爆発エフェクト
+	HitPlayer	m_HitPlayer;		// ヒットエフェクト
 
-	unsigned int texture[2]; // テクスチャを格納
+	static const int number = 4; // テクスチャの数
+	unsigned int texture[number]; // テクスチャを格納
 	int	m_StageCount;		 // ステージをカウント
 	int m_Frame;			 // フレームカウント
 	float m_FramePosition;	 // 枠の位置
@@ -111,6 +114,5 @@ public:
 	Goal* GetGoal();
 	EnemyGoal* GetEnemyGoal();
 	Ball* GetBall();
-	Effect* GetEffect();
 };
 

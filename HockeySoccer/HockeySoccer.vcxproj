@@ -140,8 +140,10 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="Effect_HitPlayer.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyGoal.h" />
+    <ClInclude Include="Effect_Explosion.h" />
     <ClInclude Include="Fade.h" />
     <ClInclude Include="GameBG.h" />
     <ClInclude Include="Goal.h" />
@@ -166,8 +168,10 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="Effect_HitPlayer.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyGoal.cpp" />
+    <ClCompile Include="Effect_Explosion.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="GameBG.cpp" />
     <ClCompile Include="Goal.cpp" />

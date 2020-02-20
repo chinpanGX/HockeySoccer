@@ -12,18 +12,21 @@
 enum EffectNumber
 {
 	EXPLOSION,
+	HITPLAYER
 };
 
 class Effect : public Object
 {
-private:
-	Texture m_Texture;
-	unsigned int m_Effecttexture;
+protected:
 	D3DXVECTOR2 m_Position;
 	bool m_Use;
 	int m_Frame;
 	float FrameSize;
 	int AnimeMax;
+
+	// Draw()‚Ìƒwƒ‹ƒp[ŠÖ”
+	void EffectDraw(unsigned int texture);
+
 public:
 	void Init()override;
 	void Uninit()override;

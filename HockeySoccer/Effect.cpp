@@ -9,7 +9,6 @@
 
 void Effect::Init()
 {
-	m_Effecttexture = m_Texture.LoadTexture("Rom/Texture/Explosion.png");
 	m_Use = false;
 	m_Frame = 0;
 	FrameSize = 192.0f;
@@ -18,7 +17,7 @@ void Effect::Init()
 
 void Effect::Uninit()
 {
-	m_Texture.UnLoadTexture(m_Effecttexture);
+	
 }
 
 void Effect::Update()
@@ -35,18 +34,23 @@ void Effect::Update()
 
 void Effect::Draw(LPDIRECT3DTEXTURE9 Texture)
 {
-	
-}
-
-void Effect::Draw()
-{
 	if (m_Use == true)
 	{
 		// 現在表示するべきパターン番号から切り取り座標を算出する
 		float tx = FrameSize * (m_Frame % 5);
 		float ty = FrameSize * (m_Frame / 5);
-		m_Sprite.Draw(m_Texture.SetTexture(m_Effecttexture), m_Position.x - (FrameSize * 0.5f) , m_Position.y - (FrameSize * 0.5f), 960.0f, 768.0f, tx, ty, FrameSize, FrameSize);
+		m_Sprite.Draw(Texture, m_Position.x - (FrameSize * 0.5f), m_Position.y - (FrameSize * 0.5f), 960.0f, 768.0f, tx, ty, FrameSize, FrameSize);
 	}
+}
+
+void Effect::Draw()
+{
+	
+}
+
+void Effect::EffectDraw(unsigned int texture)
+{
+	//m_Sprite.Draw(m_Texture.SetTexture(texture), m_Position.x - (FrameSize * 0.5f), m_Position.y - (FrameSize * 0.5f), 960.0f, 768.0f, tx, ty, FrameSize, FrameSize);
 }
 
 void Effect::Set(float x, float y)
@@ -59,15 +63,4 @@ void Effect::Set(float x, float y)
 		m_Use = true;
 	}
 }
-
-bool Effect::GetUse()
-{
-	return m_Use;
-}
-
-int Effect::GetFrame()
-{
-	return m_Frame;
-}
-
 

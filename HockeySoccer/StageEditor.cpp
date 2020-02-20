@@ -16,10 +16,12 @@
 void StageEditor::Init()
 {
 	//	テクスチャのロード
-	texture[0] = m_Texture.LoadTexture("Rom/Texture/Ball.png"); // ボール
-	texture[1] = m_Texture.LoadTexture("Rom/Texture/Bar.png");	// ゴール
-	m_Effect.Init();
+	texture[0] = m_Texture.LoadTexture("Rom/Texture/Ball.png");			// ボール
+	texture[1] = m_Texture.LoadTexture("Rom/Texture/Bar.png");			// ゴール
+	texture[2] = m_Texture.LoadTexture("Rom/Texture/Explosion.png");	// 爆発エフェクト
+	texture[3] = m_Texture.LoadTexture("Rom/Texture/PlayerEffect.png"); // ヒットエフェクト
 	m_Ui.Init();//	UIテクスチャ
+	// ステージ
 	m_Stage = STAGE_1;		//	初期化ステージ
 	InitObject(STAGE_1);
 	m_StageCount = m_Stage;	//	ステージカウントへ代入
@@ -29,11 +31,13 @@ void StageEditor::Init()
 void StageEditor::Uninit()
 {
 	UninitObject();
+	
 	// テクスチャのアンロード
-	m_Effect.Uninit();
 	m_Ui.Uninit();
-	m_Texture.UnLoadTexture(texture[1]);
-	m_Texture.UnLoadTexture(texture[0]);
+	for (int i = number - 1; i >= 0; i--)
+	{
+		m_Texture.UnLoadTexture(texture[i]);
+	}
 }
 
 //	更新処理
@@ -351,6 +355,9 @@ void StageEditor::InitGoal()
 {
 	m_EnemyGoal.Init();
 	m_Goal.Init();
+	// エフェクト処理
+	m_Ex.Init();
+	m_HitPlayer.Init();
 }
 
 /// <summry>
@@ -432,11 +439,18 @@ void StageEditor::GoalEnd()
 // エフェクトの更新処理
 void StageEditor::UpdateEffect()
 {
-	m_Effect.Update();
-	// 爆発エフェクト再生
-	if (m_Ball.GetEffect() == EXPLOSION)
+	EffectNumber number;
+	m_Ex.Update();
+	m_HitPlayer.Update();
+	number = (EffectNumber)m_Ball.GetEffect();
+	switch (number)
 	{
+	case EXPLOSION: // 爆発エフェクト
 		CreateEffect(m_Ball.GetEffect());
+		break;
+	case HITPLAYER: // ヒットエフェクト
+		CreateEffect(m_Ball.GetEffect());
+		break;
 	}
 }
 
@@ -446,7 +460,10 @@ void StageEditor::CreateEffect(int number)
 	switch (number)
 	{
 	case EXPLOSION:
-		m_Effect.Set(m_Ball.GetPosition().x, m_Ball.GetPosition().y);
+		m_Ex.Set(m_Ball.GetPosition().x, m_Ball.GetPosition().y);
+		break;
+	case HITPLAYER:
+		m_HitPlayer.Set(m_Ball.GetPosition().x, m_Ball.GetPosition().y);
 		break;
 	}
 }
@@ -535,7 +552,8 @@ void StageEditor::DrawObject()
 	m_Goal.Draw(m_Texture.SetTexture(texture[1]));
 	m_EnemyGoal.Draw(m_Texture.SetTexture(texture[1]));
 	m_Ball.Draw(m_Texture.SetTexture(texture[0]));
-	m_Effect.Draw();
+	m_Ex.Draw(m_Texture.SetTexture(texture[2]));
+	m_HitPlayer.Draw(m_Texture.SetTexture(texture[3]));
 }
 
 //  エネミーの描画
@@ -591,10 +609,5 @@ EnemyGoal * StageEditor::GetEnemyGoal()
 Ball * StageEditor::GetBall()
 {
 	return &m_Ball;
-}
-
-Effect * StageEditor::GetEffect()
-{
-	return &m_Effect;
 }
 

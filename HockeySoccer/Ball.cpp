@@ -41,15 +41,7 @@ void Ball::Uninit()
 
 void Ball::Update()
 {
-	/*
-	Effect* p_Effcet = ObjectManager::GetEffect();
-	if (p_Effcet->GetUse() == true)
-	{
-		if (p_Effcet->GetFrame() >= 20)
-		{
-			m_EffectFlag = -1;
-		}
-	}*/
+
 	if (m_EffectFlag != -1)
 	{
 		m_EffectFlag = -1;
@@ -90,24 +82,28 @@ void Ball::PlayerCollision()
 		// プレイヤーの上
 		if (Intercept(m_Component.m_circle,p_Player->GetCollision()->GetLine(0), p_Player->GetCollision()->GetLine(1))== true)
 		{
+			m_EffectFlag = HITPLAYER;
 			m_Velocity.y *= -1;
 			Sound::Play(S_SE_BALL);
 		}
 		// プレイヤーの下
 		if (Intercept(m_Component.m_circle,p_Player->GetCollision()->GetLine(2), p_Player->GetCollision()->GetLine(3)) == true)
 		{
+			m_EffectFlag = HITPLAYER;
 			m_Velocity.y *= -1;
 			Sound::Play(S_SE_BALL);
 		}
 		// プレイヤーの左
 		if (Intercept(m_Component.m_circle,p_Player->GetCollision()->GetLine(0), p_Player->GetCollision()->GetLine(2)) == true)
 		{
+			m_EffectFlag = HITPLAYER;
 			m_Velocity.x *= -1;
 			Sound::Play(S_SE_BALL);
 		}
 		// 右
 		if (Intercept(m_Component.m_circle,p_Player->GetCollision()->GetLine(1), p_Player->GetCollision()->GetLine(3)) == true)
 		{
+			m_EffectFlag = HITPLAYER;
 			m_Velocity.x *= -1;
 			Sound::Play(S_SE_BALL);
 		}
@@ -118,31 +114,39 @@ void Ball::PlayerCollision()
 void Ball::EnemyCollision()
 {
 	Enemy* p_Enemy = ObjectManager::GetEnemy();
-	if (AABB_2d(m_Component.m_aabb, p_Enemy->GetCollision()->GetAABB()) == true)
+	for (int i = 0; i < ENEMY_MAX; i++)
 	{
-		// 上
-		if (Intercept(m_Component.m_circle,p_Enemy->GetCollision()->GetLine(0), p_Enemy->GetCollision()->GetLine(1)) == true)
+
+		if (AABB_2d(m_Component.m_aabb, p_Enemy[i].GetCollision()->GetAABB()) == true)
 		{
-			m_Velocity.y *= -1;
-			Sound::Play(S_SE_BALL);
-		}
-		// 下
-		if (Intercept(m_Component.m_circle,p_Enemy->GetCollision()->GetLine(2), p_Enemy->GetCollision()->GetLine(3)) == true)
-		{
-			m_Velocity.y *= -1;
-			Sound::Play(S_SE_BALL);
-		}
-		// 左
-		if (Intercept(m_Component.m_circle,p_Enemy->GetCollision()->GetLine(0), p_Enemy->GetCollision()->GetLine(2)) == true)
-		{
-			m_Velocity.x *= -1;
-			Sound::Play(S_SE_BALL);
-		}
-		// 右
-		if (Intercept(m_Component.m_circle,p_Enemy->GetCollision()->GetLine(1), p_Enemy->GetCollision()->GetLine(3)) == true)
-		{
-			m_Velocity.x *= -1;
-			Sound::Play(S_SE_BALL);
+			// 上
+			if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetLine(0), p_Enemy->GetCollision()->GetLine(1)) == true)
+			{
+				m_EffectFlag = HITPLAYER;
+				m_Velocity.y *= -1;
+				Sound::Play(S_SE_BALL);
+			}
+			// 下
+			if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetLine(2), p_Enemy->GetCollision()->GetLine(3)) == true)
+			{
+				m_EffectFlag = HITPLAYER;
+				m_Velocity.y *= -1;
+				Sound::Play(S_SE_BALL);
+			}
+			// 左
+			if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetLine(0), p_Enemy->GetCollision()->GetLine(2)) == true)
+			{
+				m_EffectFlag = HITPLAYER;
+				m_Velocity.x *= -1;
+				Sound::Play(S_SE_BALL);
+			}
+			// 右
+			if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetLine(1), p_Enemy->GetCollision()->GetLine(3)) == true)
+			{
+				m_EffectFlag = HITPLAYER;
+				m_Velocity.x *= -1;
+				Sound::Play(S_SE_BALL);
+			}
 		}
 	}
 }
