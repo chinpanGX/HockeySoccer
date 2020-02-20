@@ -263,7 +263,7 @@ void StageEditor::InitObject(int Stage)
 		InitGoal();
 		m_Player.Init(1.3f);
 		m_Enemy[1].Init(-2.0f, D3DXVECTOR2(960.0f + 550.0f, 600.0f));
-		m_Enemy[0].Init(0.0f, D3DXVECTOR2(960.0f + 250.0f, 600.0f));
+		m_Enemy[0].Init(0.0f, D3DXVECTOR2(960.0f + 250.0f, 800.0f));
 		m_Ball.Init(D3DXVECTOR2(-17.0f, 10.5f));
 		break;
 	case STAGE_8:
@@ -285,9 +285,9 @@ void StageEditor::InitObject(int Stage)
 		m_EnemyGoal.Init(-2.0f);
 		m_Goal.Init(1.0f);
 		m_Player.Init(1.0f);
-		m_Enemy[1].Init(-5.0f, D3DXVECTOR2(960.0f + 500.0f, 300.0f));
-		m_Enemy[0].Init(5.0f, D3DXVECTOR2(960.0f + 300.0f, 800.0f));
-		m_Ball.Init(D3DXVECTOR2(-19.0f, 4.5f));
+		m_Enemy[1].Init(-3.5f, D3DXVECTOR2(960.0f + 500.0f, 300.0f));
+		m_Enemy[0].Init(3.5f, D3DXVECTOR2(960.0f + 300.0f, 800.0f));
+		m_Ball.Init(D3DXVECTOR2(-19.0f, 7.5f));
 		break;
 	case STAGE_11:
 		m_EnemyGoal.Init(3.0f);
