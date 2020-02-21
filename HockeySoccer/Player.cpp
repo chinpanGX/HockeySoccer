@@ -91,6 +91,12 @@ void Player::Move()
 
 void Player::Collision()
 {
+	Ball * p_Ball = ObjectManager::GetBall();
+	if (Intercept(m_Component.m_aabb, p_Ball->GetCollision()->GetAABB()) == true)
+	{
+		m_Velocity *= 0.0f;
+		m_Position += m_Velocity;
+	}
 	Topline* p_topline = ObjectManager::GetTopLine();
 	if (Intercept(m_Component.m_aabb,p_topline->GetCollision()->GetAABB()) == true)
 	{

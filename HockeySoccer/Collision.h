@@ -134,7 +134,7 @@ inline bool SweptSphere(const Circle2d Collision, const D3DXVECTOR2 Vector, D3DX
 	float P = D.x * D.x + D.y * D.y;
 	float Q = C0.x * D.x + C0.y * D.y;
 	float R = C0.x * C0.x + C0.y * C0.y;
-	/*
+#if 0
 	// Õ“Ë”»’è‚É‰ğ‚ÌŒö®‚ğg‚¤
 	if (P == 0)
 	{
@@ -161,7 +161,7 @@ inline bool SweptSphere(const Circle2d Collision, const D3DXVECTOR2 Vector, D3DX
 
 		return true;
 	}
-	*/
+#endif
 	// Õ“Ë”»’è®
 	float judge = Q * Q - P * (R - rAB * rAB);
 	if (judge < 0) 

@@ -84,7 +84,10 @@ void Ball::PlayerCollision()
 		{
 			if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position,p_Player->GetCollision()->GetCircle(), p_Player->GetVector(),p_Player->GetPosition()) == true)
 			{
+				D3DXVECTOR2 tmp = m_Velocity;
+				m_Velocity *= 0.0f;
 				m_EffectFlag = HITPLAYER;
+				m_Velocity = tmp;
 				m_Velocity.y *= -1;
 				Sound::Play(S_SE_BALL);
 			}
@@ -94,7 +97,10 @@ void Ball::PlayerCollision()
 		{
 			if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Player->GetCollision()->GetCircle(), p_Player->GetVector(), p_Player->GetPosition()) == true)
 			{
+				D3DXVECTOR2 tmp = m_Velocity;
+				m_Velocity *= 0.0f;
 				m_EffectFlag = HITPLAYER;
+				m_Velocity = tmp;
 				m_Velocity.y *= -1;
 				Sound::Play(S_SE_BALL);
 			}
@@ -104,7 +110,10 @@ void Ball::PlayerCollision()
 		{
 			if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Player->GetCollision()->GetCircle(), p_Player->GetVector(), p_Player->GetPosition()) == true)
 			{
+				D3DXVECTOR2 tmp = m_Velocity;
+				m_Velocity *= 0.0f;
 				m_EffectFlag = HITPLAYER;
+				m_Velocity = tmp;
 				m_Velocity.x *= -1;
 				Sound::Play(S_SE_BALL);
 			}
@@ -114,7 +123,10 @@ void Ball::PlayerCollision()
 		{
 			if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Player->GetCollision()->GetCircle(), p_Player->GetVector(), p_Player->GetPosition()) == true)
 			{
+				D3DXVECTOR2 tmp = m_Velocity;
+				m_Velocity *= 0.0f;
 				m_EffectFlag = HITPLAYER;
+				m_Velocity = tmp;
 				m_Velocity.x *= -1;
 				Sound::Play(S_SE_BALL);
 			}
@@ -128,48 +140,62 @@ void Ball::EnemyCollision()
 	Enemy* p_Enemy = ObjectManager::GetEnemy();
 	for (int i = 0; i < ENEMY_MAX; i++)
 	{
-		// ã
-		if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetPoint(0), p_Enemy[i].GetCollision()->GetPoint(1)) == true)
+		// AABB“¯Žm‚ÌÕ“ËŒŸ’m
+		if (Intercept(m_Component.m_aabb, p_Enemy[i].GetCollision()->GetAABB()) == true)
 		{
-			if (SweptSphere(m_Component.m_circle,m_Velocity,m_Position,p_Enemy[i].GetCollision()->GetCircle(),p_Enemy[i].GetVector(),p_Enemy[i].GetPosition()) == true)
+			// ã
+			if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetPoint(0), p_Enemy[i].GetCollision()->GetPoint(1)) == true)
 			{
-				m_EffectFlag = HITPLAYER;
-				m_Velocity.y *= -1;
-				Sound::Play(S_SE_BALL);
+				if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Enemy[i].GetCollision()->GetCircle(), p_Enemy[i].GetVector(), p_Enemy[i].GetPosition()) == true)
+				{
+					D3DXVECTOR2 tmp = m_Velocity;
+					m_Velocity *= 0.0f;
+					m_EffectFlag = HITPLAYER;
+					m_Velocity = tmp;
+					m_Velocity.y *= -1;
+					Sound::Play(S_SE_BALL);
+				}
+			}
+			// ‰º
+			if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetPoint(2), p_Enemy[i].GetCollision()->GetPoint(3)) == true)
+			{
+				if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Enemy[i].GetCollision()->GetCircle(), p_Enemy[i].GetVector(), p_Enemy[i].GetPosition()) == true)
+				{
+					D3DXVECTOR2 tmp = m_Velocity;
+					m_Velocity *= 0.0f;
+					m_EffectFlag = HITPLAYER;
+					m_Velocity = tmp;
+					m_Velocity.y *= -1;
+					Sound::Play(S_SE_BALL);
+				}
+			}
+			// ¶
+			if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetPoint(0), p_Enemy[i].GetCollision()->GetPoint(2)) == true)
+			{
+				if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Enemy[i].GetCollision()->GetCircle(), p_Enemy[i].GetVector(), p_Enemy[i].GetPosition()) == true)
+				{
+					D3DXVECTOR2 tmp = m_Velocity;
+					m_Velocity *= 0.0f;
+					m_EffectFlag = HITPLAYER;
+					m_Velocity = tmp;
+					m_Velocity.x *= -1;
+					Sound::Play(S_SE_BALL);
+				}
+			}
+			// ‰E
+			if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetPoint(1), p_Enemy[i].GetCollision()->GetPoint(3)) == true)
+			{
+				if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Enemy[i].GetCollision()->GetCircle(), p_Enemy[i].GetVector(), p_Enemy[i].GetPosition()) == true)
+				{
+					D3DXVECTOR2 tmp = m_Velocity;
+					m_Velocity *= 0.0f;
+					m_EffectFlag = HITPLAYER;
+					m_Velocity = tmp;
+					m_Velocity.x *= -1;
+					Sound::Play(S_SE_BALL);
+				}
 			}
 		}
-		// ‰º
-		if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetPoint(2), p_Enemy[i].GetCollision()->GetPoint(3)) == true)
-		{
-			if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Enemy[i].GetCollision()->GetCircle(), p_Enemy[i].GetVector(), p_Enemy[i].GetPosition()) == true)
-			{
-				//m_EffectFlag = HITPLAYER;
-				m_Velocity.y *= -1;
-				Sound::Play(S_SE_BALL);
-			}
-		}
-		// ¶
-		if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetPoint(0), p_Enemy[i].GetCollision()->GetPoint(2)) == true)
-		{
-			if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Enemy[i].GetCollision()->GetCircle(), p_Enemy[i].GetVector(), p_Enemy[i].GetPosition()) == true)
-			{
-				m_EffectFlag = HITPLAYER;
-				m_Velocity.x *= -1;
-				Sound::Play(S_SE_BALL);
-			}
-		}
-		// ‰E
-		if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetPoint(1), p_Enemy[i].GetCollision()->GetPoint(3)) == true)
-		{
-			if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Enemy[i].GetCollision()->GetCircle(), p_Enemy[i].GetVector(), p_Enemy[i].GetPosition()) == true)
-			{
-				m_EffectFlag = HITPLAYER;
-				m_Velocity.x *= -1;
-				Sound::Play(S_SE_BALL);
-			}
-		}
-		
-		
 	}
 }
 

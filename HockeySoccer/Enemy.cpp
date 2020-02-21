@@ -85,6 +85,13 @@ void Enemy::Move()
 
 void Enemy::Collision()
 {
+	Ball* p_Ball = ObjectManager::GetBall();
+	if (Intercept(m_Component.m_aabb, p_Ball->GetCollision()->GetAABB()) == true)
+	{
+		D3DXVECTOR2 tmp = m_Velocity;
+		m_Velocity *= 0.0f;
+		m_Velocity = tmp;
+	}
 	Topline* p_topline = ObjectManager::GetTopLine();
 	if (Intercept(m_Component.m_aabb, p_topline->GetCollision()->GetAABB()) == true)
 	{
