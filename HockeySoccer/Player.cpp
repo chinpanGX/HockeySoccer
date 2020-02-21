@@ -17,14 +17,14 @@ void Player::Init()
 	m_Speed = 1.0f;
 	m_Component.m_aabb.sx = 16.0f;
 	m_Component.m_aabb.sy = 128.0f;
-	m_Component.m_line[0].px = -16.0f;
-	m_Component.m_line[0].py = -128.0f;
-	m_Component.m_line[1].px = 16.0f;
-	m_Component.m_line[1].py = -128.0f;
-	m_Component.m_line[2].px = -16.0f;
-	m_Component.m_line[2].py = 128.0f;
-	m_Component.m_line[3].px = 16.0f;
-	m_Component.m_line[3].py = 128.0f;
+	m_Component.m_Point[0].px = -16.0f;
+	m_Component.m_Point[0].py = -128.0f;
+	m_Component.m_Point[1].px = 16.0f;
+	m_Component.m_Point[1].py = -128.0f;
+	m_Component.m_Point[2].px = -16.0f;
+	m_Component.m_Point[2].py = 128.0f;
+	m_Component.m_Point[3].px = 16.0f;
+	m_Component.m_Point[3].py = 128.0f;
 }
 
 void Player::Init(float Speed)
@@ -33,14 +33,14 @@ void Player::Init(float Speed)
 	m_Speed = Speed;
 	m_Component.m_aabb.sx = 16.0f;
 	m_Component.m_aabb.sy = 128.0f;
-	m_Component.m_line[0].px = -16.0f;
-	m_Component.m_line[0].py = -128.0f;
-	m_Component.m_line[1].px = 16.0f;
-	m_Component.m_line[1].py = -128.0f;
-	m_Component.m_line[2].px = -16.0f;
-	m_Component.m_line[2].py = 128.0f;
-	m_Component.m_line[3].px = 16.0f;
-	m_Component.m_line[3].py = 128.0f;
+	m_Component.m_Point[0].px = -16.0f;
+	m_Component.m_Point[0].py = -128.0f;
+	m_Component.m_Point[1].px = 16.0f;
+	m_Component.m_Point[1].py = -128.0f;
+	m_Component.m_Point[2].px = -16.0f;
+	m_Component.m_Point[2].py = 128.0f;
+	m_Component.m_Point[3].px = 16.0f;
+	m_Component.m_Point[3].py = 128.0f;
 }
 
 void Player::Uninit()
@@ -79,26 +79,26 @@ void Player::Move()
 	m_Position += m_Velocity * m_Speed; // Position‚ÌXV
 	m_Component.m_aabb.cx = m_Position.x;
 	m_Component.m_aabb.cy = m_Position.y;
-	m_Component.m_line[0].px = m_Position.x + -16.0f;
-	m_Component.m_line[0].py = m_Position.y + -128.0f;
-	m_Component.m_line[1].px = m_Position.x + 16.0f;
-	m_Component.m_line[1].py = m_Position.y + -128.0f;
-	m_Component.m_line[2].px = m_Position.x + -16.0f;
-	m_Component.m_line[2].py = m_Position.y + 128.0f;
-	m_Component.m_line[3].px = m_Position.x + 16.0f;
-	m_Component.m_line[3].py = m_Position.y + 128.0f;
+	m_Component.m_Point[0].px = m_Position.x + -16.0f;
+	m_Component.m_Point[0].py = m_Position.y + -128.0f;
+	m_Component.m_Point[1].px = m_Position.x + 16.0f;
+	m_Component.m_Point[1].py = m_Position.y + -128.0f;
+	m_Component.m_Point[2].px = m_Position.x + -16.0f;
+	m_Component.m_Point[2].py = m_Position.y + 128.0f;
+	m_Component.m_Point[3].px = m_Position.x + 16.0f;
+	m_Component.m_Point[3].py = m_Position.y + 128.0f;
 }
 
 void Player::Collision()
 {
 	Topline* p_topline = ObjectManager::GetTopLine();
-	if (AABB_2d(m_Component.m_aabb,p_topline->GetCollision()->GetAABB()) == true)
+	if (Intercept(m_Component.m_aabb,p_topline->GetCollision()->GetAABB()) == true)
 	{
 		m_Position.y = 128.0f + 28.f;
 		m_Velocity.y *= -1;
 	}
 	Underline* p_underline = ObjectManager::GetUnderLine();
-	if (AABB_2d(m_Component.m_aabb,p_underline->GetCollision()->GetAABB()) == true)
+	if (Intercept(m_Component.m_aabb,p_underline->GetCollision()->GetAABB()) == true)
 	{
 		m_Position.y = SCREEN_HEIGHT - 128.0f - 28.f;
 		m_Velocity.y *= -1;
@@ -115,3 +115,9 @@ D3DXVECTOR2 Player::GetPosition()
 {
 	return m_Position;
 }
+
+D3DXVECTOR2 Player::GetVector()
+{
+	return m_Velocity;
+}
+

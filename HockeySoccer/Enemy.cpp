@@ -15,14 +15,14 @@ void Enemy::Init()
 	m_Velocity = D3DXVECTOR2(0.0f, 5.0f);	//	ベクトルの初期化
 	m_Component.m_aabb.sx = 16.0f;
 	m_Component.m_aabb.sy = 128.0f;
-	m_Component.m_line[0].px = -16.0f;
-	m_Component.m_line[0].py = -128.0f;
-	m_Component.m_line[1].px = 16.0f;
-	m_Component.m_line[1].py = -128.0f;
-	m_Component.m_line[2].px = -16.0f;
-	m_Component.m_line[2].py = 128.0f;
-	m_Component.m_line[3].px = 16.0f;
-	m_Component.m_line[3].py = 128.0f;
+	m_Component.m_Point[0].px = -16.0f;
+	m_Component.m_Point[0].py = -128.0f;
+	m_Component.m_Point[1].px = 16.0f;
+	m_Component.m_Point[1].py = -128.0f;
+	m_Component.m_Point[2].px = -16.0f;
+	m_Component.m_Point[2].py = 128.0f;
+	m_Component.m_Point[3].px = 16.0f;
+	m_Component.m_Point[3].py = 128.0f;
 }
 
 void Enemy::Init(float Speed, D3DXVECTOR2 Position)
@@ -31,14 +31,14 @@ void Enemy::Init(float Speed, D3DXVECTOR2 Position)
 	m_Velocity = D3DXVECTOR2(0.0f, Speed);	//	ベクトルの初期化
 	m_Component.m_aabb.sx = 16.0f;
 	m_Component.m_aabb.sy = 128.0f;
-	m_Component.m_line[0].px = -16.0f;
-	m_Component.m_line[0].py = -128.0f;
-	m_Component.m_line[1].px = 16.0f;
-	m_Component.m_line[1].py = -128.0f;
-	m_Component.m_line[2].px = -16.0f;
-	m_Component.m_line[2].py = 128.0f;
-	m_Component.m_line[3].px = 16.0f;
-	m_Component.m_line[3].py = 128.0f;
+	m_Component.m_Point[0].px = -16.0f;
+	m_Component.m_Point[0].py = -128.0f;
+	m_Component.m_Point[1].px = 16.0f;
+	m_Component.m_Point[1].py = -128.0f;
+	m_Component.m_Point[2].px = -16.0f;
+	m_Component.m_Point[2].py = 128.0f;
+	m_Component.m_Point[3].px = 16.0f;
+	m_Component.m_Point[3].py = 128.0f;
 }
 
 void Enemy::Uninit()
@@ -63,9 +63,9 @@ Component2D * Enemy::GetCollision()
 	return &m_Component;
 }
 
-D3DXVECTOR2 Enemy::GetPosition()
+D3DXVECTOR2 Enemy::GetVector()
 {
-	return m_Position;
+	return m_Velocity;
 }
 
 void Enemy::Move()
@@ -73,26 +73,26 @@ void Enemy::Move()
 	m_Position += m_Velocity; // Positionの更新
 	m_Component.m_aabb.cx = m_Position.x;
 	m_Component.m_aabb.cy = m_Position.y;
-	m_Component.m_line[0].px = m_Position.x + -16.0f;
-	m_Component.m_line[0].py = m_Position.y + -128.0f;
-	m_Component.m_line[1].px = m_Position.x + 16.0f;
-	m_Component.m_line[1].py = m_Position.y + -128.0f;
-	m_Component.m_line[2].px = m_Position.x + -16.0f;
-	m_Component.m_line[2].py = m_Position.y + 128.0f;
-	m_Component.m_line[3].px = m_Position.x + 16.0f;
-	m_Component.m_line[3].py = m_Position.y + 128.0f;
+	m_Component.m_Point[0].px = m_Position.x + -16.0f;
+	m_Component.m_Point[0].py = m_Position.y + -128.0f;
+	m_Component.m_Point[1].px = m_Position.x + 16.0f;
+	m_Component.m_Point[1].py = m_Position.y + -128.0f;
+	m_Component.m_Point[2].px = m_Position.x + -16.0f;
+	m_Component.m_Point[2].py = m_Position.y + 128.0f;
+	m_Component.m_Point[3].px = m_Position.x + 16.0f;
+	m_Component.m_Point[3].py = m_Position.y + 128.0f;
 }
 
 void Enemy::Collision()
 {
 	Topline* p_topline = ObjectManager::GetTopLine();
-	if (AABB_2d(m_Component.m_aabb, p_topline->GetCollision()->GetAABB()) == true)
+	if (Intercept(m_Component.m_aabb, p_topline->GetCollision()->GetAABB()) == true)
 	{
 		m_Position.y = 128.0f + 30.f;
 		m_Velocity.y *= -1;
 	}
 	Underline* p_underline = ObjectManager::GetUnderLine();
-	if (AABB_2d(m_Component.m_aabb, p_underline->GetCollision()->GetAABB()) == true)
+	if (Intercept(m_Component.m_aabb, p_underline->GetCollision()->GetAABB()) == true)
 	{
 		m_Position.y = SCREEN_HEIGHT - 128.0f - 30.f;
 		m_Velocity.y *= -1;

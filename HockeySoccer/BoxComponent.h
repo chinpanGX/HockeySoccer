@@ -10,7 +10,7 @@
 
 struct Component2D
 {
-	Line2d m_line[4];
+	Point m_Point[4];
 	AABB2d m_aabb;
 	Circle2d m_circle;
 	AABB2d * GetAABB()
@@ -21,22 +21,8 @@ struct Component2D
 	{
 		return &m_circle;
 	}
-	Line2d * GetLine(int point)
+	Point * GetPoint(int point)
 	{
-		return &m_line[point];
-	}
-};
-
-struct Component3D
-{
-	AABB3d m_aabb;
-	Circle3d m_circle;
-	AABB3d * GetAABB()
-	{
-		return &m_aabb;
-	}
-	Circle3d * GetCircle()
-	{
-		return &m_circle;
+		return &m_Point[point];
 	}
 };

@@ -82,7 +82,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			}
 
 			//!	1フレームごとに実行（垂直同期を待たない）60FPSに固定　-> モニターによって実行速度の変化を防ぐ
-			if ((dwCurrentTime - dwExecLastTime) >= (1000 / 60))
+			if ((dwCurrentTime - dwExecLastTime) >= FPS)
 			{
 				dwExecLastTime = dwCurrentTime;
 

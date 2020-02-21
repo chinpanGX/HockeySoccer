@@ -36,5 +36,6 @@ public:
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
 	Component2D* GetCollision();
 	D3DXVECTOR2 GetPosition();
+	D3DXVECTOR2 GetVector();
 };
 
