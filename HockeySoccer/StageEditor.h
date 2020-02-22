@@ -17,7 +17,6 @@
 #include "UI.h"
 #include "Effect_Explosion.h"
 #include "Effect_HitPlayer.h"
-#include "Effect_Goal.h"
 
 #define ENEMY_MAX 3 
 
