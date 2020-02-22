@@ -66,7 +66,7 @@ inline bool Intercept(const Circle2d Collision,const Point* start, const Point* 
 }
 
 // Circle2d
-inline bool Intersept(const Circle2d Collision, const Circle2d *p_Collision)
+inline bool Intercept(const Circle2d Collision, const Circle2d *p_Collision)
 {
 	//引数からベクトル型の変数を作る
 	D3DXVECTOR2 dst1(Collision.cx, Collision.cy);
@@ -125,8 +125,8 @@ inline bool SweptSphere(const Circle2d Collision, const D3DXVECTOR2 Vector, D3DX
 {
 	// 前位置及び到達位置におけるベクトルを算出。ベクトルは2乗して計算する
 	D3DXVECTOR2 C0 = D3DXVECTOR2(p_Collision->cx - Collision.cx, p_Collision->cy - Collision.cy);
-	D3DXVECTOR2 A1 = D3DXVECTOR2(Collision.cx + Vector.x, Collision.cy + Vector.y);
-	D3DXVECTOR2 B1 = D3DXVECTOR2(p_Collision->cx + p_Vector.x, p_Collision->cy + p_Vector.y);
+	D3DXVECTOR2 A1 = D3DXVECTOR2(Collision.cx + Vector.x, Collision.cy + Vector.y) * 1.0f;
+	D3DXVECTOR2 B1 = D3DXVECTOR2(p_Collision->cx + p_Vector.x, p_Collision->cy + p_Vector.y) * 1.0f;
 	D3DXVECTOR2 C1 = B1 - A1;
 	D3DXVECTOR2 D = C1 - C0;
 	float rAB = Collision.radian + p_Collision->radian;
@@ -134,7 +134,7 @@ inline bool SweptSphere(const Circle2d Collision, const D3DXVECTOR2 Vector, D3DX
 	float P = D.x * D.x + D.y * D.y;
 	float Q = C0.x * D.x + C0.y * D.y;
 	float R = C0.x * C0.x + C0.y * C0.y;
-#if 0
+
 	// 衝突判定に解の公式を使う
 	if (P == 0)
 	{
@@ -161,7 +161,7 @@ inline bool SweptSphere(const Circle2d Collision, const D3DXVECTOR2 Vector, D3DX
 
 		return true;
 	}
-#endif
+
 	// 衝突判定式
 	float judge = Q * Q - P * (R - rAB * rAB);
 	if (judge < 0) 
@@ -204,107 +204,59 @@ inline bool SweptSphere(const Circle2d Collision, const D3DXVECTOR2 Vector, D3DX
 	return true; 
 }
 
-#if 0
 // 精密チェック
-inline bool Intercept(const AABB2d Collision, const D3DXVECTOR2 Vec, const AABB2d* p_Collision, const D3DXVECTOR2& p_Vec)
+inline bool Intercept(const AABB2d Collision, const D3DXVECTOR2 Vec, const Point* p_Collision, const D3DXVECTOR2& p_Vec)
 {
-	D3DXVECTOR2 Point;	// ObjectA
-	D3DXVECTOR2 minB, maxB;	// ObjectB
-	
-	// ObejectAを点に変形
-	Point = D3DXVECTOR2(Collision.cx - Collision.sx, Collision.cy + Collision.sy);
-	
-	// ObjectBの設定
-	// ObjectBを拡張
-	// Bのbox最小点
-	minB.x = (p_Collision->cx - p_Collision->sx) - ((p_Collision->cx + p_Collision->sx) - (p_Collision->cx - p_Collision->sx));
-	minB.y = p_Collision->cy - p_Collision->sy;
-	// Bのbox最大点 
-	maxB.x = p_Collision->cx + p_Collision->sx;
-	maxB.y = (p_Collision->cy + p_Collision->sy) - ((p_Collision->cy - p_Collision->sy) - (p_Collision->cy + p_Collision->sy));
+	D3DXVECTOR2 min, max, exmin, exmax;
+	//	box最小点
+	min.x = Collision.cx - Collision.sx;
+	min.y = Collision.cy - Collision.sy;
+	//	box最大点
+	max.x = Collision.cx + Collision.sx;
+	max.y = Collision.cy + Collision.sy;
 
-	// 相対速度を計算
-	D3DXVECTOR2 rvecec = Vec - p_Vec;
+	// AABBを拡張
+	exmin.x = min.x - (max.x - min.x);
+	exmin.y = min.y;
+	exmax.x = max.x;
+	exmax.y = max.y - (min.y - max.y);
 
-	if (rvecec.x != 0)
-	{
-		float lx = (rvecec.x > 0) ? maxB.x : minB.x;
-		float t = lx - (Point.x + rvecec.x) / rvecec.x;
-		if ((t >= 0) && (t <= 1.0f))
-		{
-			// 衝突点YとAABBの線分が当たればtrue
-			float hity = Point.y + t * rvecec.y;
-			if ((hity >= maxB.y) && (hity <= minB.y))
-			{
-				return true;
-			}
-		}
-	}
-	if (rvecec.y != 0)
-	{
-		float lx = (rvecec.y > 0) ? maxB.y : minB.y;
-		float t = lx - (Point.y + rvecec.y) / rvecec.y;
-		if ((t >= 0) && (t <= 1.0f))
-		{
-			// 衝突点XとAABBの線分が当たればtrue
-			float hitx = Point.x + t * rvecec.x;
-			if ((hitx >= maxB.x) && (hitx <= minB.x))
-			{
-				return true;
-			}
-		}
-	}
-
-	D3DXVECTOR2 Point;	// ObjectA
-	D3DXVECTOR2 minB, maxB;	// ObjectB
-
-	// ObejectAを点に変形
-	Point = D3DXVECTOR2(Collision.cx - Collision.sx, Collision.cy + Collision.sy);
-
-	// ObjectBの設定
-	// ObjectBを拡張
-	// Bのbox最小点
-	minB.x = (p_Collision->cx - p_Collision->sx) - ((p_Collision->cx + p_Collision->sx) - (p_Collision->cx - p_Collision->sx));
-	minB.y = p_Collision->cy - p_Collision->sy;
-	// Bのbox最大点 
-	maxB.x = p_Collision->cx + p_Collision->sx;
-	maxB.y = (p_Collision->cy + p_Collision->sy) - ((p_Collision->cy - p_Collision->sy) - (p_Collision->cy + p_Collision->sy));
+	Point exp;
+	exp.px = p_Collision->px;
+	exp.py = p_Collision->py;
 
 	// 相対速度を計算
 	D3DXVECTOR2 rvec = Vec - p_Vec;
+
 	if (rvec.x != 0)
 	{
-		float fLineX = (rvec.x > 0) ? minB.x : maxB.x;
-		float t = fLineX - (Point.x + rvec.x) / rvec.x;
-
+		float lx = (rvec.x > 0) ? exmin.x : exmax.x;
+		float t = lx - (exp.px + rvec.x) / rvec.x;
 		if ((t >= 0) && (t <= 1.0f))
 		{
-			// 衝突点(ｙ方向)がAABBの線分に収まっていれば衝突
-			float hitY = Point.y + t * rvec.y;
-			if ((hitY >= maxB.y) && (hitY <= minB.y))
+			// 衝突点YとAABBの線分が当たればtrue
+			float hity = exp.py + t * rvec.y;
+			if ((hity >= exmax.y) && (hity <= exmin.y))
 			{
 				return true;
 			}
 		}
 	}
-
 	if (rvec.y != 0)
 	{
-		float fLineY = (rvec.y > 0) ? maxB.y : minB.y;
-		float t = fLineY - (Point.y + rvec.y) / rvec.y;
-
+		float ly = (rvec.y > 0) ? exmax.y : exmin.y;
+		float t = ly - (exp.py + rvec.y) / rvec.y;
 		if ((t >= 0) && (t <= 1.0f))
 		{
-			// 衝突点(x方向)がAABBの線分に収まっていれば衝突
-			float hitX = Point.x + t * rvec.x;
-			if ((hitX >= minB.x) && (hitX <= maxB.x))
+			// 衝突点XとAABBの線分が当たればtrue
+			float hitx = exp.px + t * rvec.x;
+			if ((hitx >= exmax.x) && (hitx <= exmin.x))
 			{
 				return true;
 			}
 		}
 	}
 	return false;
-
 }
 
 // 精密チェック
@@ -339,4 +291,4 @@ bool SweptSphere(const Type P0, const Type P1, const Type Q0, const Type Q1)
 		}
 	}
 }
-#endif 
+ 

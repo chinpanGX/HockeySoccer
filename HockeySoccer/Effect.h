@@ -12,7 +12,8 @@
 enum EffectNumber
 {
 	EXPLOSION,
-	HITPLAYER
+	HITPLAYER,
+	GOAL
 };
 
 class Effect : public Object
@@ -22,19 +23,11 @@ protected:
 	bool m_Use;
 	int m_Frame;
 	float FrameSize;
-	int AnimeMax;
-
-	// Draw()ÇÃÉwÉãÉpÅ[ä÷êî
-	void EffectDraw(unsigned int texture);
-
 public:
 	void Init()override;
 	void Uninit()override;
 	void Update()override;
 	void Draw(LPDIRECT3DTEXTURE9 Texture)override;
-	void Draw();
 	void Set(float x,float y);
-	bool GetUse();
-	int GetFrame();
 };
 

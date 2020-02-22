@@ -78,58 +78,44 @@ void Ball::PlayerCollision()
 	// AABB同士の衝突検知
 	if (Intercept(m_Component.m_aabb, p_Player->GetCollision()->GetAABB()) == true)
 	{
+		D3DXVECTOR2 tmp = m_Position;
+		D3DXVECTOR2 tmp2 = p_Player->GetPosition();
 		// 半径と線分の衝突検知
 		// プレイヤーの上
 		if (Intercept(m_Component.m_circle, p_Player->GetCollision()->GetPoint(0), p_Player->GetCollision()->GetPoint(1)) == true)
 		{
-			if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position,p_Player->GetCollision()->GetCircle(), p_Player->GetVector(),p_Player->GetPosition()) == true)
-			{
-				D3DXVECTOR2 tmp = m_Velocity;
-				m_Velocity *= 0.0f;
-				m_EffectFlag = HITPLAYER;
-				m_Velocity = tmp;
-				m_Velocity.y *= -1;
-				Sound::Play(S_SE_BALL);
-			}
+			m_EffectFlag = HITPLAYER;
+			m_Position = tmp;
+			p_Player->GetPosition() = tmp2;
+			m_Velocity.y *= -1;
+			Sound::Play(S_SE_BALL);
 		}
 		// プレイヤーの下
 		if (Intercept(m_Component.m_circle, p_Player->GetCollision()->GetPoint(2), p_Player->GetCollision()->GetPoint(3)) == true)
 		{
-			if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Player->GetCollision()->GetCircle(), p_Player->GetVector(), p_Player->GetPosition()) == true)
-			{
-				D3DXVECTOR2 tmp = m_Velocity;
-				m_Velocity *= 0.0f;
-				m_EffectFlag = HITPLAYER;
-				m_Velocity = tmp;
-				m_Velocity.y *= -1;
-				Sound::Play(S_SE_BALL);
-			}
+			m_EffectFlag = HITPLAYER;
+			m_Position = tmp;
+			p_Player->GetPosition() = tmp2;
+			m_Velocity.y *= -1;
+			Sound::Play(S_SE_BALL);
 		}
 		// プレイヤーの左
 		if (Intercept(m_Component.m_circle, p_Player->GetCollision()->GetPoint(0), p_Player->GetCollision()->GetPoint(2)) == true)
 		{
-			if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Player->GetCollision()->GetCircle(), p_Player->GetVector(), p_Player->GetPosition()) == true)
-			{
-				D3DXVECTOR2 tmp = m_Velocity;
-				m_Velocity *= 0.0f;
-				m_EffectFlag = HITPLAYER;
-				m_Velocity = tmp;
-				m_Velocity.x *= -1;
-				Sound::Play(S_SE_BALL);
-			}
+			m_EffectFlag = HITPLAYER;
+			m_Position = tmp;
+			p_Player->GetPosition() = tmp2;
+			m_Velocity.x *= -1;
+			Sound::Play(S_SE_BALL);	
 		}
 		// プレイヤーの右
 		if(Intercept(m_Component.m_circle, p_Player->GetCollision()->GetPoint(1), p_Player->GetCollision()->GetPoint(3)) == true)
 		{
-			if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Player->GetCollision()->GetCircle(), p_Player->GetVector(), p_Player->GetPosition()) == true)
-			{
-				D3DXVECTOR2 tmp = m_Velocity;
-				m_Velocity *= 0.0f;
-				m_EffectFlag = HITPLAYER;
-				m_Velocity = tmp;
-				m_Velocity.x *= -1;
-				Sound::Play(S_SE_BALL);
-			}
+			m_EffectFlag = HITPLAYER;
+			m_Position = tmp;
+			p_Player->GetPosition() = tmp2;
+			m_Velocity.x *= -1;
+			Sound::Play(S_SE_BALL);
 		}
 	}
 }
@@ -143,57 +129,43 @@ void Ball::EnemyCollision()
 		// AABB同士の衝突検知
 		if (Intercept(m_Component.m_aabb, p_Enemy[i].GetCollision()->GetAABB()) == true)
 		{
+			D3DXVECTOR2 tmp = m_Position;
+			D3DXVECTOR2 tmp2 = p_Enemy[i].GetPosition();
 			// 上
 			if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetPoint(0), p_Enemy[i].GetCollision()->GetPoint(1)) == true)
 			{
-				if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Enemy[i].GetCollision()->GetCircle(), p_Enemy[i].GetVector(), p_Enemy[i].GetPosition()) == true)
-				{
-					D3DXVECTOR2 tmp = m_Velocity;
-					m_Velocity *= 0.0f;
-					m_EffectFlag = HITPLAYER;
-					m_Velocity = tmp;
-					m_Velocity.y *= -1;
-					Sound::Play(S_SE_BALL);
-				}
+				m_EffectFlag = HITPLAYER;
+				m_Position = tmp;
+				p_Enemy[i].GetPosition() = tmp2;
+				m_Velocity.y *= -1;
+				Sound::Play(S_SE_BALL);
 			}
 			// 下
 			if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetPoint(2), p_Enemy[i].GetCollision()->GetPoint(3)) == true)
 			{
-				if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Enemy[i].GetCollision()->GetCircle(), p_Enemy[i].GetVector(), p_Enemy[i].GetPosition()) == true)
-				{
-					D3DXVECTOR2 tmp = m_Velocity;
-					m_Velocity *= 0.0f;
-					m_EffectFlag = HITPLAYER;
-					m_Velocity = tmp;
-					m_Velocity.y *= -1;
-					Sound::Play(S_SE_BALL);
-				}
+				m_EffectFlag = HITPLAYER;
+				m_Position = tmp;
+				p_Enemy[i].GetPosition() = tmp2;
+				m_Velocity.y *= -1;
+				Sound::Play(S_SE_BALL);
 			}
 			// 左
 			if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetPoint(0), p_Enemy[i].GetCollision()->GetPoint(2)) == true)
 			{
-				if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Enemy[i].GetCollision()->GetCircle(), p_Enemy[i].GetVector(), p_Enemy[i].GetPosition()) == true)
-				{
-					D3DXVECTOR2 tmp = m_Velocity;
-					m_Velocity *= 0.0f;
-					m_EffectFlag = HITPLAYER;
-					m_Velocity = tmp;
-					m_Velocity.x *= -1;
-					Sound::Play(S_SE_BALL);
-				}
+				m_EffectFlag = HITPLAYER;
+				m_Position = tmp;
+				p_Enemy[i].GetPosition() = tmp2;
+				m_Velocity.x *= -1;
+				Sound::Play(S_SE_BALL);
 			}
 			// 右
 			if (Intercept(m_Component.m_circle, p_Enemy[i].GetCollision()->GetPoint(1), p_Enemy[i].GetCollision()->GetPoint(3)) == true)
 			{
-				if (SweptSphere(m_Component.m_circle, m_Velocity, m_Position, p_Enemy[i].GetCollision()->GetCircle(), p_Enemy[i].GetVector(), p_Enemy[i].GetPosition()) == true)
-				{
-					D3DXVECTOR2 tmp = m_Velocity;
-					m_Velocity *= 0.0f;
-					m_EffectFlag = HITPLAYER;
-					m_Velocity = tmp;
-					m_Velocity.x *= -1;
-					Sound::Play(S_SE_BALL);
-				}
+				m_EffectFlag = HITPLAYER;
+				m_Position = tmp;
+				p_Enemy[i].GetPosition() = tmp2;
+				m_Velocity.x *= -1;
+				Sound::Play(S_SE_BALL);
 			}
 		}
 	}
@@ -226,7 +198,7 @@ void Ball::GoalCollsion()
 {
 	//	Ballとの当たり判定
 	Goal * p_Goal = ObjectManager::GetGoal();
-	if (Intercept(m_Component.m_aabb, p_Goal->GetCollision()->GetAABB()) == true)
+	if (Intercept(m_Component.m_aabb, p_Goal->GetCollision()->GetAABB()) == true || m_Position.y < 16.0f || m_Position.y > SCREEN_HEIGHT - 16.0f)
 	{
 		Sound::Play(S_SE_WHISTIL);
 		m_GameEnd = true;

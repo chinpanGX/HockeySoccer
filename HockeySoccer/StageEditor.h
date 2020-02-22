@@ -17,6 +17,7 @@
 #include "UI.h"
 #include "Effect_Explosion.h"
 #include "Effect_HitPlayer.h"
+#include "Effect_Goal.h"
 
 #define ENEMY_MAX 3 
 
@@ -56,10 +57,10 @@ private:
 	EnemyGoal	m_EnemyGoal;		// 相手側のゴール
 	GameBG		m_StageBG;			// ステージクリア背景
 	UI			m_Ui;				// UI
-	Explosion	m_Ex;				// 爆発エフェクト
-	HitPlayer	m_HitPlayer;		// ヒットエフェクト
+	Explosion	m_E_Ex;				// 爆発エフェクト
+	HitPlayer	m_E_HitPlayer;		// ヒットエフェクト
 
-	static const int number = 4; // テクスチャの数
+	static const int number = 5; // テクスチャの数
 	unsigned int texture[number]; // テクスチャを格納
 	int	m_StageCount;		 // ステージをカウント
 	int m_Frame;			 // フレームカウント

@@ -20,6 +20,7 @@ void StageEditor::Init()
 	texture[1] = m_Texture.LoadTexture("Rom/Texture/Bar.png");			// ゴール
 	texture[2] = m_Texture.LoadTexture("Rom/Texture/Explosion.png");	// 爆発エフェクト
 	texture[3] = m_Texture.LoadTexture("Rom/Texture/PlayerEffect.png"); // ヒットエフェクト
+	texture[4] = m_Texture.LoadTexture("Rom/Texture/Goal.png");
 	m_Ui.Init();//	UIテクスチャ
 	// ステージ
 	m_Stage = STAGE_1;		//	初期化ステージ
@@ -238,23 +239,24 @@ void StageEditor::InitObject(int Stage)
 		InitGoal();
 		m_Player.Init(1.5f);
 		m_Enemy[0].Init(5.0f, D3DXVECTOR2(960.0f + 300.0f, 800.0f));
-		m_Ball.Init(D3DXVECTOR2(-10.0f, 7.5f));
+		m_Ball.Init(D3DXVECTOR2(-10.0f, -7.5f));
 		break;
 	case STAGE_4:
 		InitGoal();
-		m_Player.Init(0.8f);
-		m_Enemy[0].Init(9.0f, D3DXVECTOR2(960.0f + 320.0f, 100.0f));
-		m_Ball.Init(D3DXVECTOR2(-20.0f, 5.5f));
+		m_Player.Init();
+		m_Enemy[0].Init(9.0f, D3DXVECTOR2(960.0f + 100.0f, 100.0f));
+		m_Ball.Init(D3DXVECTOR2(-14.0f, 5.5f));
 		break;
 	case STAGE_5:
 		InitGoal();
-		m_Player.Init(0.5f);
-		m_Enemy[0].Init(15.0f, D3DXVECTOR2(960.0f + 400.0f, 360.0f));
+		m_Player.Init(1.5f);
+		m_Enemy[0].Init(7.0f, D3DXVECTOR2(960.0f + 400.0f, 360.0f));
+		m_Enemy[1].Init(2.0f, D3DXVECTOR2(960.0f + 400.0f, 360.0f));
 		m_Ball.Init(D3DXVECTOR2(14.0f, -8.5f));
 		break;
 	case STAGE_6:
 		InitGoal();
-		m_Player.Init(0.5f);
+		m_Player.Init(0.8f);
 		m_Enemy[1].Init(2.0f, D3DXVECTOR2(960.0f + 550.0f, 300.0f));
 		m_Enemy[0].Init(-7.0f, D3DXVECTOR2(960.0f + 300.0f, 300.0f));
 		m_Ball.Init(D3DXVECTOR2(-15.0f, 7.5f));
@@ -356,8 +358,8 @@ void StageEditor::InitGoal()
 	m_EnemyGoal.Init();
 	m_Goal.Init();
 	// エフェクト処理
-	m_Ex.Init();
-	m_HitPlayer.Init();
+	m_E_Ex.Init();
+	m_E_HitPlayer.Init();
 }
 
 /// <summry>
@@ -412,6 +414,7 @@ void StageEditor::EnemyGoalEnd()
 {
 	if (m_Ball.GetGoalFlag() == true)
 	{
+		CreateEffect(GOAL);
 		if (m_StageCount == GAME_END - 1)
 		{
 			m_Stage = GAME_END;	//	ゲームエンドステートへ
@@ -430,6 +433,7 @@ void StageEditor::GoalEnd()
 {
 	if (m_Ball.GetGameEnd() == true) // 自陣ゴールに入る
 	{
+		CreateEffect(GOAL);
 		Fade::Start(false, 30);
 		m_Stage = STAGE_END; // ステートを更新
 		InitObject(m_Stage);
@@ -440,8 +444,8 @@ void StageEditor::GoalEnd()
 void StageEditor::UpdateEffect()
 {
 	EffectNumber number;
-	m_Ex.Update();
-	m_HitPlayer.Update();
+	m_E_Ex.Update();
+	m_E_HitPlayer.Update();
 	number = (EffectNumber)m_Ball.GetEffect();
 	switch (number)
 	{
@@ -460,10 +464,10 @@ void StageEditor::CreateEffect(int number)
 	switch (number)
 	{
 	case EXPLOSION:
-		m_Ex.Set(m_Ball.GetPosition().x, m_Ball.GetPosition().y);
+		m_E_Ex.Set(m_Ball.GetPosition().x, m_Ball.GetPosition().y);
 		break;
 	case HITPLAYER:
-		m_HitPlayer.Set(m_Ball.GetPosition().x, m_Ball.GetPosition().y);
+		m_E_HitPlayer.Set(m_Ball.GetPosition().x, m_Ball.GetPosition().y);
 		break;
 	}
 }
@@ -552,8 +556,8 @@ void StageEditor::DrawObject()
 	m_Goal.Draw(m_Texture.SetTexture(texture[1]));
 	m_EnemyGoal.Draw(m_Texture.SetTexture(texture[1]));
 	m_Ball.Draw(m_Texture.SetTexture(texture[0]));
-	m_Ex.Draw(m_Texture.SetTexture(texture[2]));
-	m_HitPlayer.Draw(m_Texture.SetTexture(texture[3]));
+	m_E_Ex.Draw(m_Texture.SetTexture(texture[2]));
+	m_E_HitPlayer.Draw(m_Texture.SetTexture(texture[3]));
 }
 
 //  エネミーの描画

@@ -12,7 +12,6 @@ void Effect::Init()
 	m_Use = false;
 	m_Frame = 0;
 	FrameSize = 192.0f;
-	AnimeMax = 20;
 }
 
 void Effect::Uninit()
@@ -41,16 +40,6 @@ void Effect::Draw(LPDIRECT3DTEXTURE9 Texture)
 		float ty = FrameSize * (m_Frame / 5);
 		m_Sprite.Draw(Texture, m_Position.x - (FrameSize * 0.5f), m_Position.y - (FrameSize * 0.5f), 960.0f, 768.0f, tx, ty, FrameSize, FrameSize);
 	}
-}
-
-void Effect::Draw()
-{
-	
-}
-
-void Effect::EffectDraw(unsigned int texture)
-{
-	//m_Sprite.Draw(m_Texture.SetTexture(texture), m_Position.x - (FrameSize * 0.5f), m_Position.y - (FrameSize * 0.5f), 960.0f, 768.0f, tx, ty, FrameSize, FrameSize);
 }
 
 void Effect::Set(float x, float y)
